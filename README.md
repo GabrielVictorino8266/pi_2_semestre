@@ -37,7 +37,9 @@ Os valores da empresa Datamind, contemplam:
 
 O logotipo da **Datamind** reflete os princípios de inovação e acessibilidade da empresa. Ele apresenta um cérebro estilizado, simbolizando inteligência, criatividade e tecnologia, elementos centrais para o desenvolvimento das soluções que a empresa oferece. A interligação de circuitos ao redor do cérebro remete à conectividade e à eficiência, demonstrando o foco em automação e organização para pequenos empreendedores. A mão estilizada abaixo do cérebro representa o suporte e a acessibilidade, evidenciando o compromisso da Datamind em fornecer soluções acessíveis e intuitivas, sempre ao alcance de seus clientes.
 
-
 ## Empresa do projeto
 
-[A PREENCHER]
+A empresa do projeto se localiza na cidade de Leme, SP. O ramo desta é rotisseria, ou seja, faz doces, massas, salgados, tudo sob encomenda. Conforme conversado com nossa cliente, o sistema busca resolver os seguintes itens:
+
+- Estoque
+- Agendamento
