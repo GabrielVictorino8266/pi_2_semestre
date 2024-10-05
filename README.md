@@ -43,3 +43,23 @@ A empresa do projeto se localiza na cidade de Leme, SP. O ramo desta é rotisser
 
 - Estoque
 - Agendamento
+
+## Tecnologias utilizadas
+
+## Tecnologias Utilizadas
+
+As tecnologias utilizadas no projeto envolvem as três matérias apresentadas anteriormente. Portanto, são as seguintes tecnologias:
+
+## Tecnologias Utilizadas
+
+As tecnologias utilizadas no projeto envolvem as três matérias apresentadas anteriormente. Portanto, são as seguintes tecnologias:
+
+- **Banco de Dados:** MySQL <img src="https://www.tshirtgeek.com.br/wp-content/uploads/2021/08/com031.jpg" alt="MySQL" width="32" height="32" style="display:inline;">
+- **Frontend:** HTML, CSS, JS, Bootstrap  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/1200px-HTML5_logo_and_wordmark.svg.png" alt="HTML" width="32" height="32" style="display:inline;">
+   <img src="https://cdn.worldvectorlogo.com/logos/css-3.svg" alt="CSS" width="32" height="32" style="display:inline;">
+   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" alt="JavaScript" width="32" height="32" style="display:inline;">
+   <img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Bootstrap_logo.svg" alt="Bootstrap" width="32" height="32" style="display:inline;">
+- **Backend:** PHP  <img src="https://static-00.iconduck.com/assets.00/php-icon-256x256-oq5bc0bt.png" alt="PHP" width="32" height="32" style="display:inline;">
+- **Codificação:** VSCode  <img src="https://code.visualstudio.com/assets/favicon.ico" alt="VSCode" width="32" height="32" style="display:inline;">
+- **Prototipação / Design:** Figma
+   <img src="https://cdn4.iconfinder.com/data/icons/logos-brands-in-colors/3000/figma-logo-512.png" alt="Figma" width="32" height="32" style="display:inline;">
