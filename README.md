@@ -1,5 +1,25 @@
 # DATAMIND - PI FATEC ARARAS 2 SEMESTRE
 
+## Estrutura de pasta do projeto
+```
+/projeto
+│
+├── /css
+│   └── style.css                     # Arquivos de estilo
+│
+├── /js
+│   └── scripts.js                    # Scripts JavaScript
+│
+├── /img
+│   └── logo.png                      # Imagens do projeto
+│
+├── /php
+│   ├── db_connect.php                # Conexão com o banco de dados MySQL
+│   ├── dashboard.php                 # Lógica de backend da página do dashboard
+│   ├── estoque.php                   # Lógica de backend da página de estoque
+│   └── utility.php                   # Funções utilitárias ou helpers
+```
+
 Abaixo estão listadas todas as informações referente a este projeto integrador realizado na Fatec Araras referente ao 2 Semestre de 2024, contemplando as disciplinas e professores:
 
 - Desenvolvimento Web 2 (Orlando Saraiva Júnior)
@@ -43,8 +63,6 @@ A empresa do projeto se localiza na cidade de Leme, SP. O ramo desta é rotisser
 
 - Estoque
 - Agendamento
-
-## Tecnologias utilizadas
 
 ## Tecnologias Utilizadas
 
