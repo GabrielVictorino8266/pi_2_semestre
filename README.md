@@ -33,7 +33,7 @@ Os valores da empresa Datamind, contemplam:
 
 ## Logotipo
 
-![1725803919052](image/README/1725803919052.png)
+![1725803919052](docs/design/logo-nossa-empresa.png)
 
 O logotipo da **Datamind** reflete os princípios de inovação e acessibilidade da empresa. Ele apresenta um cérebro estilizado, simbolizando inteligência, criatividade e tecnologia, elementos centrais para o desenvolvimento das soluções que a empresa oferece. A interligação de circuitos ao redor do cérebro remete à conectividade e à eficiência, demonstrando o foco em automação e organização para pequenos empreendedores. A mão estilizada abaixo do cérebro representa o suporte e a acessibilidade, evidenciando o compromisso da Datamind em fornecer soluções acessíveis e intuitivas, sempre ao alcance de seus clientes.
 
