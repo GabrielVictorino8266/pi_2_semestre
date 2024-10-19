@@ -23,7 +23,7 @@ class Conexao{
             $this->conexao->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         }
         catch(PDOException $e){
-            echo "Erro com banco de dados: " . $e;
+            echo "Erro com banco de dados: " . $e->getMessage();
         }
     }
 
