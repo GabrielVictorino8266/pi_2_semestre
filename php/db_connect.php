@@ -30,4 +30,13 @@ class Conexao{
     public function getConexao(){
         return $this->conexao;
     }
+
+
+    public function closeConexao(){
+        return $this->conexao = NULL;
+    }
+
+    public function __destruct(){
+        $this->closeConexao();
+    }
 }
