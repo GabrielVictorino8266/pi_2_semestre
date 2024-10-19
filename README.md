@@ -4,20 +4,20 @@
 ```
 /projeto
 │
-├── /css
-│   └── style.css                     # Arquivos de estilo
+├── css/
+│   └── style.css              # Arquivos de estilo
+├── assets/
+│   └── logo.png               # Arquivos de design   
 │
-├── /js
-│   └── scripts.js                    # Scripts JavaScript
+├── js/
+│   └── script.js              # Arquivos JavaScript
 │
-├── /img
-│   └── logo.png                      # Imagens do projeto
+├── php/
+│   └── dashboard.php         # Controla a lógica e o banco de dados
+│   └── db_connect.php        # Controla a conexão com o banco de dados   
 │
-├── /php
-│   ├── db_connect.php                # Conexão com o banco de dados MySQL
-│   ├── dashboard.php                 # Lógica de backend da página do dashboard
-│   ├── estoque.php                   # Lógica de backend da página de estoque
-│   └── utility.php                   # Funções utilitárias ou helpers
+├── dashboard.php              # Exibe a visualização do dashboard (HTML + dados dinâmicos)
+├── index.php                  # Página inicial (HTML)
 ```
 
 Abaixo estão listadas todas as informações referente a este projeto integrador realizado na Fatec Araras referente ao 2 Semestre de 2024, contemplando as disciplinas e professores:
