@@ -6,6 +6,11 @@
     <title>Login - Entre no Sistema</title>
 </head>
 <body>
-    
+    <form action="dashboard.php" method="post">
+        <label for="username">Nome de usuário:</label>
+        <input type="text" name="username" id="username">
+        <label for="user_password">Senha de usuário:</label>
+        <input type="text" name="user_password" id="user_password">
+    </form>
 </body>
 </html>
