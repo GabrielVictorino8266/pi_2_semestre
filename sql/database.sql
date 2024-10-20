@@ -14,3 +14,19 @@ CREATE TABLE IF NOT EXISTS tb_usuarios(
     fk_funcao_id INT NOT NULL,
     FOREIGN KEY (fk_funcao_id) REFERENCES tb_funcoes(id)
 );
+
+
+CREATE TABLE IF NOT EXISTS tb_permissoes(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    descricao VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS tb_permissoes_funcoes(
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    fk_id_permissao INT NOT NULL,
+    fk_id_funcao INT NOT NULL,
+    FOREIGN KEY (fk_id_permissao) REFERENCES tb_permissoes(fk_id_permissao),
+    FOREIGN KEY (fk_id_funcao) REFERENCES tb_funcoes(fk_id_funcao),
+);
