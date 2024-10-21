@@ -2,7 +2,7 @@
 session_start();
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(isset($_SESSION['user'])){
-        header('dashboard.php');
+        header('Location: dashboard.php');
         exit;
     }
 }
@@ -18,9 +18,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 <body>
     <form action="./php/login.php" method="post">
         <label for="username">Nome de usuário:</label>
-        <input type="text" name="username" id="username">
+        <input type="text" name="username" id="username" required>
         <label for="user_password">Senha de usuário:</label>
-        <input type="text" name="user_password" id="user_password">
+        <input type="text" name="user_password" id="user_password" required>
         <button type="submit">Entrar</button>
     </form>
 </body>
