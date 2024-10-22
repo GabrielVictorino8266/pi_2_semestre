@@ -9,18 +9,22 @@ class Usuario extends Conexao{
     private $senha;
     private $funcao;
     
-    public function __construct($nome, $email, $senha, $funcao){
-        parent::__construct();
+    public function __construct($id, $nome, $email, $senha, $funcao){
+        $this->setNome($id);
         $this->setNome($nome);
-        $this->setSenha($senha);
-        // $this->setFuncao($funcao);
+        $this->setSenha($email);
+        $this->setNome($senha);
+        $this->setSenha($funcao);
     }
 
     //analisar implementação de consulta no banco de dados
     public function getId(){
         return $this->id;
     }
-
+    public function setId($id){
+        $this->id = $id;
+    }
+    
 
 
     public function getNome(){
@@ -28,15 +32,8 @@ class Usuario extends Conexao{
     }
 
     public function setNome($nome){
-        $nome = filter_var($nome, FILTER_SANITIZE_STRING);
-        if(isset($nome)){
-            if(empty($nome)){
-                throw new Exception("Campo nome é obrigatório!");
-            }
-            $this->nome = $nome;
-        }
+        $this->nome = $nome;
     }
-
 
 
     public function getSenha(){
@@ -44,15 +41,8 @@ class Usuario extends Conexao{
     }
 
     public function setSenha($senha){
-        if(isset($senha)){
-            if(empty($senha)){
-                throw new Exception("Campo senha é obrigatório.", 1);
-                
-            }
-            $this->senha = $senha;
-        }
+        $this->senha = $senha;
     }
-
 
 
     public function getFuncao(){
@@ -60,25 +50,8 @@ class Usuario extends Conexao{
     }
 
     public function setFuncao($funcao){
-        if(isset($funcao)){
-            if(empty($funcao)){
-                throw new Exception("Campo Função não pode ser vazio.");   
-            }
-            $this->funcao = $this->consultarFuncao($funcao);
-        }   
-    }
-
-    private function consultarFuncao($funcao){
-        $stmt = $this->getConexao()->prepare("SELECT id FROM tb_funcoes WHERE descricao = :funcao");
-        $stmt->bindParam(":funcao", $funcao, PDO::PARAM_STR);
-        $stmt->execute();
-        if($stmt){
-            $results = $stmt->fetch(PDO::FETCH_ASSOC);
-            if($results){
-                return $results['id'];
-            }
-        }
-    }
+        $this->funcao = $funcao;
+    }   
     // Método para serializar o usuário
     public function serialize() {
         return serialize([
