@@ -1,12 +1,8 @@
 <?php
-// session_set_cookie_params(['lifetime' => 86400, 'httponly'=> true]);
-session_set_cookie_params(['httponly'=> true]);
-
-session_start();
+$logged_in = true;
 
 if(!isset($_SESSION['user'])){
-    // Se o usuário não estiver logado, redireciona para a página inicial (login)
-    header("Location: ./index.php");
-    exit;
+    // Se o usuário não estiver logado, define logged_in como false
+    $logged_in = false;
 }
 ?>

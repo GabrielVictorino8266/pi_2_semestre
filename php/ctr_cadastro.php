@@ -1,7 +1,15 @@
 <?php
-require_once('session_check.php');
-require_once('db_connect.php');
-require_once('../classes/usuario.php');
+session_set_cookie_params(['httponly'=> true]);
+
+session_start();
+require_once(__DIR__ . '/session_check.php');
+require_once(__DIR__ . '/db_connect.php');
+require_once(__DIR__ . '../classes/usuario.php');
+
+if(!$logged_in){
+    header("Location: ./index.php");
+    exit;
+}
 
 $conexao = new Conexao();
 $pdo = $conexao->getConexao();

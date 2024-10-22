@@ -1,3 +1,8 @@
+<?php
+require_once(__DIR__ . '/php/ctr_cadastro.php');
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

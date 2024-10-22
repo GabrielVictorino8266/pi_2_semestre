@@ -1,6 +1,5 @@
 <?php
-require_once("./php/dashboard.php");
-
+require_once("./php/ctr_dashboard.php");
 ?>
 
 <!DOCTYPE html>
