@@ -15,8 +15,8 @@ if(isset($_SESSION['user'])){
 </head>
 <body>
     <form action="./php/ctr_login.php" method="post">
-        <label for="username">Nome de usuário:</label>
-        <input type="text" name="username" id="username" required>
+        <label for="user_email">Email do usuário:</label>
+        <input type="email" name="user_email" id="user_email" required>
         <label for="user_password">Senha de usuário:</label>
         <input type="text" name="user_password" id="user_password" required>
         <button type="submit">Entrar</button>
