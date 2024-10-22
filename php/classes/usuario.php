@@ -10,11 +10,11 @@ class Usuario extends Conexao{
     private $funcao;
     
     public function __construct($id, $nome, $email, $senha, $funcao){
-        $this->setNome($id);
+        $this->setId($id);
         $this->setNome($nome);
-        $this->setSenha($email);
-        $this->setNome($senha);
-        $this->setSenha($funcao);
+        $this->setEmail($email);
+        $this->setSenha($senha);
+        $this->setFuncao($funcao);
     }
 
     //analisar implementação de consulta no banco de dados
@@ -24,7 +24,6 @@ class Usuario extends Conexao{
     public function setId($id){
         $this->id = $id;
     }
-    
 
 
     public function getNome(){
@@ -33,6 +32,15 @@ class Usuario extends Conexao{
 
     public function setNome($nome){
         $this->nome = $nome;
+    }
+
+
+    public function getEmail(){
+        return $this->email;
+    }
+
+    public function setEmail($email){
+        $this->email = $email;
     }
 
 
@@ -57,6 +65,7 @@ class Usuario extends Conexao{
         return serialize([
             'id' => $this->id,
             'nome' => $this->nome,
+            'email' => $this->email,
             'senha' => $this->senha,
             'funcao' => $this->funcao,
         ]);

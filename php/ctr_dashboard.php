@@ -9,6 +9,7 @@ if(!$logged_in){
     header("Location: ./index.php");
     exit;
 }
+var_dump($_SESSION['user']);
 $usuarioLogado = unserialize($_SESSION['user']);
 $funcao = $usuarioLogado['funcao'];
 
@@ -18,6 +19,7 @@ if(!$usuarioLogado){
 }
 
 echo "<p id='nome_usuario'>" . htmlspecialchars($usuarioLogado['nome']) . "</p>";
+echo "<p id='nome_usuario'>" . htmlspecialchars($usuarioLogado['funcao']) . "</p>";
 
 
 //verificar permissões para exibir telas

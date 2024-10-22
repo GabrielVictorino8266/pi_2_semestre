@@ -15,18 +15,23 @@ if(isset($_SESSION['user'])){
             $user_password = $_POST['user_password'];
 
             $pdo = new Conexao();
-            $stmt = $pdo->getConexao()->prepare("SELECT * FROM tb_usuarios WHERE email = :user_email AND senha = :user_password");
+            $stmt = $pdo->getConexao()->prepare(
+            "SELECT tb_usuarios.id, tb_usuarios.nome, tb_usuarios.email, tb_usuarios.senha, tb_funcoes.descricao as funcao FROM tb_usuarios INNER JOIN tb_funcoes 
+            ON tb_funcoes.id = tb_usuarios.fk_funcao_id
+            WHERE tb_usuarios.email = :user_email AND tb_usuarios.senha = :user_password");
+
             $stmt->bindParam(':user_email', $user_email, PDO::PARAM_STR);
             $stmt->bindParam(':user_password', $user_password, PDO::PARAM_STR);
 
             if($stmt->execute()){//consulta executada
                 if($stmt->rowCount() > 0){
                     $user_encontrado = $stmt->fetch(PDO::FETCH_ASSOC);
-                    $usuario = new Usuario($user_encontrado['id'],$user_encontrado['nome'],  $user_encontrado['email'], $user_encontrado['senha'], $user_encontrado['fk_funcao_id']);//Crio usuário com algumas informações fornecidas pelo cliente.
+
+                    $usuario = new Usuario($user_encontrado['id'],$user_encontrado['nome'],  $user_encontrado['email'], $user_encontrado['senha'], $user_encontrado['funcao']);//Crio usuário com algumas informações fornecidas pelo cliente.
 
                     $_SESSION['user'] = $usuario->serialize();
-                    header('location: ../dashboard.php');
-                    var_dump($_SESSION['user']);
+                    // header('location: ../dashboard.php');
+                    echo "user: " . $_SESSION['user'];
                     exit;
                 }else{
                     $usuario_encontrado = false;
