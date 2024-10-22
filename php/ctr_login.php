@@ -5,7 +5,6 @@ session_start();
 require_once('./classes/usuario.php');
 
 if(isset($_SESSION['user'])){
-    // var_dump($_SESSION['user']);
     header("Location: ../dashboard.php");
     exit;
 }else{
@@ -17,9 +16,7 @@ if(isset($_SESSION['user'])){
     
             $usuario = new Usuario($username,  $user_password, "");//Crio usuário com algumas informações fornecidas pelo cliente.
     
-            // var_dump($usuario);
             $usuario_encontrado = $usuario->carregarUsuario($username);
-            // var_dump($usuario_encontrado);
             
             if (!$usuario_encontrado){
                 $pdo = $usuario->getConexao();

@@ -16,4 +16,8 @@ if(!$usuarioLogado){
     exit;
 }
 
-echo "Nome do usuário: " . htmlspecialchars($usuarioLogado['nome']);
+echo "<p id='nome_usuario'>" . htmlspecialchars($usuarioLogado['nome']) . "</p>";
+
+
+//verificar permissões para exibir telas
+//listar agendamentos a contar da data de hoje, para mais 6 dias
