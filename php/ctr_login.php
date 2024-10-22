@@ -27,6 +27,7 @@ if(isset($_SESSION['user'])){
     
             if($usuario_encontrado){
                 $_SESSION['user'] = $usuario->serialize();
+                $_SESSION['funcao'] = $usuario->getFuncao();
                 header("Location: ../dashboard.php");
                 exit;
             }

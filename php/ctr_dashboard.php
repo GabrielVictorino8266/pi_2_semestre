@@ -10,6 +10,7 @@ if(!$logged_in){
     exit;
 }
 $usuarioLogado = unserialize($_SESSION['user']);
+$funcao = $usuarioLogado['funcao'];
 
 if(!$usuarioLogado){
     echo "Falha ao capturar informações.";

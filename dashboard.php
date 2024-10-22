@@ -1,5 +1,7 @@
 <?php
 require_once("./php/ctr_dashboard.php");
+var_dump($funcao);
+
 ?>
 
 <!DOCTYPE html>
@@ -11,5 +13,17 @@ require_once("./php/ctr_dashboard.php");
 </head>
 <body>
     <h1>Dashboard front</h1>
+    <nav>
+        <?php
+        if($funcao && $funcao == 1){
+            echo "<a href='./cadastro.php'>Cadastrar Usuário</a>";
+        }
+        ?>
+        <a href="./estoque.php">Estoque</a>
+        <a href="./agendamento.php">Agendamento</a>
+        <a href="./dashboard.php">Dashboard</a>
+    </nav>
+
+    <a href="./logout.php">Sair</a>
 </body>
 </html>
