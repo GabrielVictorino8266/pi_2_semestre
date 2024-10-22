@@ -6,17 +6,16 @@
     <title>Cadastrar</title>
 </head>
 <body>
-    <form action="dashboard.php" method="post">
+    <form action="./php/cadastro.php" method="post">
         <label for="username">Nome de usuário:</label>
-        <input type="text" name="username" id="username">
+        <input type="text" name="username" id="username" required>
         <label for="user_password">Senha de usuário:</label>
-        <input type="text" name="user_password" id="user_password">
+        <input type="text" name="user_password" id="user_password" required>
         <label for="confirmed_user_password">Senha de usuário:</label>
-        <input type="text" name="confirmed_user_password" id="confirmed_user_password">
-        <select name="user_type" id="user_type">
-            <option value="">Escolha uma opção</option>
-            <option value="administrador">ADMINISTRADOR</option>
-            <option value="funcionario">FUNCIONÁRIO</option>
+        <input type="text" name="confirmed_user_password" id="confirmed_user_password" required>
+        <select name="user_type" id="user_type" required>
+            <option value="Administrador">ADMINISTRADOR</option>
+            <option value="Funcionário">FUNCIONÁRIO</option>
         </select>
         <button type="submit">Cadastrar</button>
         <button type="reset">Limpar</button>

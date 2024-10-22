@@ -30,7 +30,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         }
         else{
             echo "Usuário ou senha inválidos.";
-            echo "<a href='../index.php'>Voltar</a>";
+            echo "<a href='../login.php'>Voltar</a>";
         }
     }
 }

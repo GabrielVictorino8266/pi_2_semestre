@@ -30,3 +30,10 @@ CREATE TABLE IF NOT EXISTS tb_permissoes_funcoes(
     FOREIGN KEY (fk_id_permissao) REFERENCES tb_permissoes(fk_id_permissao),
     FOREIGN KEY (fk_id_funcao) REFERENCES tb_funcoes(fk_id_funcao),
 );
+
+
+
+-- INSERT DE DADOS NO BANCO INICIAL
+INSERT INTO tb_funcoes (descricao) VALUES ("Adminsitrador");
+INSERT INTO tb_funcoes (descricao) VALUES ("Funcionário");
+INSERT INTO tb_usuarios (nome, senha, fk_funcao_id) VALUES ('gabriel', 'gabriel2022', 1);
