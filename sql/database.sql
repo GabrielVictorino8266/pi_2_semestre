@@ -33,14 +33,6 @@ CREATE TABLE IF NOT EXISTS tb_permissoes_funcoes(
 );
 
 
--- CREATE TABLE IF NOT EXISTS tb_clientes_telefone(
---     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
---     fk_id_cliente INT NOT NULL,
---     telefone VARCHAR(255) NOT NULL,
---     FOREIGN KEY (fk_id_cliente) REFERENCES tb_clientes(id)
--- );
-
-
 CREATE TABLE IF NOT EXISTS tb_endereco(
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     rua VARCHAR(255) NOT NULL,
@@ -48,18 +40,17 @@ CREATE TABLE IF NOT EXISTS tb_endereco(
     bairro VARCHAR(100) NOT NULL,
     cidade VARCHAR(100) NOT NULL,
     estado VARCHAR(2) NOT NULL,
-    cep VARCHAR(10) NOT NULL
+    cep VARCHAR(10) NOT NULL,
     fk_id_cliente INT NOT NULL,
     FOREIGN KEY (fk_id_cliente) REFERENCES tb_clientes(id)
 );
 
-CREATE TABLE IF NOT EXISTS_clientes(
+CREATE TABLE IF NOT EXISTS tb_clientes(
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     senha VARCHAR(255) NOT NULL,
     telefone VARCHAR(255) NOT NULL,--estudar possiblidade de ter multiplos telefones
-    FOREIGN KEY (fk_endereco_id) REFERENCES tb_endereco(id)
 );
 
 
@@ -72,12 +63,12 @@ CREATE TABLE IF NOT EXISTS tb_agendamentos(
     status_id INT NOT NULL,
     FOREIGN KEY (status_id) REFERENCES tb_satus(id),
     FOREIGN KEY (cliente_id) REFERENCES tb_usuarios(id),
-    FOREIGN KEY (produto_final_id) REFERENCES tb_usuarios(id)   
+    FOREIGN KEY (produto_final_id) REFERENCES tb_produtos(id)   
 );
 
 
 
-CREATE TABLE IF NOT EXISTS tb_satus(
+CREATE TABLE IF NOT EXISTS tb_status(
     id INT AUTO_INCREMENT PRIMARY KEY,
     descricao VARCHAR(50),
 );
@@ -86,3 +77,5 @@ CREATE TABLE IF NOT EXISTS tb_satus(
 INSERT INTO tb_funcoes (descricao) VALUES ("Adminsitrador");
 INSERT INTO tb_funcoes (descricao) VALUES ("Funcionário");
 INSERT INTO tb_usuarios (nome, senha, fk_funcao_id) VALUES ('gabriel', 'gabriel2022', 1);
+
+--INSERT DE TESTE NO BANCO DE DADOS PARA AGENDAMENTOS   
