@@ -1,6 +1,5 @@
 <?php
 require_once("./php/ctr_dashboard.php");
-var_dump($funcao);
 
 ?>
 

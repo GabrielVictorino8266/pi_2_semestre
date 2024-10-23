@@ -30,8 +30,7 @@ if(isset($_SESSION['user'])){
                     $usuario = new Usuario($user_encontrado['id'],$user_encontrado['nome'],  $user_encontrado['email'], $user_encontrado['senha'], $user_encontrado['funcao']);//Crio usuário com algumas informações fornecidas pelo cliente.
 
                     $_SESSION['user'] = $usuario->serialize();
-                    // header('location: ../dashboard.php');
-                    echo "user: " . $_SESSION['user'];
+                    header('location: ../dashboard.php');
                     exit;
                 }else{
                     $usuario_encontrado = false;

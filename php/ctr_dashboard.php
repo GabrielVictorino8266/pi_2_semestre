@@ -21,6 +21,5 @@ if(!$usuarioLogado){
 echo "<p id='nome_usuario'>" . htmlspecialchars($usuarioLogado['nome']) . "</p>";
 echo "<p id='nome_usuario'>" . htmlspecialchars($usuarioLogado['funcao']) . "</p>";
 
-
 //verificar permissões para exibir telas
 //listar agendamentos a contar da data de hoje, para mais 6 dias
