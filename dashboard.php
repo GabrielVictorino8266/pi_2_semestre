@@ -14,7 +14,7 @@ require_once("./php/ctr_dashboard.php");
     <h1>Dashboard front</h1>
     <nav>
         <?php
-        if($funcao && $funcao == 1){
+        if($funcao && $funcao == "Administrador"){
             echo "<a href='./cadastro.php'>Cadastrar Usuário</a>";
         }
         ?>

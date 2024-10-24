@@ -11,7 +11,7 @@ require_once(__DIR__ . '/php/ctr_cadastro.php');
     <title>Cadastrar</title>
 </head>
 <body>
-    <form action="./php/cadastro.php" method="post">
+    <form action="./php/ctr_cadastro.php" method="post">
         <label for="username">Nome de usuário:</label>
         <input type="text" name="username" id="username" required>
         <label for="user_password">Senha de usuário:</label>
