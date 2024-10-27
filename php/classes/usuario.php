@@ -2,14 +2,16 @@
 require_once(__DIR__ . '/../db_connect.php');
 
 
-class Usuario extends Conexao{
+class Usuario{
     private $id;
     private $nome;
     private $email;
     private $senha;
     private $funcao;
+    private $db;
     
-    public function __construct($id, $nome, $email, $senha, $funcao){
+    public function __construct(Conexao $db, $id, $nome, $email, $senha, $funcao){
+        $this->db = $db;
         $this->setId($id);
         $this->setNome($nome);
         $this->setEmail($email);
