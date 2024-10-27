@@ -1,53 +1,32 @@
 <?php
-session_set_cookie_params(['httponly'=> true]);
-
+require_once __DIR__ . './classes/conexao.php';
+require_once __DIR__ . './classes/query.php';
 session_start();
-require_once(__DIR__ . '/session_check.php');
-require_once(__DIR__ . '/db_connect.php');
-require_once(__DIR__ . '../classes/usuario.php');
 
-if(!$logged_in){
-    header("Location: ./index.php");
-    exit;
-}
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $db = new Conexao(); #Chamo a conexao
+    $query = new Query($db); #Chamo a query
 
-$conexao = new Conexao();
-$pdo = $conexao->getConexao();
+    if(!isset($_SESSION['user_id'])){
+        #mudar para isset($_SESSION['user_id'])
 
-if($pdo && $_SERVER['REQUEST_METHOD'] === "POST"){
-    if(isset($_POST['username']) && isset($_POST['user_password']) && isset($_POST['confirmed_user_password']) && isset($_POST['user_type'])){
-        $nome = $_POST['username'];
-        $senha = $_POST['user_password'];
-        $senha_confirmada = $_POST['confirmed_user_password'];
-        $fk_funcao_id = $_POST['user_type'];
+        if(isset($_POST['user_name']) && isset($_POST['user_email']) && isset($_POST['user_password']) && isset($_POST['user_type'])){
+            $nome = $_POST['user_name'];
+            $email = $_POST['user_email'];
+            $password = $_POST['user_password'];
+            $user_type = $query->getFuncao($_POST['user_type']);
+    
+            $senhaHash = password_hash($password, PASSWORD_DEFAULT);
+            if($senhaHash){
+                if($query->registarUsuario($nome, $email, $senhaHash, $user_type['id'])){
+                    header('location: ../dashboard.php?success=cadastrosuccess');# Redireciona para dashboard com parâmetro de sucesso
+                }else{
+                    header('location: ../cadastro.php?error=cadastroerror');# Redireciona para cadastro com parâmetro de erro de cadastro
 
-        if(empty($senha)){
-            throw new Exception("Senha vazia. Preencha.");
-        }else{
-            if($senha != $senha_confirmada){
-                throw new Exception("Ambas as senhas são diferentes. Digite novamente.");
-            }else{
-                $usuario = new Usuario($pdo, $nome, $senha, $fk_funcao_id);
+                }
             }
-        }      
-        
-        $stmt = $pdo->prepare("INSERT INTO tb_usuarios (nome, senha, fk_funcao_id) VALUES (:nome, :senha, :fk_funcao_id)");
-        $nome = $usuario->getNome();
-        $senha = $usuario->getSenha();
-        $fk_funcao_id = $usuario->getFuncao();
-        $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
-        $stmt->bindParam(':senha', $senha, PDO::PARAM_STR);
-        $stmt->bindParam(':fk_funcao_id', $fk_funcao_id, PDO::PARAM_INT);
-        if($stmt->execute()){
-            echo "Cadastro com sucesso.";
-        }else{
-            echo "Cadastro não ocorreu com sucesso. Volte e tente novamente.";
-            echo "<a href='../cadastro.php'>Voltar</a>";
         }
     }else{
-        echo "Um ou mais campos não foram definidos/preenchidos. Tente novamente.";
-        echo "<a href='../cadastro.php'>Voltar</a>";
+        header('location: ../index.php?error=login');
     }
-
 }
-

@@ -1,5 +1,8 @@
 <?php
-require_once("./php/ctr_dashboard.php");
+require_once __DIR__ . './classes/conexao.php';
+require_once __DIR__ . './classes/query.php';
+
+session_start();
 
 ?>
 

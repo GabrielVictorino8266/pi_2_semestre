@@ -1,15 +1,3 @@
-<?php
-session_start();
-
-if(!isset($_SESSION["user_id"])){
-    header('location: ./index.php');
-    exit;
-}else{
-    header('location: ./dashboard.php');
-    exit;
-};
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +25,7 @@ if(!isset($_SESSION["user_id"])){
         <?php if (isset($_GET['error'])): ?>
             <div class="error">
                 <?php
-                if (($_GET['error']) == 'cadastro'){
+                if (($_GET['error']) == 'cadastroerror'){
                     echo "Verifque os campos, troque o email e tente novamente.";
                 }
                 ?>

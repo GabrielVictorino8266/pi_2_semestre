@@ -1,10 +1,11 @@
 <?php
 session_start();
 
-if(isset($_SESSION['user'])){
-    header('Location: dashboard.php');
+if(isset($_SESSION["user_id"])){
+    header('location: ./dashboard.php');
     exit;
-}
+};
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +21,15 @@ if(isset($_SESSION['user'])){
         <label for="user_password">Senha de usuário:</label>
         <input type="text" name="user_password" id="user_password" required>
         <button type="submit">Entrar</button>
+        <?php if (isset($_GET['error'])): ?>
+            <div class="error">
+                <?php
+                if (($_GET['error']) == 'login'){
+                    echo "Login Incorreto. Verifique sua senha e email";
+                }
+                ?>
+            </div>
+        <?php endif; ?>
     </form>
 </body>
 </html>

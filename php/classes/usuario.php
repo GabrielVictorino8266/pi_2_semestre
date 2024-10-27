@@ -1,5 +1,6 @@
 <?php
-require_once(__DIR__ . '/../db_connect.php');
+require_once __DIR__ .  './conexao.php';
+require_once __DIR__ . './query.php';
 
 
 class Usuario{
@@ -11,7 +12,7 @@ class Usuario{
     private $db;
     
     public function __construct(Conexao $db, $id, $nome, $email, $senha, $funcao){
-        $this->db = $db;
+        $this->db = $db->getConexao();
         $this->setId($id);
         $this->setNome($nome);
         $this->setEmail($email);
@@ -44,7 +45,6 @@ class Usuario{
     public function setEmail($email){
         $this->email = $email;
     }
-
 
     public function getSenha(){
         return $this->senha;
