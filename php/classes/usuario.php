@@ -65,11 +65,7 @@ class Usuario{
     // Método para serializar o usuário
     public function serialize() {
         return serialize([
-            'id' => $this->id,
-            'nome' => $this->nome,
-            'email' => $this->email,
-            'senha' => $this->senha,
-            'funcao' => $this->funcao,
+            'id' => $this->id
         ]);
     }
 }

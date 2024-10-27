@@ -7,7 +7,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $db = new Conexao(); #Chamo a conexao
     $query = new Query($db); #Chamo a query
 
-    if(!isset($_SESSION['user_id'])){
+    if(isset($_SESSION['user_id'])){
         #mudar para isset($_SESSION['user_id'])
 
         if(isset($_POST['user_name']) && isset($_POST['user_email']) && isset($_POST['user_password']) && isset($_POST['user_type'])){

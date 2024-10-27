@@ -1,8 +1,5 @@
 <?php
-require_once __DIR__ . './classes/conexao.php';
-require_once __DIR__ . './classes/query.php';
-
-session_start();
+require_once __DIR__ . '/php/ctr_dashboard.php';
 
 ?>
 
@@ -17,7 +14,7 @@ session_start();
     <h1>Dashboard front</h1>
     <nav>
         <?php
-        if($funcao && $funcao == "Administrador"){
+        if($funcao && $funcao['descricao'] == "Administrador"){
             echo "<a href='./cadastro.php'>Cadastrar Usuário</a>";
         }
         ?>
