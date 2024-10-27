@@ -10,7 +10,7 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
     <title>Dashboard</title>
 </head>
 <body>
-    <h1>Dashboard front</h1>
+
     <nav>
         <div>
             <div>
@@ -29,6 +29,25 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
             <a href="./dashboard.php">Dashboard</a>
         </div>
     </nav>
+    <div>
+        <h1>Dashboard front</h1>
+        <div>
+            <form action="">
+                <input type="text" name="buscar" id="buscar" placeholder="Digite um id ou nome de cliente">
+            </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Data Agendamento</th>
+                        <th>Produto</th>
+                        <th>Cliente</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
     
 
 

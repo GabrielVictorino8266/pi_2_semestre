@@ -25,3 +25,9 @@ $inicioDaSemana = $inicioDaSemana->format('Y-m-d');
 $fimDaaSemana = $fimDaSemana->format('Y-m-d');
 
 $agendametosDaSemana = $query->getAgendamentosDashboard($inicioDaSemana, $fimDaaSemana);
+if($agendametosDaSemana){
+    $agendamentosParaEstaSenana = count($agendametosDaSemana);
+    var_dump($agendamentos);
+}else{
+    $agendamentos = 0;
+}

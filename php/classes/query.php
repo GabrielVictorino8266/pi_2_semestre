@@ -25,7 +25,6 @@ class Query{
         }else{
             return false;
         }
-
     }
 
     public function registarUsuario($nome, $email, $senha, $funcao_id){
@@ -96,14 +95,24 @@ class Query{
         Método usado para consultar agendamentos 
         e retornar um array dos agendamentos da semana.
         */
-        $query = "SELECT * FROM tb_agendamentos WHERE data_agendamento BETWEEN :inicioDaSemana AND :fimDaSemana ";
-        $stmt = $this->conexao->prepare($query);
-        $stmt->bindParam(":inicioDaSemana", $inicioDaSemana, PDO::PARAM_STR);
-        $stmt->bindParam(":fimDaSemana", $fimDaSemana, PDO::PARAM_STR);
-        $stmt->execute();
-        if($stmt->rowCount() > 0){
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }else{
+        try{
+            $query = "SELECT * FROM tb_agendamentos 
+                INNER JOIN tb_clientes ON tb_agendamentos.cliente_id = tb_clientes.id
+                INNER JOIN tb_produtos ON tb_agendamentos.produto_final_id = tb_produtos.id
+                INNER JOIN tb_status ON tb_agendamentos.status_id = tb_status.id
+                WHERE data_agendamento BETWEEN :inicioDaSemana AND :fimDaSemana AND status_id = 2"; #Status 2, indica EM ANDAMENTO
+
+            $stmt = $this->conexao->prepare($query);
+            $stmt->bindParam(":inicioDaSemana", $inicioDaSemana, PDO::PARAM_STR);
+            $stmt->bindParam(":fimDaSemana", $fimDaSemana, PDO::PARAM_STR);
+            $stmt->execute();
+            if($stmt->rowCount() > 0){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }else{
+                return false;
+            }
+        }catch(PDOException $e){
+            echo $e->getMessage();
             return false;
         }
     }

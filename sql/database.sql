@@ -64,9 +64,38 @@ CREATE TABLE IF NOT EXISTS tb_agendamentos(
     produto_final_id INT NOT NULL,
     cliente_id INT NOT NULL,
     status_id INT NOT NULL,
+    data_retirada DATETIME,
+    observacoes TEXT,
     FOREIGN KEY (status_id) REFERENCES tb_satus(id),
     FOREIGN KEY (cliente_id) REFERENCES tb_usuarios(id),
 );
+
+
+-- Especifica a Categoria: Massa, doce, etc...
+CREATE TABLE IF NOT EXISTS tb_categorias(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    descricao VARCHAR(255) NOT NULL,
+);
+
+-- Especifica o tipo de Item: Ingrediente, Produto Final, etc...
+CREATE TABLE IF NOT EXISTS tb_tipoItem(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tb_estoque(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    descricao VARCHAR(255) NOT NULL,
+    quantidade INT NOT NULL,
+    preco_unitario DECIMAL(10,2),
+    tipo_id INT NOT NULL,
+    categoria_id INT NOT NULL,
+    FOREIGN KEY (tipo_id) REFERENCES tb_categorias(id),
+    FOREIGN KEY (tipo_id) REFERENCES tb_tipoItem(id)
+);
+
+
+
 
 
 -- INSERT DE DADOS NO BANCO INICIAL
@@ -100,3 +129,8 @@ INSERT INTO tb_status (descricao, status_activated) VALUES ('Cancelado', FALSE);
 -- INSERINDO DADOS NA TABELA tb_agendamentos
 INSERT INTO tb_agendamentos (data_agendamento, produto_final_id, cliente_id, status_id) VALUES ('2024-11-01 10:00:00', 1, 1, 1);
 INSERT INTO tb_agendamentos (data_agendamento, produto_final_id, cliente_id, status_id) VALUES ('2024-11-02 15:30:00', 2, 2, 2);
+
+-- INSERINDO DADOS NA TABELA tb_tipoItem
+INSERT INTO tb_tipoItem(tipo) VALUES('Ingrediente');
+INSERT INTO tb_tipoItem(tipo) VALUES('Produto Final');
+INSERT INTO tb_tipoItem(tipo) VALUES('Outros');
