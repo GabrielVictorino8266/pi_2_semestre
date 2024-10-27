@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/php/ctr_dashboard.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -13,16 +12,26 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
 <body>
     <h1>Dashboard front</h1>
     <nav>
-        <?php
-        if($funcao && $funcao['descricao'] == "Administrador"){
-            echo "<a href='./cadastro.php'>Cadastrar Usuário</a>";
-        }
-        ?>
-        <a href="./estoque.php">Estoque</a>
-        <a href="./agendamento.php">Agendamento</a>
-        <a href="./dashboard.php">Dashboard</a>
+        <div>
+            <div>
+                <p>Olá, <?php echo $_SESSION['user_name']; ?></p>
+            </div>
+            <a href="./logout.php">Sair</a>
+        </div>
+        <div>
+            <?php
+            if($funcao && $funcao['descricao'] == "Administrador"){
+                echo "<a href='./cadastro.php'>Cadastrar Usuário</a>";
+            }
+            ?>
+            <a href="./estoque.php">Estoque</a>
+            <a href="./agendamento.php">Agendamento</a>
+            <a href="./dashboard.php">Dashboard</a>
+        </div>
     </nav>
+    
 
-    <a href="./logout.php">Sair</a>
+
+    
 </body>
 </html>

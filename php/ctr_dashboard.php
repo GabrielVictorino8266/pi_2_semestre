@@ -20,11 +20,8 @@ $hoje = new DateTime();
 $inicioDaSemana = clone $hoje;
 $inicioDaSemana->modify('monday this week');
 // $inicioDaSemana->modify('monday this week')->modify('+1 day');
-
 $fimDaSemana = clone $hoje;
-
 $inicioDaSemana = $inicioDaSemana->format('Y-m-d');
 $fimDaaSemana = $fimDaSemana->format('Y-m-d');
-// var_dump($inicioDaSemana);
-// var_dump($fimDaaSemana);
-var_dump($query->getAgendamentosDashboard($inicioDaSemana, $fimDaaSemana));
+
+$agendametosDaSemana = $query->getAgendamentosDashboard($inicioDaSemana, $fimDaaSemana);

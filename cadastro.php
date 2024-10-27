@@ -1,13 +1,5 @@
 <?php
-session_start();
-
-if(!isset($_SESSION["user_id"])){
-    header('location: ./index.php');
-    exit;
-}else{
-    header('location: ./dashboard.php');
-    exit;
-};
+require_once __DIR__ . '/php/ctr_dashboard.php';
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +10,7 @@ if(!isset($_SESSION["user_id"])){
     <title>Cadastrar</title>
 </head>
 <body>
+    <a href="./dashboard.php">Voltar</a>
     <form action="./php/ctr_cadastro.php" method="post">
         <label for="user_name">Nome de usuário:</label>
         <input type="text" name="user_name" id="user_name" required>

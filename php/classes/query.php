@@ -28,7 +28,6 @@ class Query{
 
     }
 
-
     public function registarUsuario($nome, $email, $senha, $funcao_id){
         /*  
         Método usadao para registrar o usuario.
@@ -52,6 +51,7 @@ class Query{
         }
 
     }
+
 
     public function getFuncao($funcao){
         /*

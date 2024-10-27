@@ -17,6 +17,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if(password_verify($password, $usuario['senha'])){
                 session_start();
                 $_SESSION['user_id'] = $usuario['id'];
+                $_SESSION['user_name'] = $usuario['nome'];
                 #chamar usuario para serialize do id dele.
                 header('location: ../dashboard.php');
             }
