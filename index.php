@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if(isset($_SESSION["user_id"])){
+    header('location: ./dashboard.php');
+    exit;
+};
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,12 +15,21 @@
     <title>Login - Entre no Sistema</title>
 </head>
 <body>
-    <form action="dashboard.php" method="post">
-        <label for="username">Nome de usuário:</label>
-        <input type="text" name="username" id="username">
+    <form action="./php/ctr_login.php" method="post">
+        <label for="user_email">Email do usuário:</label>
+        <input type="email" name="user_email" id="user_email" required>
         <label for="user_password">Senha de usuário:</label>
-        <input type="text" name="user_password" id="user_password">
+        <input type="text" name="user_password" id="user_password" required>
         <button type="submit">Entrar</button>
+        <?php if (isset($_GET['error'])): ?>
+            <div class="error">
+                <?php
+                if (($_GET['error']) == 'login'){
+                    echo "Login Incorreto. Verifique sua senha e email";
+                }
+                ?>
+            </div>
+        <?php endif; ?>
     </form>
 </body>
 </html>

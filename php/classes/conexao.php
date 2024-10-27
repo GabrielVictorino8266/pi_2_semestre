@@ -5,7 +5,7 @@ class Conexao{
     private $dbname = "rotisdb";
     private $user = "root";
     private $password = "";
-    private $conexao; # instância PDO.
+    private $conexao;
 
     public function __construct(){
         $this->connect();    
