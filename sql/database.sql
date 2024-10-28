@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS tb_agendamentos(
 -- Especifica a Categoria: Massa, doce, etc...
 CREATE TABLE IF NOT EXISTS tb_categorias(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    descricao VARCHAR(255) NOT NULL,
+    descricao VARCHAR(255) NOT NULL
 );
 
 -- Especifica o tipo de Item: Ingrediente, Produto Final, etc...
@@ -87,13 +87,23 @@ CREATE TABLE IF NOT EXISTS tb_estoque(
     id INT AUTO_INCREMENT PRIMARY KEY,
     descricao VARCHAR(255) NOT NULL,
     quantidade INT NOT NULL,
-    preco_unitario DECIMAL(10,2),
+    preco_unitario DECIMAL(10,2) NOT NULL,
+    preco_venda DECIMAL(10,2) NOT NULL,
     tipo_id INT NOT NULL,
     categoria_id INT NOT NULL,
-    FOREIGN KEY (tipo_id) REFERENCES tb_categorias(id),
+    FOREIGN KEY (categoria_id) REFERENCES tb_categorias(id),
     FOREIGN KEY (tipo_id) REFERENCES tb_tipoItem(id)
 );
 
+
+-- Uso de trigger para quando update em preco de compra
+CREATE TABLE IF NOT EXISTS tb_precos_compra(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    estoque_id INT NOT NULL,
+    preco_unitario DECIMAL(10,2) NOT NULL,
+    data_atualizacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (estoque_id) REFERENCES tb_estoque(id)
+);
 
 
 
