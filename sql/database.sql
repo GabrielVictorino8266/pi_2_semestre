@@ -106,6 +106,15 @@ CREATE TABLE IF NOT EXISTS tb_precos_compra(
 );
 
 
+CREATE TABLE tb_receitas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    produto_final_id INT NOT NULL,
+    ingrediente_id INT NOT NULL,
+    quantidade_necessaria DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (produto_final_id) REFERENCES tb_estoque(id),
+    FOREIGN KEY (ingrediente_id) REFERENCES tb_estoque(id)
+);
+
 
 
 -- INSERT DE DADOS NO BANCO INICIAL
