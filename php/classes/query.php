@@ -98,7 +98,7 @@ class Query{
         try{
             $query = "SELECT * FROM tb_agendamentos 
                 INNER JOIN tb_clientes ON tb_agendamentos.cliente_id = tb_clientes.id
-                INNER JOIN tb_produtos ON tb_agendamentos.produto_final_id = tb_produtos.id
+                INNER JOIN tb_receitas ON tb_agendamentos.receita_id = tb_receitas.id
                 INNER JOIN tb_status ON tb_agendamentos.status_id = tb_status.id
                 WHERE data_agendamento BETWEEN :inicioDaSemana AND :fimDaSemana AND status_id = 2"; #Status 2, indica EM ANDAMENTO
 

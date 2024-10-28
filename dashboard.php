@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . '/php/ctr_dashboard.php';
+
+var_dump($agendamentos);
 ?>
 
 <!DOCTYPE html>

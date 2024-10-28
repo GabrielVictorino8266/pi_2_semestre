@@ -16,23 +16,6 @@ CREATE TABLE IF NOT EXISTS tb_usuarios(
     FOREIGN KEY (funcao_id) REFERENCES tb_funcoes(id)
 );
 
-
--- CREATE TABLE IF NOT EXISTS tb_permissoes(
---     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
---     nome VARCHAR(255) NOT NULL,
---     descricao VARCHAR(255) NOT NULL
--- );
-
-
--- CREATE TABLE IF NOT EXISTS tb_permissoes_funcoes(
---     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
---     fk_id_permissao INT NOT NULL,
---     fk_id_funcao INT NOT NULL,
---     FOREIGN KEY (fk_id_permissao) REFERENCES tb_permissoes(fk_id_permissao),
---     FOREIGN KEY (fk_id_funcao) REFERENCES tb_funcoes(fk_id_funcao)
--- );
-
-
 CREATE TABLE IF NOT EXISTS tb_endereco(
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     rua VARCHAR(255) NOT NULL,
@@ -61,13 +44,14 @@ CREATE TABLE IF NOT EXISTS tb_status(
 CREATE TABLE IF NOT EXISTS tb_agendamentos(
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     data_agendamento DATETIME NOT NULL,
-    produto_final_id INT NOT NULL,
+    receita_id INT NOT NULL,
     cliente_id INT NOT NULL,
     status_id INT NOT NULL,
     data_retirada DATETIME,
     observacoes TEXT,
     FOREIGN KEY (status_id) REFERENCES tb_satus(id),
     FOREIGN KEY (cliente_id) REFERENCES tb_usuarios(id),
+    FOREIGN KEY (receita_id) REFERENCES tb_receitas(id)
 );
 
 
@@ -87,10 +71,10 @@ CREATE TABLE IF NOT EXISTS tb_estoque(
     id INT AUTO_INCREMENT PRIMARY KEY,
     descricao VARCHAR(255) NOT NULL,
     quantidade INT NOT NULL,
-    preco_unitario DECIMAL(10,2) NOT NULL,
-    preco_venda DECIMAL(10,2) NOT NULL,
+    preco_unitario DECIMAL(10,2),
+    preco_venda DECIMAL(10,2),
     tipo_id INT NOT NULL,
-    categoria_id INT NOT NULL,
+    categoria_id INT,
     FOREIGN KEY (categoria_id) REFERENCES tb_categorias(id),
     FOREIGN KEY (tipo_id) REFERENCES tb_tipoItem(id)
 );
@@ -153,3 +137,13 @@ INSERT INTO tb_agendamentos (data_agendamento, produto_final_id, cliente_id, sta
 INSERT INTO tb_tipoItem(tipo) VALUES('Ingrediente');
 INSERT INTO tb_tipoItem(tipo) VALUES('Produto Final');
 INSERT INTO tb_tipoItem(tipo) VALUES('Outros');
+
+-- INSERINDO DADOS NA TABELA tb_categorias
+INSERT INTO tb_categorias (descricao) VALUES 
+    ('Massas'),
+    ('Bolo'),
+    ('Doces (bomba)'),
+    ('Tortas'),
+    ('Pães (com recheio)'),
+    ('Outros'),
+    ('Pães (sem recheio)');
