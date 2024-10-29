@@ -90,13 +90,45 @@ class Query{
 
     }
 
-    public function getAgendamentosDashboard($inicioDaSemana, $fimDaSemana){
+    public function getAgendamentosDashboard($inicioDaSemana, $fimDaSemana, $inicio, $limite){
         /*
         Método usado para consultar agendamentos 
         e retornar um array dos agendamentos da semana.
         */
         try{
             $query = "SELECT ag.data_retirada, es.descricao as 'produto', cl.nome as 'nome_cliente', st.descricao as 'status' FROM tb_agendamentos ag
+                INNER JOIN tb_clientes cl ON ag.cliente_id = cl.id
+                INNER JOIN tb_receitas re ON ag.receita_id = re.id 
+                INNER JOIN tb_estoque es on re.produto_final_id = es.id
+                INNER JOIN tb_status st on ag.status_id = st.id
+                WHERE data_retirada BETWEEN :inicioDaSemana AND :fimDaSemana AND status_id = 2
+                ORDER BY data_retirada ASC LIMIT :inicio, :limite";    # Status 2, indica EM ANDAMENTO
+
+            $stmt = $this->conexao->prepare($query);
+            $stmt->bindParam(":inicioDaSemana", $inicioDaSemana, PDO::PARAM_STR);
+            $stmt->bindParam(":fimDaSemana", $fimDaSemana, PDO::PARAM_STR);
+            $stmt->bindParam(":inicio", $inicio, PDO::PARAM_INT);
+            $stmt->bindParam(":limite", $limite, PDO::PARAM_INT);
+            // var_dump($stmt);
+            $stmt->execute();
+            if($stmt->rowCount() > 0){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }else{
+                return false;
+            }
+        }catch(PDOException $e){
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function getTotalAgendamentosDashboard($inicioDaSemana, $fimDaSemana){
+        /*
+        Método usado para consultar agendamentos 
+        e retornar um array dos agendamentos da semana.
+        */
+        try{
+            $query = "SELECT COUNT(*) as 'total' FROM tb_agendamentos ag
                 INNER JOIN tb_clientes cl ON ag.cliente_id = cl.id
                 INNER JOIN tb_receitas re ON ag.receita_id = re.id 
                 INNER JOIN tb_estoque es on re.produto_final_id = es.id
@@ -110,7 +142,7 @@ class Query{
             // var_dump($stmt);
             $stmt->execute();
             if($stmt->rowCount() > 0){
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $stmt->fetch(PDO::FETCH_ASSOC);
             }else{
                 return false;
             }

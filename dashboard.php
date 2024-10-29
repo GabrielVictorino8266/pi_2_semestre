@@ -36,10 +36,13 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
             <form action="">
                 <input type="text" name="buscar" id="buscar" placeholder="Digite um id ou nome de cliente">
             </form>
+            <div>
+                <p>Agendamentos desta semana: <?php echo $totalAgendamentosDaSemana['total']; ?></p>
+            </div>
             <table>
                 <thead>
                     <tr>
-                        <th>Data Agendamento</th>
+                        <th>Data Retirada</th>
                         <th>Produto</th>
                         <th>Cliente</th>
                         <th>Status</th>
