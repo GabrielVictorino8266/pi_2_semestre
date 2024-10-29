@@ -33,8 +33,15 @@ $inicio_pagina = ($pagina * $limite_pagina) - $limite_pagina;
 
 // Executa a consulta no banco
 $agendamentosDaSemana = $query->getAgendamentosDashboard($inicioDaSemana, $fimDaSemana, $inicio_pagina, $limite_pagina);
-$totalAgendamentosDaSemana = $query->getTotalAgendamentosDashboard($inicioDaSemana, $fimDaSemana);
-var_dump($totalAgendamentosDaSemana);
+$totalAgendamentosDaSemana = $query->getTotalAgendamentosDashboard($inicioDaSemana, $fimDaSemana); # Retorna o total de agendamentos
+
+// Calcula para Paginacao
+$quantidadeLinks = 5; # Define a quantidade de links a mostrar antes e depois da pagina atual
+$total_paginas = ceil($totalAgendamentosDaSemana['total'] / $limite_pagina);
+
+$intervalo_inicio = (($pagina - $quantidadeLinks)> 1) ? $pagina - $quantidadeLinks : 1; # Define a quantidade a mostra em relacao a pagina atual. Contrario, mostra a primeira pagina.
+$intervalo_fim = (($pagina + $quantidadeLinks) < $total_paginas) ? $pagina + $quantidadeLinks : $total_paginas; # Define o valor a mostrar, contrario, mostra a ultima pagina.
+var_dump($total_paginas);
 
 if($agendamentosDaSemana){
     $quantidadeAgendamentos = count($agendamentosDaSemana);

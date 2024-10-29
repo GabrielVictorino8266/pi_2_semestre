@@ -65,11 +65,19 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
                     ?>
                 </thead>
             </table>
+            <div>
+                <!-- Paginacao -->
+                <?php
+                    for($i = $intervalo_inicio; $i <= $intervalo_fim; $i++){
+                        if($i == $pagina){
+                            echo "<a class='active' href='?pagina={$i}'>{$i}</a> ";
+                        }else{
+                            echo "<a href='?pagina={$i}'>{$i}</a> ";
+                    }
+                }
+                ?>
+            </div>
         </div>
     </div>
-    
-
-
-    
 </body>
 </html>
