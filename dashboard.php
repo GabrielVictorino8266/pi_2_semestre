@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/php/ctr_dashboard.php';
 
-var_dump($agendamentos);
 ?>
 
 <!DOCTYPE html>
@@ -40,12 +39,27 @@ var_dump($agendamentos);
             <table>
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Data Agendamento</th>
                         <th>Produto</th>
                         <th>Cliente</th>
                         <th>Status</th>
                     </tr>
+                    <?php
+                    if($quantidadeAgendamentos){
+                        foreach($agendamentosDaSemana as $agendamento){
+                            $data = new DateTimeImmutable($agendamento['data_retirada']);
+                            if($data){
+                                $dataFormatada = $data->format('d/m/Y'); # Formata a data para dd/mm/aaaa
+                            }
+                            echo "<tr>";
+                                echo "<td>{$dataFormatada}</td>";
+                                echo "<td>{$agendamento['produto']}</td>";
+                                echo "<td>{$agendamento['nome_cliente']}</td>";
+                                echo "<td>{$agendamento['status']}</td>";
+                            echo "</tr>";
+                        }
+                    }
+                    ?>
                 </thead>
             </table>
         </div>

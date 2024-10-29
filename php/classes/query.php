@@ -96,15 +96,18 @@ class Query{
         e retornar um array dos agendamentos da semana.
         */
         try{
-            $query = "SELECT * FROM tb_agendamentos 
-                INNER JOIN tb_clientes ON tb_agendamentos.cliente_id = tb_clientes.id
-                INNER JOIN tb_receitas ON tb_agendamentos.receita_id = tb_receitas.id
-                INNER JOIN tb_status ON tb_agendamentos.status_id = tb_status.id
-                WHERE data_agendamento BETWEEN :inicioDaSemana AND :fimDaSemana AND status_id = 2"; #Status 2, indica EM ANDAMENTO
+            $query = "SELECT ag.data_retirada, es.descricao as 'produto', cl.nome as 'nome_cliente', st.descricao as 'status' FROM tb_agendamentos ag
+                INNER JOIN tb_clientes cl ON ag.cliente_id = cl.id
+                INNER JOIN tb_receitas re ON ag.receita_id = re.id 
+                INNER JOIN tb_estoque es on re.produto_final_id = es.id
+                INNER JOIN tb_status st on ag.status_id = st.id
+                WHERE data_retirada BETWEEN :inicioDaSemana AND :fimDaSemana AND status_id = 2
+                ORDER BY data_retirada ASC";    # Status 2, indica EM ANDAMENTO
 
             $stmt = $this->conexao->prepare($query);
             $stmt->bindParam(":inicioDaSemana", $inicioDaSemana, PDO::PARAM_STR);
             $stmt->bindParam(":fimDaSemana", $fimDaSemana, PDO::PARAM_STR);
+            // var_dump($stmt);
             $stmt->execute();
             if($stmt->rowCount() > 0){
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);

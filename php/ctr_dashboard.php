@@ -21,13 +21,14 @@ $inicioDaSemana = clone $hoje;
 $inicioDaSemana->modify('monday this week');
 // $inicioDaSemana->modify('monday this week')->modify('+1 day');
 $fimDaSemana = clone $hoje;
+$fimDaSemana->modify('sunday this week');
 $inicioDaSemana = $inicioDaSemana->format('Y-m-d');
-$fimDaaSemana = $fimDaSemana->format('Y-m-d');
+$fimDaSemana = $fimDaSemana->format('Y-m-d');
 
-$agendametosDaSemana = $query->getAgendamentosDashboard($inicioDaSemana, $fimDaaSemana);
-if($agendametosDaSemana){
-    $agendamentosParaEstaSenana = count($agendametosDaSemana);
-    var_dump($agendamentos);
+$agendamentosDaSemana = $query->getAgendamentosDashboard($inicioDaSemana, $fimDaSemana);
+if($agendamentosDaSemana){
+    $quantidadeAgendamentos = count($agendamentosDaSemana);
+    // var_dump($agendamentosParaEstaSenana);
 }else{
-    $agendamentos = 0;
+    $quantidadeAgendamentos = 0;
 }
