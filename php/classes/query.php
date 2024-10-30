@@ -151,5 +151,53 @@ class Query{
             return false;
         }
     }
+
+    // function exibirEstoque($conexao, $descricao = '') {
+    //     $sql = "SELECT e.id, e.descricao, e.quantidade, e.preco_unitario, e.preco_venda, t.tipo AS tipo_item, c.descricao AS categoria
+    //             FROM tb_estoque e
+    //             LEFT JOIN tb_tipoItem t ON e.tipo_id = t.id
+    //             LEFT JOIN tb_categorias c ON e.categoria_id = c.id
+    //             LIMIT :limite OFFSET :offset";
+    
+    //     // Adiciona cláusula WHERE se a descrição for fornecida
+    //     if (!empty($descricao)) {
+    //         $sql .= " WHERE e.descricao LIKE :descricao";
+    //     }
+    
+    //     $stmt = $conexao->prepare($sql);
+    
+    //     // Se uma descrição foi fornecida, bind a variável
+    //     if (!empty($descricao)) {
+    //         $descricaoParam = "%" . $descricao . "%";
+    //         $stmt->bindParam(':descricao', $descricaoParam);
+    //     }
+    
+    //     $stmt->execute();
+    
+    //     if ($stmt->rowCount() > 0) {
+    //         echo "<table class='table'>";
+    //         echo "<tr><th>ID</th><th>Descrição</th><th>Quantidade</th><th>Preço Unitário</th><th>Preço Venda</th><th>Tipo</th><th>Categoria</th><th>Ações</th></tr>";
+    
+    //         while ($item = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    //             echo "<tr>";
+    //             echo "<td>" . htmlspecialchars($item['id']) . "</td>";
+    //             echo "<td>" . htmlspecialchars($item['descricao']) . "</td>";
+    //             echo "<td>" . htmlspecialchars($item['quantidade']) . "</td>";
+    //             echo "<td>" . htmlspecialchars($item['preco_unitario']) . "</td>";
+    //             echo "<td>" . htmlspecialchars($item['preco_venda']) . "</td>";
+    //             echo "<td>" . htmlspecialchars($item['tipo_item']) . "</td>";
+    //             echo "<td>" . htmlspecialchars($item['categoria']) . "</td>";
+    //             echo "<td>";
+    //             echo "<button class='btn' onclick=\"editProduct(" . htmlspecialchars($item['id']) . ")\">Editar</button>";
+    //             echo "<button class='btn btn-danger' onclick=\"removeProduct(" . htmlspecialchars($item['id']) . ")\">Remover</button>";
+    //             echo "</td>";
+    //             echo "</tr>";
+    //         }
+    
+    //         echo "</table>";
+    //     } else {
+    //         echo "<p>Nenhum item no estoque.</p>";
+    //     }
+    // }
 }
 ?>

@@ -47,6 +47,7 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
                         <th>Cliente</th>
                         <th>Status</th>
                     </tr>
+                </thead>
                     <?php
                     if($quantidadeAgendamentos){
                         foreach($agendamentosDaSemana as $agendamento){
@@ -63,7 +64,6 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
                         }
                     }
                     ?>
-                </thead>
             </table>
             <div>
                 <!-- Paginacao -->
