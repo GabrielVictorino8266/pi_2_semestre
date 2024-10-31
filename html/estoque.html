@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/estoque.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>ESTOQUE</h1>
+
+    <div class="hamburger" id="hamburger">
+        &#9776;
+    </div>
+
+    <div class="navbar" id="navbar">
+        <p>Olá,
+            <?php echo $_SESSION['user_name']; ?>
+        </p>
+
+        <div class="quit">
+            <a href="./logout.php">Sair</a>
+        </div>
+
+        <div class="tools">
+            <ul>
+                <li>
+                    <a href="./dashboard.php" class="box first">DASHBOARD</a>
+                </li>
+                <li>
+                    <a href="./estoque.php" class="box choose">ESTOQUE</a>
+                </li>
+                <li>
+                    <a href="./agendamento.php" class="box">AGENDAMENTO</a>
+                </li>
+                <li>
+                    <?php
+                    if($funcao && $funcao['descricao'] == "Administrador"){
+                        echo "<a href='./cadastro.php' class="box">Cadastrar Usuário</a>";
+                    }
+                    ?>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="content">
+            <label for="">
+                <input type="text" name="" id="" placeholder="Pesquisa">
+            </label>
+            
+                <button>CADASTRAR</button>
+
+                &#9776;
+            
+        </div>
+        <div class="table-content">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                    <th>Custo Unitário</th>
+                    <th>Preço Venda</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+        </table>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
