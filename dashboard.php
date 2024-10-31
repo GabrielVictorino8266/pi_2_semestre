@@ -33,8 +33,9 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
     <div>
         <h1>Dashboard front</h1>
         <div>
-            <form action="">
-                <input type="text" name="buscar" id="buscar" placeholder="Digite um id ou nome de cliente">
+            <form action="" method="GET">
+                <input type="text" name="buscar" id="buscar" placeholder="Digite um nome de cliente">
+                <button type="submit">Pesquisar</button>
             </form>
             <div>
                 <p>Agendamentos desta semana: <?php echo $totalAgendamentosDaSemana['total']; ?></p>
@@ -62,18 +63,28 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
                                 echo "<td>{$agendamento['status']}</td>";
                             echo "</tr>";
                         }
+                    }else{
+                        echo "<p>Nenhum agendamento encontrado</p>";
                     }
                     ?>
             </table>
             <div>
                 <!-- Paginacao -->
                 <?php
-                    for($i = $intervalo_inicio; $i <= $intervalo_fim; $i++){
-                        if($i == $pagina){
-                            echo "<a class='active' href='?pagina={$i}'>{$i}</a> ";
+                    for($i = $intervalo['inicio']; $i <= $intervalo['fim']; $i++){
+                        if(!isset($_GET['buscar'])){
+                            if($i == $pagina){
+                                echo "<a class='active' href='?pagina={$i}'>{$i}</a> ";
+                            }else{
+                                echo "<a href='?pagina={$i}'>{$i}</a> ";
+                            }
                         }else{
-                            echo "<a href='?pagina={$i}'>{$i}</a> ";
-                    }
+                            if($i == $pagina){
+                                echo "<a class='active' href='?pagina={$i}&buscar={$nome_cliente}'>{$i}</a> ";
+                            }else{
+                                echo "<a href='?pagina={$i}&buscar={$nome_cliente}'>{$i}</a> ";
+                            }
+                        }
                 }
                 ?>
             </div>
