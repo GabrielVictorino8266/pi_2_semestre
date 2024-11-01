@@ -90,68 +90,6 @@ class Query{
 
     }
 
-    public function getAgendamentosDashboard($inicioDaSemana, $fimDaSemana, $inicio, $limite){
-        /*
-        Método usado para consultar agendamentos 
-        e retornar um array dos agendamentos da semana.
-        */
-        try{
-            $query = "SELECT ag.data_retirada, es.descricao as 'produto', cl.nome as 'nome_cliente', st.descricao as 'status' FROM tb_agendamentos ag
-                INNER JOIN tb_clientes cl ON ag.cliente_id = cl.id
-                INNER JOIN tb_receitas re ON ag.receita_id = re.id 
-                INNER JOIN tb_estoque es on re.produto_final_id = es.id
-                INNER JOIN tb_status st on ag.status_id = st.id
-                WHERE data_retirada BETWEEN :inicioDaSemana AND :fimDaSemana AND status_id = 2
-                ORDER BY data_retirada ASC LIMIT :inicio, :limite";    # Status 2, indica EM ANDAMENTO
-
-            $stmt = $this->conexao->prepare($query);
-            $stmt->bindParam(":inicioDaSemana", $inicioDaSemana, PDO::PARAM_STR);
-            $stmt->bindParam(":fimDaSemana", $fimDaSemana, PDO::PARAM_STR);
-            $stmt->bindParam(":inicio", $inicio, PDO::PARAM_INT);
-            $stmt->bindParam(":limite", $limite, PDO::PARAM_INT);
-            // var_dump($stmt);
-            $stmt->execute();
-            if($stmt->rowCount() > 0){
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            }else{
-                return false;
-            }
-        }catch(PDOException $e){
-            echo $e->getMessage();
-            return false;
-        }
-    }
-
-    public function getTotalAgendamentosDashboard($inicioDaSemana, $fimDaSemana){
-        /*
-        Método usado para consultar agendamentos 
-        e retornar um array dos agendamentos da semana.
-        */
-        try{
-            $query = "SELECT COUNT(*) as 'total' FROM tb_agendamentos ag
-                INNER JOIN tb_clientes cl ON ag.cliente_id = cl.id
-                INNER JOIN tb_receitas re ON ag.receita_id = re.id 
-                INNER JOIN tb_estoque es on re.produto_final_id = es.id
-                INNER JOIN tb_status st on ag.status_id = st.id
-                WHERE data_retirada BETWEEN :inicioDaSemana AND :fimDaSemana AND status_id = 2
-                ORDER BY data_retirada ASC";    # Status 2, indica EM ANDAMENTO
-
-            $stmt = $this->conexao->prepare($query);
-            $stmt->bindParam(":inicioDaSemana", $inicioDaSemana, PDO::PARAM_STR);
-            $stmt->bindParam(":fimDaSemana", $fimDaSemana, PDO::PARAM_STR);
-            // var_dump($stmt);
-            $stmt->execute();
-            if($stmt->rowCount() > 0){
-                return $stmt->fetch(PDO::FETCH_ASSOC);
-            }else{
-                return false;
-            }
-        }catch(PDOException $e){
-            echo $e->getMessage();
-            return false;
-        }
-    }
-
     // function exibirEstoque($conexao, $descricao = '') {
     //     $sql = "SELECT e.id, e.descricao, e.quantidade, e.preco_unitario, e.preco_venda, t.tipo AS tipo_item, c.descricao AS categoria
     //             FROM tb_estoque e
@@ -200,7 +138,7 @@ class Query{
     //     }
     // }
 
-    public function pesquisarDashboard($inicioDaSemana, $fimDaSemana, $inicio, $limite, $nome_cliente){
+    public function pesquisarDashboard($inicioDaSemana, $fimDaSemana, $inicio, $limite, $nome_cliente, $status_id){
         /*
         Método usado para consultar agendamentos por meio da pesquisa.
         */
@@ -210,17 +148,23 @@ class Query{
                 INNER JOIN tb_receitas re ON ag.receita_id = re.id 
                 INNER JOIN tb_estoque es on re.produto_final_id = es.id
                 INNER JOIN tb_status st on ag.status_id = st.id
-                WHERE data_retirada BETWEEN :inicioDaSemana AND :fimDaSemana AND status_id = 2 AND cl.nome LIKE :nome_cliente
-                ORDER BY data_retirada ASC LIMIT :inicio, :limite";
-
+                WHERE data_retirada BETWEEN :inicioDaSemana AND :fimDaSemana AND cl.nome LIKE :nome_cliente";
+                if(isset($status_id) && $status_id != ""){
+                    $query .= " AND status_id = :status_id";
+                }
+                $query .=" ORDER BY data_retirada ASC LIMIT :inicio, :limite";
+                
             $nome_cliente = "%".$nome_cliente."%";
-
+            // var_dump($query);
             $stmt = $this->conexao->prepare($query);
             $stmt->bindParam(":inicioDaSemana", $inicioDaSemana, PDO::PARAM_STR);
             $stmt->bindParam(":fimDaSemana", $fimDaSemana, PDO::PARAM_STR);
             $stmt->bindParam(":nome_cliente", $nome_cliente, PDO::PARAM_STR);
             $stmt->bindParam(":inicio", $inicio, PDO::PARAM_INT);
             $stmt->bindParam(":limite", $limite, PDO::PARAM_INT);
+            if(isset($status_id) && $status_id != ""){
+                $stmt->bindParam(":status_id", $status_id, PDO::PARAM_INT);
+            }
             $stmt->execute();
             if($stmt->rowCount() > 0){
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -233,25 +177,32 @@ class Query{
         }
     }
 
-    public function getTotalPesquisarDashboard($inicioDaSemana, $fimDaSemana, $nome_cliente){
+
+    public function getTotalPesquisarDashboard($inicioDaSemana, $fimDaSemana, $nome_cliente, $status_id){
         /*
         Método usado para consultar agendamentos por meio da pesquisa.
         */
         try{
             $query = "SELECT COUNT(*) as total FROM tb_agendamentos ag
-                INNER JOIN tb_clientes cl ON ag.cliente_id = cl.id
-                INNER JOIN tb_receitas re ON ag.receita_id = re.id 
-                INNER JOIN tb_estoque es on re.produto_final_id = es.id
-                INNER JOIN tb_status st on ag.status_id = st.id
-                WHERE data_retirada BETWEEN :inicioDaSemana AND :fimDaSemana AND status_id = 2 AND cl.nome LIKE :nome_cliente
-                ORDER BY data_retirada ASC";
+                LEFT JOIN tb_clientes cl ON ag.cliente_id = cl.id
+                LEFT JOIN tb_receitas re ON ag.receita_id = re.id 
+                LEFT JOIN tb_estoque es ON re.produto_final_id = es.id
+                LEFT JOIN tb_status st ON ag.status_id = st.id
+                WHERE data_retirada BETWEEN :inicioDaSemana AND :fimDaSemana AND cl.nome LIKE :nome_cliente";
+                if(isset($status_id) && $status_id != ""){
+                    $query .= " AND status_id = :status_id";
+                }
+                $query .=" ORDER BY data_retirada ASC";
 
             $nome_cliente = "%".$nome_cliente."%";
-
+            // var_dump($query);
             $stmt = $this->conexao->prepare($query);
             $stmt->bindParam(":inicioDaSemana", $inicioDaSemana, PDO::PARAM_STR);
             $stmt->bindParam(":fimDaSemana", $fimDaSemana, PDO::PARAM_STR);
             $stmt->bindParam(":nome_cliente", $nome_cliente, PDO::PARAM_STR);
+             if(isset($status_id) && $status_id != ""){
+                $stmt->bindParam(":status_id", $status_id, PDO::PARAM_INT);
+            }
             $stmt->execute();
             if($stmt->rowCount() > 0){
                 return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -263,9 +214,6 @@ class Query{
             return false;
         }
     }
-
-
-
 
     public function getTodosStatus(){
         /*

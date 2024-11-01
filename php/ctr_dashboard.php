@@ -24,8 +24,7 @@ $inicioDaSemana = $inicioDaSemana->format('Y-m-d');
 $fimDaSemana = $fimDaSemana->format('Y-m-d');
 
 
-
-// Definie limite de pagina e define a pagina atual.
+// Define limite de pagina e define a pagina atual.
 $limite_pagina = 5;
 if(isset($_GET['pagina'])){
     $pagina = $_GET['pagina'];
@@ -33,51 +32,30 @@ if(isset($_GET['pagina'])){
     $pagina = 1;
 }
 
-// Executa consultas de listagem e total de agendamentos
-$totalAgendamentosDaSemana = $query->getTotalAgendamentosDashboard($inicioDaSemana, $fimDaSemana); # Retorna o total de agendamentos
+if(isset($_GET['buscar'])){
+    $nome_cliente = $_GET['buscar'];
+}else{
+    $nome_cliente = '';
+}
+
+if(isset($_GET['status'])){
+    $status_id = $_GET['status'];
+}else{
+    $status_id = '';
+}
+$totalAgendamentosDaSemana = $query->getTotalPesquisarDashboard($inicioDaSemana, $fimDaSemana, $nome_cliente, $status_id); # Retorna o total de agendamentos
 
 // Nova instância de paginacao
 $paginacao = new Paginacao($pagina, $limite_pagina, $totalAgendamentosDaSemana['total']);
 $inicio_pagina = $paginacao->calcularInicio();
 $intervalo = $paginacao->calcularIntervalo();
-$agendamentosDaSemana = $query->getAgendamentosDashboard($inicioDaSemana, $fimDaSemana, $inicio_pagina, $limite_pagina);
+$agendamentosDaSemana = $query->pesquisarDashboard($inicioDaSemana, $fimDaSemana, $inicio_pagina, $limite_pagina, $nome_cliente, $status_id);
 
 if($agendamentosDaSemana){
-    $quantidadeAgendamentos = count($agendamentosDaSemana);
+    $quantidadeAgendamentos = $totalAgendamentosDaSemana;
 }else{
     $quantidadeAgendamentos = 0;
 }
 
-if($_SERVER['REQUEST_METHOD'] == 'GET'){
-    //Verfica se há algo na pesquisa para o nome de cliente.
-    if(isset($_GET['buscar'])){
-        $nome_cliente = $_GET['buscar'];
-        // Executa consultas de listagem e total de agendamentos após pesquisa
-
-        $totalAgendamentosDaSemana = $query->getTotalPesquisarDashboard($inicioDaSemana, $fimDaSemana, $nome_cliente); # Retorna o total de agendamentos
-
-        // Nova instância de paginacao
-        $paginacao = new Paginacao($pagina, $limite_pagina, $totalAgendamentosDaSemana['total']);
-        $inicio_pagina = $paginacao->calcularInicio();
-        $intervalo = $paginacao->calcularIntervalo();
-        $agendamentosDaSemana = $query->pesquisarDashboard($inicioDaSemana, $fimDaSemana, $inicio_pagina, $limite_pagina, $nome_cliente);
-
-        if($agendamentosDaSemana){
-            $quantidadeAgendamentos = count($agendamentosDaSemana);
-        }else{
-            $quantidadeAgendamentos = 0;
-        }
-    }else{
-        $nome_cliente = "";
-    }
-}
-
 // Filtro de Status
 $todosStatus = $query->getTodosStatus();
-if($todosStatus){
-    foreach($todosStatus as $status){
-        var_dump($status['descricao']);
-    }
-}else{
-    $todosStatus = [];
-}

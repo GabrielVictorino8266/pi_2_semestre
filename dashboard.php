@@ -39,8 +39,10 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
                 <select name="status" id="status">
                     <option value="">Escolha um status</option>
                     <?php
-                    foreach($todosStatus as $status){
-                        echo "<option value=".$status['id'] .">". $status['descricao']."</option>";
+                    if($todosStatus){
+                        foreach($todosStatus as $status){
+                            echo "<option value=".$status['id'] .">". $status['descricao']."</option>";
+                        }
                     }
                     ?>
                 </select>
@@ -80,7 +82,7 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
                 <!-- Paginacao -->
                 <?php
                     for($i = $intervalo['inicio']; $i <= $intervalo['fim']; $i++){
-                        if(!isset($_GET['buscar'])){
+                        if(!isset($_GET['buscar']) || !isset($_GET['status'])){
                             if($i == $pagina){
                                 echo "<a class='active' href='?pagina={$i}'>{$i}</a> ";
                             }else{
@@ -90,7 +92,7 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
                             if($i == $pagina){
                                 echo "<a class='active' href='?pagina={$i}&buscar={$nome_cliente}'>{$i}</a> ";
                             }else{
-                                echo "<a href='?pagina={$i}&buscar={$nome_cliente}'>{$i}</a> ";
+                                echo "<a href='?pagina={$i}&buscar={$nome_cliente}&status={$status_id}'>{$i}</a> ";
                             }
                         }
                 }

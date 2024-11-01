@@ -116,23 +116,6 @@ INSERT INTO tb_funcoes (descricao) VALUES ('Funcionário');
 INSERT INTO tb_usuarios (nome, email, senha, funcao_id) VALUES ('Gabriel Silva', 'gabriel.silva@email.com', 'gabriel', 1);
 INSERT INTO tb_usuarios (nome, email, senha, funcao_id) VALUES ('Gustavo', 'gustavo@email.com', 'gustavo', 2);
 
--- INSERINDO DADOS NA TABELA tb_clientes
-INSERT INTO tb_clientes (nome, email, telefone) VALUES ('João Pereira', 'joao.pereira@email.com', '11912345678');
-INSERT INTO tb_clientes (nome, telefone) VALUES ('Ana Lima', '11987654321');
-
--- INSERINDO DADOS NA TABELA tb_endereco
-INSERT INTO tb_endereco (rua, numero, bairro, cidade, estado, cep, cliente_id) VALUES ('Rua das Flores', '123', 'Centro', 'São Paulo', 'SP', '01001000', 1);
-INSERT INTO tb_endereco (rua, numero, bairro, cidade, estado, cep, cliente_id) VALUES ('Avenida Brasil', '456', 'Jardim América', 'Rio de Janeiro', 'RJ', '21001000', 2);
-
--- INSERINDO DADOS NA TABELA tb_status
-INSERT INTO tb_status (descricao, status_activated) VALUES ('Confirmado', TRUE);
-INSERT INTO tb_status (descricao, status_activated) VALUES ('Em Andamento', TRUE);
-INSERT INTO tb_status (descricao, status_activated) VALUES ('Cancelado', FALSE);
-
--- INSERINDO DADOS NA TABELA tb_agendamentos
-INSERT INTO tb_agendamentos (data_agendamento, produto_final_id, cliente_id, status_id) VALUES ('2024-11-01 10:00:00', 1, 1, 1);
-INSERT INTO tb_agendamentos (data_agendamento, produto_final_id, cliente_id, status_id) VALUES ('2024-11-02 15:30:00', 2, 2, 2);
-
 -- INSERINDO DADOS NA TABELA tb_tipoItem
 INSERT INTO tb_tipoItem(tipo) VALUES('Ingrediente');
 INSERT INTO tb_tipoItem(tipo) VALUES('Produto Final');
