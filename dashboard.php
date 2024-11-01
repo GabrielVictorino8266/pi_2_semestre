@@ -9,6 +9,8 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Inclua o jQuery -->
+    <script src="./js/dashboard.js" defer></script>
 </head>
 <body>
 
@@ -33,7 +35,7 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
     <div>
         <h1>Dashboard front</h1>
         <div>
-            <form action="" method="GET">
+            <form action="" method="GET" id="form_filtro">
                 <input type="text" name="buscar" id="buscar" placeholder="Digite um nome de cliente">
                 <button type="submit">Pesquisar</button>
                 <select name="status" id="status">
