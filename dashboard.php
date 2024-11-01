@@ -36,6 +36,14 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
             <form action="" method="GET">
                 <input type="text" name="buscar" id="buscar" placeholder="Digite um nome de cliente">
                 <button type="submit">Pesquisar</button>
+                <select name="status" id="status">
+                    <option value="">Escolha um status</option>
+                    <?php
+                    foreach($todosStatus as $status){
+                        echo "<option value=".$status['id'] .">". $status['descricao']."</option>";
+                    }
+                    ?>
+                </select>
             </form>
             <div>
                 <p>Agendamentos desta semana: <?php echo $totalAgendamentosDaSemana['total']; ?></p>

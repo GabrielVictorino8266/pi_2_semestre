@@ -71,3 +71,13 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         $nome_cliente = "";
     }
 }
+
+// Filtro de Status
+$todosStatus = $query->getTodosStatus();
+if($todosStatus){
+    foreach($todosStatus as $status){
+        var_dump($status['descricao']);
+    }
+}else{
+    $todosStatus = [];
+}

@@ -263,5 +263,27 @@ class Query{
             return false;
         }
     }
+
+
+
+
+    public function getTodosStatus(){
+        /*
+        Método usado para retornar todos os status de agendamento.
+        */
+        try{
+            $query = "SELECT * FROM tb_status";
+            $stmt = $this->conexao->prepare($query);
+            $stmt->execute();
+            if($stmt->rowCount() > 0){
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }else{
+                return false;
+            }
+        }catch(PDOException $e){
+            echo $e->getMessage();
+            return false;
+        }
+    }
 }
 ?>
