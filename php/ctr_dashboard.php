@@ -25,7 +25,7 @@ $fimDaSemana = $fimDaSemana->format('Y-m-d');
 
 
 // Define limite de pagina e define a pagina atual.
-$limite_pagina = 5;
+$limite_pagina = 4;
 if(isset($_GET['pagina'])){
     $pagina = $_GET['pagina'];
 }else{  

@@ -7,6 +7,7 @@ class Paginacao{
     private $quantidadeLinks;
 
 
+
     public function __construct($paginaAtual, $limite, $totalRegistros, $quantidadeLinks = 4){
         $this->pagina = $paginaAtual;
         $this->limite = $limite;
