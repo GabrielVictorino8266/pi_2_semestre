@@ -43,4 +43,11 @@ class Estoque{
     public function listarCategoria(){
         return $this->query->listarCategoria();
     }
+
+    public function atualizarItem($id, $dados){
+        return $this->query->atualizarItem($id, $dados);
+    }
+    public function carregarInformacoesItem($id){
+        return $this->query->carregarInformacoesItem($id);
+    }
 }
