@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/php/ctr_dashboard.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -13,25 +12,29 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
     <script src="./js/dashboard.js" defer></script>
 </head>
 <body>
-
-    <nav>
-        <div>
+    <!-- NAV -->
+    <div>
+        <nav>
             <div>
-                <p>Olá, <?php echo $_SESSION['user_name']; ?></p>
+                <div>
+                    <p>Olá, <?php echo $_SESSION['user_name']; ?></p>
+                </div>
+                <a href="./logout.php">Sair</a>
             </div>
-            <a href="./logout.php">Sair</a>
-        </div>
-        <div>
-            <?php
-            if($funcao && $funcao['descricao'] == "Administrador"){
-                echo "<a href='./cadastro.php'>Cadastrar Usuário</a>";
-            }
-            ?>
-            <a href="./estoque.php">Estoque</a>
-            <a href="./agendamento.php">Agendamento</a>
-            <a href="./dashboard.php">Dashboard</a>
-        </div>
-    </nav>
+            <div>
+                <?php
+                if($funcao && $funcao['descricao'] == "Administrador"){
+                    echo "<a href='./cadastro.php'>Cadastrar Usuário</a>";
+                }
+                ?>
+                <a href="./estoque.php">Estoque</a>
+                <a href="./agendamento.php">Agendamento</a>
+                <a href="./dashboard.php">Dashboard</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- PAGINACAO E TABELA -->
     <div>
         <h1>Dashboard front</h1>
         <div>
@@ -49,37 +52,41 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
                     ?>
                 </select>
             </form>
+
+            <!-- EXIBIÇAO DE TABELA -->
             <div>
                 <p>Agendamentos desta semana: <?php echo $totalAgendamentosDaSemana['total']; ?></p>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Data Retirada</th>
-                        <th>Produto</th>
-                        <th>Cliente</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data Retirada</th>
+                            <th>Produto</th>
+                            <th>Cliente</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
                     <?php
-                    if($quantidadeAgendamentos){
-                        foreach($agendamentosDaSemana as $agendamento){
-                            $data = new DateTimeImmutable($agendamento['data_retirada']);
-                            if($data){
-                                $dataFormatada = $data->format('d/m/Y'); # Formata a data para dd/mm/aaaa
+                        if($quantidadeAgendamentos){
+                            foreach($agendamentosDaSemana as $agendamento){
+                                $data = new DateTimeImmutable($agendamento['data_retirada']);
+                                if($data){
+                                    $dataFormatada = $data->format('d/m/Y'); # Formata a data para dd/mm/aaaa
+                                }
+                                echo "<tr>";
+                                    echo "<td>{$dataFormatada}</td>";
+                                    echo "<td>{$agendamento['produto']}</td>";
+                                    echo "<td>{$agendamento['nome_cliente']}</td>";
+                                    echo "<td>{$agendamento['status']}</td>";
+                                echo "</tr>";
                             }
-                            echo "<tr>";
-                                echo "<td>{$dataFormatada}</td>";
-                                echo "<td>{$agendamento['produto']}</td>";
-                                echo "<td>{$agendamento['nome_cliente']}</td>";
-                                echo "<td>{$agendamento['status']}</td>";
-                            echo "</tr>";
+                        }else{
+                            echo "<p>Nenhum agendamento encontrado</p>";
                         }
-                    }else{
-                        echo "<p>Nenhum agendamento encontrado</p>";
-                    }
                     ?>
-            </table>
+                </table>
+            </div>
             <div>
                 <!-- Paginacao -->
                 <?php
@@ -97,7 +104,7 @@ require_once __DIR__ . '/php/ctr_dashboard.php';
                                 echo "<a href='?pagina={$i}&buscar={$nome_cliente}&status={$status_id}'>{$i}</a> ";
                             }
                         }
-                }
+                    }
                 ?>
             </div>
         </div>
