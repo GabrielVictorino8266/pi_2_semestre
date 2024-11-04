@@ -12,11 +12,11 @@ class Estoque{
         $this->query = $query;
     }
 
-    public function cadastrarProduto($descricao, $quantidade, $preco_unitario, $preco_venda, $tipo_id, $categoria_id){
+    public function cadastrarProduto($dados){
         /*
         Método usado para cadastrar produto.
         */ 
-
+        return $this->query->cadastrarProduto($dados);
     }
 
 
@@ -42,5 +42,17 @@ class Estoque{
 
     public function listarCategoria(){
         return $this->query->listarCategoria();
+    }
+
+    public function atualizarItem($id, $dados){
+        return $this->query->atualizarItem($id, $dados);
+    }
+    public function carregarInformacoesItem($id){
+        return $this->query->carregarInformacoesItem($id);
+    }
+    
+
+    public function deletarProduto($id){
+        return $this->query->deletarProduto($id);
     }
 }

@@ -36,6 +36,100 @@ Instanciando objeto estoque da Classe Estoque.
 */
 $estoque = new Estoque($query);
 
+// Captura a ação desejada da URL
+$action = isset($_POST['action']) ? $_POST['action'] : '';
+
+if($action == "preencher" && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
+    $id = $_POST['id'];
+    $dados = [
+        'id' => $id
+    ];
+
+    $sucesso = $estoque->carregarInformacoesItem($id);
+
+    if($sucesso){
+        echo json_encode([
+            'success' => true, 'produto' => $sucesso
+        ]);
+    }else{
+        echo json_encode([
+            'success' => false, 'message' => "Informações não recuperadas!"
+        ]);
+    }
+}
+
+
+//Lógica de atualização
+if ($action == 'atualizar' &&  $_SERVER['REQUEST_METHOD'] == 'POST') {
+    //atualizando dados
+    // Monta dos dados para atualizar
+    $dados = [
+        'id' => $_POST['id'],
+        'descricao' => $_POST['descricao'],
+        'quantidade' => $_POST['quantidade'],
+        'preco_unitario' => $_POST['custo'],
+        'preco_venda' => $_POST['venda'],
+        'tipo_id' => $_POST['tipo'],
+        'categoria_id' => $_POST['categoria']
+    ];
+    $id = $dados['id'];
+
+    $sucesso = $estoque->atualizarItem($id, $dados);
+    if($sucesso){
+        echo json_encode([
+            'success' => true, 'message' => "Item atualizado com sucesso!", 'produto' => $sucesso
+        ]);
+    }else{
+        echo json_encode([
+            'success' => false, 'message' => "Item não foi atualizado!"
+        ]);
+    }
+    exit;
+}
+
+
+//Lógica de exclusão
+if($action == "deletar" && $_SERVER['REQUEST_METHOD'] == 'POST') {
+    $dados = ['id' => $_POST['id']];
+
+    $id = $dados['id'];
+    $sucesso = $estoque->deletarProduto($id);
+
+    if($sucesso){
+        echo json_encode([
+            'success' => true, 'message' => "Item excluído com sucesso!"
+        ]);
+    }else{
+        echo json_encode([
+            'success' => false, 'message' => "Item não foi excluído!"
+        ]);
+    }
+    exit;
+}
+
+//lógica de cadastro
+if($action == "cadastrar" && $_SERVER['REQUEST_METHOD'] == 'POST') {
+    $dados = [
+        'descricao' => $_POST['descricao'],
+        'quantidade' => $_POST['quantidade'],
+        'preco_unitario' => $_POST['custo'],
+        'preco_venda' => $_POST['venda'],
+        'tipo_id' => $_POST['tipo'],
+        'categoria_id' => $_POST['categoria']
+    ];
+
+    $sucesso = $estoque->cadastrarProduto($dados);
+    if($sucesso){
+        echo json_encode([
+            'success' => true, 'message' => "Item cadastrado com sucesso!"
+        ]);
+    }else{
+        echo json_encode([
+            'success' => false, 'message' => "Item não foi cadastrado!"
+        ]);
+    }
+    exit;
+}
 
 /*
 Listagem da contagem de todo o estoque.

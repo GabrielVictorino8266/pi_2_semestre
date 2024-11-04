@@ -245,5 +245,81 @@ class Query{
             return false;
         }
     }
+
+    public function carregarInformacoesItem($id){
+        $query = "SELECT * FROM tb_estoque WHERE id = :id_item";
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindParam(":id_item", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }else{
+            return false;
+        }
+    }
+
+    public function atualizarItem($id, $dados){
+        $query = "UPDATE tb_estoque AS estoque 
+        SET estoque.descricao = :descricao, estoque.quantidade = :quantidade,
+        estoque.preco_unitario = :preco_unitario, estoque.preco_venda = :preco_venda,
+        estoque.tipo_id = :tipo_id, estoque.categoria_id = :categoria_id
+        WHERE id = :id_item";
+
+        // Converte os valores para float
+        $preco_unitario = (float)$dados['preco_unitario'];
+        $preco_venda = (float)$dados['preco_venda'];
+
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindParam(":id_item", $id, PDO::PARAM_INT);
+        $stmt->bindParam(":descricao", $dados['descricao'], PDO::PARAM_STR);
+        $stmt->bindParam(":quantidade", $dados['quantidade'], PDO::PARAM_INT);
+        $stmt->bindParam(":preco_unitario", $preco_unitario, PDO::PARAM_STR);
+        $stmt->bindParam(":preco_venda", $preco_venda, PDO::PARAM_STR);
+        $stmt->bindParam(":tipo_id", $dados['tipo_id'], PDO::PARAM_INT);
+        $stmt->bindParam(":categoria_id", $dados['categoria_id'], PDO::PARAM_INT);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function deletarProduto($id){
+        $query = "DELETE FROM tb_estoque WHERE id = :id_item";
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindParam(":id_item", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function cadastrarProduto($dados){
+        $query = "INSERT INTO tb_estoque (descricao, quantidade, preco_unitario, preco_venda, tipo_id, categoria_id) VALUES
+        (:descricao, :quantidade, :preco_unitario, :preco_venda, :tipo_id,
+        :categoria_id)";
+
+        // Converte os valores para float
+        $preco_unitario = (float)$dados['preco_unitario'];
+        $preco_venda = (float)$dados['preco_venda'];
+        
+
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindParam(':descricao', $dados['descricao'], PDO::PARAM_STR);
+        $stmt->bindParam(':quantidade', $dados['quantidade'], PDO::PARAM_INT);
+        $stmt->bindParam(':preco_unitario', $dados['preco_unitario'], PDO::PARAM_STR);
+        $stmt->bindParam(':preco_venda', $dados['preco_venda'], PDO::PARAM_STR);
+        $stmt->bindParam(':tipo_id', $dados['tipo_id'], PDO::PARAM_INT);
+        $stmt->bindParam(':categoria_id', $dados['categoria_id'], PDO::PARAM_INT);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 ?>
