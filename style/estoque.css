@@ -162,3 +162,10 @@ table{
 table thead{
     background-color:  #9F9B9B;
 }
+
+#form_cadastro{
+    display: none;
+}
+#form_atualizar{
+    display: none;
+}
