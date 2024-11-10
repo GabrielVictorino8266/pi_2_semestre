@@ -35,6 +35,7 @@ function atualizar() {
         venda: document.getElementById('atualizar_preco_venda').value,
         tipo: document.getElementById('atualizar_tipo').value,
         categoria: document.getElementById('atualizar_categoria').value,
+        ativado: document.getElementById('ativado').value,
     };
 
     // Fazendo a requisição com fetch
@@ -96,6 +97,7 @@ function mostrarFormAtualizar(id) {
             document.getElementById('atualizar_quantidade').value = dados_retorno.data.quantidade;
             document.getElementById('atualizar_tipo').value = dados_retorno.data.tipo_id;
             document.getElementById('atualizar_categoria').value = dados_retorno.data.categoria_id;
+            document.getElementById('ativado').value = dados_retorno.data.ativado;
         } else {
             alert(dados_retorno.message);
         }

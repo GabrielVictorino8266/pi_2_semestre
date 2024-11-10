@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS tb_agendamentos(
     receita_id INT NOT NULL,
     cliente_id INT NOT NULL,
     status_id INT NOT NULL,
-    data_retirada DATETIME,
+    data_retirada DATETIME NOT NULL,
     observacoes TEXT,
     FOREIGN KEY (status_id) REFERENCES tb_satus(id),
     FOREIGN KEY (cliente_id) REFERENCES tb_usuarios(id),
@@ -74,7 +74,8 @@ CREATE TABLE IF NOT EXISTS tb_estoque(
     preco_unitario DECIMAL(10,2),
     preco_venda DECIMAL(10,2),
     tipo_id INT NOT NULL,
-    categoria_id INT,
+    categoria_id NOT NULL INT DEFAULT 0,
+    ativado BOOLEAN NOT NULL DEFAULT 1,
     FOREIGN KEY (categoria_id) REFERENCES tb_categorias(id),
     FOREIGN KEY (tipo_id) REFERENCES tb_tipoItem(id)
 );

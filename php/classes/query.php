@@ -262,7 +262,7 @@ class Query{
         $query = "UPDATE tb_estoque AS estoque 
         SET estoque.descricao = :descricao, estoque.quantidade = :quantidade,
         estoque.preco_unitario = :preco_unitario, estoque.preco_venda = :preco_venda,
-        estoque.tipo_id = :tipo_id, estoque.categoria_id = :categoria_id
+        estoque.tipo_id = :tipo_id, estoque.categoria_id = :categoria_id, estoque.ativado = :ativado
         WHERE id = :id_item";
 
         // Converte os valores para float
@@ -277,6 +277,7 @@ class Query{
         $stmt->bindParam(":preco_venda", $preco_venda, PDO::PARAM_STR);
         $stmt->bindParam(":tipo_id", $dados['tipo_id'], PDO::PARAM_INT);
         $stmt->bindParam(":categoria_id", $dados['categoria_id'], PDO::PARAM_INT);
+        $stmt->bindParam(":ativado", $dados['ativado'], PDO::PARAM_INT);
         $stmt->execute();
         if($stmt->rowCount() > 0){
             return true;

@@ -128,7 +128,7 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
             <!-- Formulário de atualização -->
             <form action="" method="POST" id="form_atualizar" style="display: none;">
                 <input type="hidden" id="produto_id" value="">
-
+                
                 <h3>Atualizar Produto</h3>
                 <div>
                     <label for="atualizar_nome_produto">Nome:</label>
@@ -171,6 +171,11 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
                         }
                         ?>
                     </select>
+                    <div>
+                        <label for="ativado">Ativado:</label>
+                        <input type="number" id="ativado" name="ativado" value="">
+                    </div>
+
                 </div>
                 <div>
                     <button type="button" onclick="atualizar()">Atualizar</button>
@@ -225,7 +230,7 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
                     }else{
                         if($i == $pagina){
                             echo "<a class='active' href='?pagina={$i}&buscar={$nome_produto}'>{$i}</a> ";
-                        }else{
+                        }else{  
                             echo "<a href='?pagina={$i}&buscar={$nome_produto}&tipo={$tipo_id}&categoria={$categoria_id}'>{$i}</a> ";
                         }
                     }

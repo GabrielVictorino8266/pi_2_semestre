@@ -97,7 +97,7 @@ function preeencher($estoque, $input){
 function atualizar($estoque, $input){
 
     // Verifica se 'acao' e 'id' est o setados na entrada e se 'acao'   'atualizar'
-    if(isset($input['id'], $input['descricao'], $input['quantidade'], $input['custo'], $input['venda'], $input['tipo'], $input['categoria']) && $input['action'] == 'atualizar'){
+    if(isset($input['id'], $input['descricao'], $input['quantidade'], $input['custo'], $input['venda'], $input['tipo'], $input['categoria'], $input['ativado']) && $input['action'] == 'atualizar'){
         $dados = [
             'id' => $input['id'],
             'descricao' => $input['descricao'],
@@ -105,7 +105,8 @@ function atualizar($estoque, $input){
             'preco_unitario' => $input['custo'],
             'preco_venda' => $input['venda'],
             'tipo_id' => $input['tipo'],
-            'categoria_id' => $input['categoria']
+            'categoria_id' => $input['categoria'],
+            'ativado'=> $input['ativado']
         ];
 
         
@@ -127,6 +128,7 @@ function atualizar($estoque, $input){
     }else{
         echo json_encode([
             "success" => false,
+            "input" => $input,
             "message" => "Dados faltando."
         ]);
     }
