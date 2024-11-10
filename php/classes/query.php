@@ -363,6 +363,8 @@ class Query{
                 $params[':nome_pesquisa'] = "%" . $nome_pesquisa . "%";
             }
 
+            
+            $conditions[] = "et.ativado = 1";
             // Concatena condições no SQL se houver alguma
             if (count($conditions) > 0) {
                 $query .= " WHERE " . implode(" AND ", $conditions);
@@ -410,6 +412,9 @@ class Query{
                 $conditions[] = "et.descricao LIKE :nome_pesquisa";
                 $params[':nome_pesquisa'] = "%" . $nome_pesquisa . "%";
             }
+
+            $conditions[] = "et.ativado = 1";
+
             // Concatena condições no SQL se houver alguma
             if (count($conditions) > 0) {
                 $query .= " WHERE " . implode(" AND ", $conditions);
@@ -422,7 +427,6 @@ class Query{
         // Prepara a consulta SQL
         $stmt = $this->conexao->prepare($query);
         
-        var_dump($stmt);
         // Associa os parâmetros
         foreach ($params as $key => $value) {
             $stmt->bindValue($key, $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
