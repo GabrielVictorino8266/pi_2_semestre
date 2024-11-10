@@ -1,6 +1,10 @@
 <?php
-require_once __DIR__ . './php/session_check.php';
-verificarSessao();
+session_start();
+
+if(isset($_SESSION["user_id"])){
+    header('location: ./dashboard.php');
+    exit;
+};
 
 ?>
 <!DOCTYPE html>
