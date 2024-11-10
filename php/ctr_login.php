@@ -20,6 +20,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $_SESSION['user_name'] = $usuario['nome'];
                 #chamar usuario para serialize do id dele.
                 header('location: ../view/dashboard.php');
+            }else{
+                header('location: ../view/login.php?error=login');
             }
 
         }else{#usuario nao existe
