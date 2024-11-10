@@ -286,17 +286,17 @@ class Query{
         }
     }
 
-    public function deletarProduto($id){
-        $query = "DELETE FROM tb_estoque WHERE id = :id_item";
-        $stmt = $this->conexao->prepare($query);
-        $stmt->bindParam(":id_item", $id, PDO::PARAM_INT);
-        $stmt->execute();
-        if($stmt->rowCount() > 0){
-            return true;
-        }else{
-            return false;
-        }
-    }
+    // public function deletarProduto($id){
+    //     $query = "DELETE FROM tb_estoque WHERE id = :id_item";
+    //     $stmt = $this->conexao->prepare($query);
+    //     $stmt->bindParam(":id_item", $id, PDO::PARAM_INT);
+    //     $stmt->execute();
+    //     if($stmt->rowCount() > 0){
+    //         return true;
+    //     }else{
+    //         return false;
+    //     }
+    // }
 
     public function cadastrarProduto($dados){
         $query = "INSERT INTO tb_estoque (descricao, quantidade, preco_unitario, preco_venda, tipo_id, categoria_id, ativado) VALUES
@@ -323,5 +323,120 @@ class Query{
             return false;
         }
     }
+
+    // public function getTotalEstoque($categoriaId) {
+    //     $query = "SELECT COUNT(*) as total FROM produtos WHERE categoria_id = :categoria_id";
+    //     $stmt = $this->conexao->prepare($query);
+    //     $stmt->bindValue(':categoria_id', $categoriaId, PDO::PARAM_INT);
+    //     $stmt->execute();
+    //     if($stmt->rowCount() > 0){
+    //         $stmt->fetch(PDO::FETCH_ASSOC);
+    //     }else{
+    //         return false;
+    //     }
+    // }
+
+
+    public function getTotalEstoque($tipo_pesquisa, $nome_pesquisa, $categoria_pesquisa){
+        /*
+        */
+        try{
+            $query = "SELECT COUNT(*) as total FROM tb_estoque as et 
+                INNER JOIN tb_tipoitem as ti ON et.tipo_id = ti.id
+                INNER JOIN tb_categorias as ct ON  et.categoria_id = ct.id
+                ";
+            // Armazena condições e parâmetros para o SQL dinamicamente
+            $conditions = [];
+            $params = [];
+
+            // Condicionalmente adiciona filtros
+            if (!empty($tipo_pesquisa)) {
+                $conditions[] = "et.tipo_id = :tipo_pesquisa";
+                $params[':tipo_pesquisa'] = $tipo_pesquisa;
+            }
+            if (!empty($categoria_pesquisa)) {
+                $conditions[] = "et.categoria_id = :categoria_pesquisa";
+                $params[':categoria_pesquisa'] = $categoria_pesquisa;
+            }
+            if (!empty($nome_pesquisa)) {
+                $conditions[] = "et.descricao LIKE :nome_pesquisa";
+                $params[':nome_pesquisa'] = "%" . $nome_pesquisa . "%";
+            }
+
+            // Concatena condições no SQL se houver alguma
+            if (count($conditions) > 0) {
+                $query .= " WHERE " . implode(" AND ", $conditions);
+            }
+
+
+            // Prepara a consulta SQL
+            $stmt = $this->conexao->prepare($query);
+
+
+            // Associa somente os parâmetros necessários
+            foreach ($params as $key => $value) {
+                $stmt->bindValue($key, $value);
+            }
+
+            // Executa e retorna os resultados
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            echo $e->getMessage();
+            return false;
+        }
+    }
+    
+    public function getPesquisarEstoque($inicio, $limite, $tipo_pesquisa, $nome_pesquisa, $categoria_pesquisa) {
+        try{
+            $query = "SELECT et.* FROM tb_estoque as et 
+                INNER JOIN tb_tipoitem as ti ON et.tipo_id = ti.id
+                INNER JOIN tb_categorias as ct ON  et.categoria_id = ct.id
+                ";
+            // Armazena condições e parâmetros para o SQL dinamicamente
+            $conditions = [];
+            $params = [];
+
+            // Condicionalmente adiciona filtros
+            if (!empty($tipo_pesquisa)) {
+                $conditions[] = "et.tipo_id = :tipo_pesquisa";
+                $params[':tipo_pesquisa'] = $tipo_pesquisa;
+            }
+            if (!empty($categoria_pesquisa)) {
+                $conditions[] = "et.categoria_id = :categoria_pesquisa";
+                $params[':categoria_pesquisa'] = $categoria_pesquisa;
+            }
+            if (!empty($nome_pesquisa)) {
+                $conditions[] = "et.descricao LIKE :nome_pesquisa";
+                $params[':nome_pesquisa'] = "%" . $nome_pesquisa . "%";
+            }
+            // Concatena condições no SQL se houver alguma
+            if (count($conditions) > 0) {
+                $query .= " WHERE " . implode(" AND ", $conditions);
+            }
+            
+        // Adiciona LIMIT e OFFSET diretamente na query
+        $query .= " ORDER BY et.id";
+        $query .= " LIMIT " . (int)$limite . " OFFSET " . (int)$inicio;
+
+        // Prepara a consulta SQL
+        $stmt = $this->conexao->prepare($query);
+        
+        var_dump($stmt);
+        // Associa os parâmetros
+        foreach ($params as $key => $value) {
+            $stmt->bindValue($key, $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
+        }
+
+        // Executa e retorna os resultados
+        $stmt->execute();
+        // var_dump($stmt->fetchAll(PDO::FETCH_ASSOC));
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        }catch(PDOException $e){
+            echo $e->getMessage();
+            return false;
+        }
+    }    
 }
 ?>

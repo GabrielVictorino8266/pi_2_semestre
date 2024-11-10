@@ -225,20 +225,25 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
         <div>
             <?php
                 for($i = $intervalo['inicio']; $i <= $intervalo['fim']; $i++){
-                    if(!isset($_GET['buscar']) || !isset($_GET['tipo_id']) || !isset($_GET['categoria_id'])){
-                        if($i == $pagina){
-                            echo "<a class='active' href='?pagina={$i}'>{$i}</a> ";
-                        }else{
-                            echo "<a href='?pagina={$i}'>{$i}</a> ";
-                        }
-                    }else{
-                        if($i == $pagina){
-                            echo "<a class='active' href='?pagina={$i}&buscar={$nome_produto}'>{$i}</a> ";
-                        }else{  
-                            echo "<a href='?pagina={$i}&buscar={$nome_produto}&tipo={$tipo_id}&categoria={$categoria_id}'>{$i}</a> ";
-                        }
+                    // Inicializa os parâmetros de URL vazios e os adiciona se existirem
+                    $url_params = "?pagina={$i}";
+                    if (isset($_GET['buscar'])) {
+                        $url_params .= "&buscar=" . urlencode($_GET['buscar']);
                     }
-            }
+                    if (isset($_GET['tipo_id'])) {
+                        $url_params .= "&tipo_id=" . urlencode($_GET['tipo_id']);
+                    }
+                    if (isset($_GET['categoria_id'])) {
+                        $url_params .= "&categoria_id=" . urlencode($_GET['categoria_id']);
+                    }
+
+                    // Verifica se é a página atual para definir a classe 'active'
+                    if ($i == $pagina) {
+                        echo "<a class='active' href='{$url_params}'>{$i}</a> ";
+                    } else {
+                        echo "<a href='{$url_params}'>{$i}</a> ";
+                    }
+                }
             ?>
         </div>
 </body>

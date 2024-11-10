@@ -29,14 +29,20 @@ if(isset($_GET['pagina'])){
 Listagem da contagem de todo o estoque.
 */
 function listarEstoque($estoque, $pagina, $limite_pagina){
-    $contagemEstoque = $estoque->listarContagemEstoque();
-    $paginacao = new Paginacao($pagina, $limite_pagina, $contagemEstoque['total']);
+    $filtrosDados = listarFiltros();
+    $contagemEstoque = $estoque->getTotalEstoque($filtrosDados['tipo_pesquisa'], $filtrosDados['nome_pesquisa'], $filtrosDados['categoria_pesquisa']);
+    
+    if($contagemEstoque['total'] ){
+        $paginacao = new Paginacao($pagina, $limite_pagina, $contagemEstoque['total']);
+    }else{
+        $paginacao = new Paginacao($pagina, $limite_pagina, 0);
+    }
     $inicio_pagina = $paginacao->calcularInicio();
     $intervalo = $paginacao->calcularIntervalo();
     
-    $listagemEstoque = $estoque->listarEstoque($inicio_pagina, $limite_pagina);
+    $listagemEstoque = $estoque->getPesquisarEstoque($inicio_pagina, $limite_pagina, $filtrosDados['tipo_pesquisa'], $filtrosDados['nome_pesquisa'], $filtrosDados['categoria_pesquisa']);
     return ['listagem' => $listagemEstoque, 'paginacao' => $paginacao, 'intervalo' => $intervalo];
-}
+} 
 
 $listagemEstoque = listarEstoque($estoque, $pagina, $limite_pagina)['listagem'];
 $intervalo = listarEstoque($estoque, $pagina, $limite_pagina)['intervalo'];
@@ -138,7 +144,7 @@ function atualizar($estoque, $input){
 }
 
 function cadastrar($estoque, $input){
-    // Verifica se 'acao' e 'id' est o setados na entrada e se 'acao'   'atualizar'
+    // Verifica se 'acao' e 'id' est o setados na entrada e se 'acao'  é 'atualizar'
     if(isset($input['descricao'], $input['quantidade'], $input['custo'], $input['venda'], $input['tipo'], $input['categoria'], $input['ativado']) && $input['action'] == 'cadastrar'){
         $dados = [
             'descricao' => $input['descricao'],
@@ -173,4 +179,30 @@ function cadastrar($estoque, $input){
             "message" => "Dados faltando em cadastrar."
         ]);
     }
+}
+
+function listarFiltros(){
+    $filtros = array();
+    if(isset($_GET['buscar'])){
+        $nome_pesquisa = $_GET['buscar'];
+    }else{
+        $nome_pesquisa = '';
+    }
+    $filtros['nome_pesquisa'] = $nome_pesquisa;
+    
+    if(isset($_GET['tipo'])){
+        $tipo_pesquisa = $_GET['tipo'];
+    }else{
+        $tipo_pesquisa = '';
+    }
+    $filtros['tipo_pesquisa'] = $tipo_pesquisa;
+
+    if(isset($_GET['categoria'])){
+        $categoria_pesquisa = $_GET['categoria'];
+    }else{
+        $categoria_pesquisa = '';
+    }
+    $filtros['categoria_pesquisa'] = $categoria_pesquisa;
+
+    return $filtros;
 }

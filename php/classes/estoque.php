@@ -52,7 +52,16 @@ class Estoque{
     }
     
 
-    public function deletarProduto($id){
-        return $this->query->deletarProduto($id);
+    // public function deletarProduto($id){
+    //     return $this->query->deletarProduto($id);
+    // }
+
+    public function getTotalEstoque($tipo_pesquisa, $nome_pesquisa, $categoria_pesquisa){
+        return $this->query->getTotalEstoque($tipo_pesquisa, $nome_pesquisa, $categoria_pesquisa);
     }
+
+    public function getPesquisarEstoque($inicio, $limite, $tipo_pesquisa, $nome_pesquisa, $categoria_pesquisa){
+        return $this->query->getPesquisarEstoque($inicio, $limite, $tipo_pesquisa, $nome_pesquisa, $categoria_pesquisa);
+    }
+
 }

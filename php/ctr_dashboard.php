@@ -29,6 +29,8 @@ if(isset($_GET['pagina'])){
     $pagina = 1;
 }
 
+/* Verifcação para filtros */
+
 if(isset($_GET['buscar'])){
     $nome_cliente = $_GET['buscar'];
 }else{
