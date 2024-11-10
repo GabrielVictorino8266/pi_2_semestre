@@ -1,12 +1,3 @@
-<?php
-session_start();
-
-if(isset($_SESSION["user_id"])){
-    header('location: ./dashboard.php');
-    exit;
-};
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +6,7 @@ if(isset($_SESSION["user_id"])){
     <title>Login - Entre no Sistema</title>
 </head>
 <body>
-    <form action="./php/ctr_login.php" method="post">
+    <form action="../php/ctr_login.php" method="post">
         <label for="user_email">Email do usuário:</label>
         <input type="email" name="user_email" id="user_email" required>
         <label for="user_password">Senha de usuário:</label>

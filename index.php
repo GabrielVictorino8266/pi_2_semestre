@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . './php/session_check.php';
-verificarSessao();
+define('PROJECT_ROOT_MYPATH', './view'); // Ajuste para o caminho da raiz do projeto, como '/' para a raiz ou '/meu_projeto/'
+verificarSessao(PROJECT_ROOT_MYPATH);
 
 ?>
 <!DOCTYPE html>
@@ -11,21 +12,8 @@ verificarSessao();
     <title>Login - Entre no Sistema</title>
 </head>
 <body>
-    <form action="./php/ctr_login.php" method="post">
-        <label for="user_email">Email do usuário:</label>
-        <input type="email" name="user_email" id="user_email" required>
-        <label for="user_password">Senha de usuário:</label>
-        <input type="text" name="user_password" id="user_password" required>
-        <button type="submit">Entrar</button>
-        <?php if (isset($_GET['error'])): ?>
-            <div class="error">
-                <?php
-                if (($_GET['error']) == 'login'){
-                    echo "Login Incorreto. Verifique sua senha e email";
-                }
-                ?>
-            </div>
-        <?php endif; ?>
-    </form>
+    <h1>Bem vindo</h1>
+    <p>Você será redirecionado. Se isto não funcionar, tente clicar no link abaixo:</p>
+    <a href="./view/login.php">Acessar página de Login</a>
 </body>
 </html>

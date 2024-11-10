@@ -1,14 +1,11 @@
 <?php
-require_once __DIR__ . '\classes\conexao.php';
-require_once __DIR__ . '\classes\query.php';
-require_once __DIR__ . '\classes\paginacao.php';
+require_once __DIR__ . './classes/conexao.php';
+require_once __DIR__ . './classes/query.php';
+require_once __DIR__ . './classes/paginacao.php';
+require_once __DIR__ . './session_check.php';
 
-session_start();
-
-if(!isset($_SESSION['user_id'])){# Verificação de sessão
-    header('location: ./index.php');
-    exit;
-}
+define('PROJECT_ROOT_MYPATH', '../view'); // Ajuste para o caminho da raiz do projeto, como '/' para a raiz ou '/meu_projeto/'
+verificarSessao(PROJECT_ROOT_MYPATH);
 
 $conexao = new Conexao(); #Cria conexão com o banco para esta tela
 $query = new Query($conexao); # Passa a conexão para a classe query

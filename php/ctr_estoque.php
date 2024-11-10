@@ -2,9 +2,11 @@
 require_once __DIR__ . './classes/conexao.php';
 require_once __DIR__ . './classes/query.php';
 require_once __DIR__ . './classes/estoque.php';
-require_once __DIR__ . '\classes\paginacao.php';
+require_once __DIR__ . './classes/paginacao.php';
+require_once __DIR__ . './session_check.php';
 
-session_start();
+define('PROJECT_ROOT_MYPATH', '../view'); // Ajuste para o caminho da raiz do projeto, como '/' para a raiz ou '/meu_projeto/'
+verificarSessao(PROJECT_ROOT_MYPATH);
 
 $conexao= new Conexao();#Chamo a conexao
 $query = new Query($conexao);#Chamo a query

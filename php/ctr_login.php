@@ -19,11 +19,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $_SESSION['user_id'] = $usuario['id'];
                 $_SESSION['user_name'] = $usuario['nome'];
                 #chamar usuario para serialize do id dele.
-                header('location: ../dashboard.php');
+                header('location: ../view/dashboard.php');
             }
 
         }else{#usuario nao existe
-            header('location: ../index.php?error=login');
+            header('location: ../view/login.php?error=login');
         }
     }
 }

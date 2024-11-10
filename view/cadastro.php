@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/php/ctr_dashboard.php';
+require_once __DIR__ . '../../php/ctr_cadastro.php';
 ?>
 
 <!DOCTYPE html>

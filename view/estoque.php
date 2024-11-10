@@ -1,5 +1,5 @@
 <?php
-require_once './php/ctr_estoque.php';
+require_once '../../php/ctr_estoque.php';
 
 ?>
 
