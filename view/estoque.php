@@ -118,6 +118,10 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
                     </select>
                 </div>
                 <div>
+                    <label for="cadastro_ativado">Ativado:</label>
+                    <input type="number" id="cadastro_ativado" name="cadastro_ativado" value="">
+                </div>
+                <div>
                     <button type="button" onclick="cadastrar()">Cadastrar</button>
                     <button type="button" onclick="voltarFormularioCadastro()">Voltar</button>
                 </div>
@@ -173,7 +177,7 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
                     </select>
                     <div>
                         <label for="ativado">Ativado:</label>
-                        <input type="number" id="ativado" name="ativado" value="">
+                        <input type="number" id="atualizar_ativado" name="ativado" value="">
                     </div>
 
                 </div>

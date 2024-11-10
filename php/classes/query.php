@@ -299,9 +299,9 @@ class Query{
     }
 
     public function cadastrarProduto($dados){
-        $query = "INSERT INTO tb_estoque (descricao, quantidade, preco_unitario, preco_venda, tipo_id, categoria_id) VALUES
+        $query = "INSERT INTO tb_estoque (descricao, quantidade, preco_unitario, preco_venda, tipo_id, categoria_id, ativado) VALUES
         (:descricao, :quantidade, :preco_unitario, :preco_venda, :tipo_id,
-        :categoria_id)";
+        :categoria_id, :ativado)";
 
         // Converte os valores para float
         $preco_unitario = (float)$dados['preco_unitario'];
@@ -311,10 +311,11 @@ class Query{
         $stmt = $this->conexao->prepare($query);
         $stmt->bindParam(':descricao', $dados['descricao'], PDO::PARAM_STR);
         $stmt->bindParam(':quantidade', $dados['quantidade'], PDO::PARAM_INT);
-        $stmt->bindParam(':preco_unitario', $dados['preco_unitario'], PDO::PARAM_STR);
-        $stmt->bindParam(':preco_venda', $dados['preco_venda'], PDO::PARAM_STR);
+        $stmt->bindParam(':preco_unitario',  $preco_unitario);
+        $stmt->bindParam(':preco_venda',  $preco_venda);
         $stmt->bindParam(':tipo_id', $dados['tipo_id'], PDO::PARAM_INT);
         $stmt->bindParam(':categoria_id', $dados['categoria_id'], PDO::PARAM_INT);
+        $stmt->bindParam(':ativado', $dados['ativado'], PDO::PARAM_INT);
         $stmt->execute();
         if($stmt->rowCount() > 0){
             return true;

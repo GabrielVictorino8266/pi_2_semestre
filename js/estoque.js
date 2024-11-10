@@ -35,7 +35,7 @@ function atualizar() {
         venda: document.getElementById('atualizar_preco_venda').value,
         tipo: document.getElementById('atualizar_tipo').value,
         categoria: document.getElementById('atualizar_categoria').value,
-        ativado: document.getElementById('ativado').value,
+        ativado: document.getElementById('atualizar_ativado').value,
     };
 
     // Fazendo a requisição com fetch
@@ -76,7 +76,6 @@ function mostrarFormAtualizar(id) {
        id: id,
        action: "preencher" // Enviando a ação como parte dos dados
     };
-    // console.log(dados);
 
     fetch('../php/ctr_estoque.php', {
         method: 'POST',
@@ -87,17 +86,15 @@ function mostrarFormAtualizar(id) {
     })
     .then(response => response.json())
     .then(dados_retorno => {
-        // console.log(dados_retorno);
-
+        console.log(dados_retorno);
         if (dados_retorno.success) {
-            // console.log("Entou para atualizar no html.")
             document.getElementById('atualizar_nome_produto').value = dados_retorno.data.descricao;
             document.getElementById('atualizar_custo_unitario').value = dados_retorno.data.preco_unitario;
             document.getElementById('atualizar_preco_venda').value = dados_retorno.data.preco_venda;
             document.getElementById('atualizar_quantidade').value = dados_retorno.data.quantidade;
             document.getElementById('atualizar_tipo').value = dados_retorno.data.tipo_id;
             document.getElementById('atualizar_categoria').value = dados_retorno.data.categoria_id;
-            document.getElementById('ativado').value = dados_retorno.data.ativado;
+            document.getElementById('atualizar_ativado').value = dados_retorno.data.ativado;
         } else {
             alert(dados_retorno.message);
         }
@@ -175,3 +172,40 @@ Isso afeterá todas as queries de consulta.
 //         }
 //     })
 // }
+
+function cadastrar() {
+    const dados_atualizar = {
+        action: "cadastrar",
+        descricao: document.getElementById('cadastro_nome_produto').value,
+        quantidade: document.getElementById('cadastro_quantidade').value,
+        custo: document.getElementById('cadastro_custo_unitario').value,
+        venda: document.getElementById('cadastro_preco_venda').value,
+        tipo: document.getElementById('cadastro_tipo').value,
+        categoria: document.getElementById('cadastro_categoria').value,
+        ativado: document.getElementById('cadastro_ativado').value,
+    };
+
+    // Fazendo a requisição com fetch
+    fetch('../php/ctr_estoque.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados_atualizar)
+    })
+    .then(response => response.json())
+    .then(dados_retorno => {
+        console.log(dados_retorno);
+
+        if (dados_retorno.success) {
+            alert("Cadastro com sucesso.");
+            voltarFormularioAtualizar(); // Função para fechar o formulário de Cadastro
+            location.reload();
+        } else {
+            alert("Cadastro sem sucesso.");
+        }
+    })
+    .catch(() => {
+        alert('Erro na requisição. Tente novamente. Frontend no cadastrar.');
+    });
+}

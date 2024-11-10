@@ -60,7 +60,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['CONTENT_TYPE'], 'a
         case "atualizar":
             atualizar($estoque, $input);
             $listagemEstoque = listarEstoque($estoque, $pagina, $limite_pagina)['listagem'];
-            // Redireciona para a mesma página após a atualização
+            break;
+        case "cadastrar":
+            cadastrar($estoque, $input);
+            $listagemEstoque = listarEstoque($estoque, $pagina, $limite_pagina)['listagem'];
             break;
         default:
         echo json_encode([
@@ -129,7 +132,45 @@ function atualizar($estoque, $input){
         echo json_encode([
             "success" => false,
             "input" => $input,
-            "message" => "Dados faltando."
+            "message" => "Dados faltando em atualizar."
+        ]);
+    }
+}
+
+function cadastrar($estoque, $input){
+    // Verifica se 'acao' e 'id' est o setados na entrada e se 'acao'   'atualizar'
+    if(isset($input['descricao'], $input['quantidade'], $input['custo'], $input['venda'], $input['tipo'], $input['categoria'], $input['ativado']) && $input['action'] == 'cadastrar'){
+        $dados = [
+            'descricao' => $input['descricao'],
+            'quantidade' => $input['quantidade'],
+            'preco_unitario' => $input['custo'],
+            'preco_venda' => $input['venda'],
+            'tipo_id' => $input['tipo'],
+            'categoria_id' => $input['categoria'],
+            'ativado'=> $input['ativado']
+        ];
+
+        
+        // Chama o método para atualizar o item no estoque
+        $produto = $estoque->cadastrarProduto($dados);
+
+        if($produto){
+            echo json_encode([
+                "success" => true,
+                "message" => "Produto cadastrado com sucesso!",
+                "data" => $produto
+            ]);
+        }else{
+            echo json_encode([
+                "success" => false,
+                "message" => "Erro ao cadastar o produto."
+            ]);
+        }
+    }else{
+        echo json_encode([
+            "success" => false,
+            "input" => $input,
+            "message" => "Dados faltando em cadastrar."
         ]);
     }
 }
