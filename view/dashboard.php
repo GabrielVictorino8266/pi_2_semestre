@@ -111,3 +111,5 @@ require_once __DIR__ . "../../php/ctr_dashboard.php";
     </div>
 </body>
 </html>
+
+<!-- Exibir informação de sucesso de cadastro. -->

@@ -11,20 +11,13 @@ verificarSessao(PROJECT_ROOT_MYPATH);
 $conexao= new Conexao();#Chamo a conexao
 $query = new Query($conexao);#Chamo a query
 
-/*
-Verificando a função do usuário.
-*/
-$funcao = $query->getFuncaoUsuarioId($_SESSION['user_id']);
+$estoque = new Estoque($query);
 
-if(!isset($_SESSION['user_id'])){# Verificação de sessão
-    header('location: ./index.php');
-    exit;
-}
+$funcao = $query->getFuncaoUsuarioId($_SESSION['user_id']);
 
 /*
 Configuração de pagina.
 */
-// Define limite de pagina e define a pagina atual.
 $limite_pagina = 4;
 if(isset($_GET['pagina'])){
     $pagina = $_GET['pagina'];
@@ -32,119 +25,109 @@ if(isset($_GET['pagina'])){
     $pagina = 1;
 }
 
-
-/*
-Instanciando objeto estoque da Classe Estoque.
-*/
-$estoque = new Estoque($query);
-
-// Captura a ação desejada da URL
-$action = isset($_POST['action']) ? $_POST['action'] : '';
-
-if($action == "preencher" && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
-    $id = $_POST['id'];
-    $dados = [
-        'id' => $id
-    ];
-
-    $sucesso = $estoque->carregarInformacoesItem($id);
-
-    if($sucesso){
-        echo json_encode([
-            'success' => true, 'produto' => $sucesso
-        ]);
-    }else{
-        echo json_encode([
-            'success' => false, 'message' => "Informações não recuperadas!"
-        ]);
-    }
-}
-
-
-//Lógica de atualização
-if ($action == 'atualizar' &&  $_SERVER['REQUEST_METHOD'] == 'POST') {
-    //atualizando dados
-    // Monta dos dados para atualizar
-    $dados = [
-        'id' => $_POST['id'],
-        'descricao' => $_POST['descricao'],
-        'quantidade' => $_POST['quantidade'],
-        'preco_unitario' => $_POST['custo'],
-        'preco_venda' => $_POST['venda'],
-        'tipo_id' => $_POST['tipo'],
-        'categoria_id' => $_POST['categoria']
-    ];
-    $id = $dados['id'];
-
-    $sucesso = $estoque->atualizarItem($id, $dados);
-    if($sucesso){
-        echo json_encode([
-            'success' => true, 'message' => "Item atualizado com sucesso!", 'produto' => $sucesso
-        ]);
-    }else{
-        echo json_encode([
-            'success' => false, 'message' => "Item não foi atualizado!"
-        ]);
-    }
-    exit;
-}
-
-
-//Lógica de exclusão
-if($action == "deletar" && $_SERVER['REQUEST_METHOD'] == 'POST') {
-    $dados = ['id' => $_POST['id']];
-
-    $id = $dados['id'];
-    $sucesso = $estoque->deletarProduto($id);
-
-    if($sucesso){
-        echo json_encode([
-            'success' => true, 'message' => "Item excluído com sucesso!"
-        ]);
-    }else{
-        echo json_encode([
-            'success' => false, 'message' => "Item não foi excluído!"
-        ]);
-    }
-    exit;
-}
-
-//lógica de cadastro
-if($action == "cadastrar" && $_SERVER['REQUEST_METHOD'] == 'POST') {
-    $dados = [
-        'descricao' => $_POST['descricao'],
-        'quantidade' => $_POST['quantidade'],
-        'preco_unitario' => $_POST['custo'],
-        'preco_venda' => $_POST['venda'],
-        'tipo_id' => $_POST['tipo'],
-        'categoria_id' => $_POST['categoria']
-    ];
-
-    $sucesso = $estoque->cadastrarProduto($dados);
-    if($sucesso){
-        echo json_encode([
-            'success' => true, 'message' => "Item cadastrado com sucesso!"
-        ]);
-    }else{
-        echo json_encode([
-            'success' => false, 'message' => "Item não foi cadastrado!"
-        ]);
-    }
-    exit;
-}
-
 /*
 Listagem da contagem de todo o estoque.
 */
-$contagemEstoque = $estoque->listarContagemEstoque();
-$paginacao = new Paginacao($pagina, $limite_pagina, $contagemEstoque['total']);
-$inicio_pagina = $paginacao->calcularInicio();
-$intervalo = $paginacao->calcularIntervalo();
+function listarEstoque($estoque, $pagina, $limite_pagina){
+    $contagemEstoque = $estoque->listarContagemEstoque();
+    $paginacao = new Paginacao($pagina, $limite_pagina, $contagemEstoque['total']);
+    $inicio_pagina = $paginacao->calcularInicio();
+    $intervalo = $paginacao->calcularIntervalo();
+    
+    $listagemEstoque = $estoque->listarEstoque($inicio_pagina, $limite_pagina);
+    return ['listagem' => $listagemEstoque, 'paginacao' => $paginacao, 'intervalo' => $intervalo];
+}
 
-$listagemEstoque = $estoque->listarEstoque($inicio_pagina, $limite_pagina);
+$listagemEstoque = listarEstoque($estoque, $pagina, $limite_pagina)['listagem'];
+$intervalo = listarEstoque($estoque, $pagina, $limite_pagina)['intervalo'];
+
 
 /*
 Retorno de dados para filtros de Tipo Item e Categoria.
  */
 $filtroTipo = $estoque->listarTipoItem();
 $filtroCategoria = $estoque->listarCategoria();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false){
+    $input = json_decode(file_get_contents('php://input'), true);
+    $action = $input['action'];
+
+    // echo json_encode($input);
+    switch ($action) {
+        case "preencher":
+            preeencher($estoque, $input);
+            break;
+        case "atualizar":
+            atualizar($estoque, $input);
+            $listagemEstoque = listarEstoque($estoque, $pagina, $limite_pagina)['listagem'];
+            // Redireciona para a mesma página após a atualização
+            break;
+        default:
+        echo json_encode([
+            "success" => false,
+            "message" => "Erro ao Realizar operação."
+        ]);
+    }
+    
+}
+
+function preeencher($estoque, $input){
+    // Verifica se 'acao' e 'id' est o setados na entrada e se 'acao'   'preencher'
+    if (isset($input['action'], $input['id']) && $input['action'] == 'preencher') {
+        $id = $input['id']; // Obtenha o id do item da entrada
+        $produto = $estoque->carregarInformacoesItem($id); // Carregue informa es do item no estoque
+
+        // Se as informações do item forem obtidas com sucesso
+        if ($produto) {
+            echo json_encode([
+                "success" => true,
+                "data" => $produto // Retorne as informações do item
+            ]);
+        }
+    }else{
+        echo json_encode([
+            "success" => false,
+            "message" => "Erro ao carregar informacoes do item."
+        ]);
+        exit;
+    }
+}
+
+
+function atualizar($estoque, $input){
+
+    // Verifica se 'acao' e 'id' est o setados na entrada e se 'acao'   'atualizar'
+    if(isset($input['id'], $input['descricao'], $input['quantidade'], $input['custo'], $input['venda'], $input['tipo'], $input['categoria']) && $input['action'] == 'atualizar'){
+        $dados = [
+            'id' => $input['id'],
+            'descricao' => $input['descricao'],
+            'quantidade' => $input['quantidade'],
+            'preco_unitario' => $input['custo'],
+            'preco_venda' => $input['venda'],
+            'tipo_id' => $input['tipo'],
+            'categoria_id' => $input['categoria']
+        ];
+
+        
+        // Chama o método para atualizar o item no estoque
+        $produto = $estoque->atualizarItem($input['id'], $dados);
+
+        if($produto){
+            echo json_encode([
+                "success" => true,
+                "message" => "Produto atualizado com sucesso!",
+                "data" => $produto
+            ]);
+        }else{
+            echo json_encode([
+                "success" => false,
+                "message" => "Erro ao atualizar o produto."
+            ]);
+        }
+    }else{
+        echo json_encode([
+            "success" => false,
+            "message" => "Dados faltando."
+        ]);
+    }
+}

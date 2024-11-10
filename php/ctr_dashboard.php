@@ -11,8 +11,8 @@ $conexao = new Conexao(); #Cria conexão com o banco para esta tela
 $query = new Query($conexao); # Passa a conexão para a classe query
 $funcao = $query->getFuncaoUsuarioId($_SESSION['user_id']);
 
-$hoje = new DateTime();
 
+$hoje = new DateTime();
 $inicioDaSemana = clone $hoje;
 $inicioDaSemana->modify('monday this week');
 $fimDaSemana = clone $hoje;

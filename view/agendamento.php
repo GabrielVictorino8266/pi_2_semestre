@@ -1,6 +1,5 @@
 <?php
-require_once '../pi_2_semestre/php/ctr_dashboard.php';
-
+require_once __DIR__ . "../../php/ctr_agendamento.php";
 ?>
 
 <!DOCTYPE html>

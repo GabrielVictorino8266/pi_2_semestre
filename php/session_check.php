@@ -10,6 +10,5 @@ session_start();
 function verificarSessao($redirecionar){
     if(!isset($_SESSION["user_id"])){
         header("location: " . $redirecionar . "/login.php");
-        exit;
     }
 }
