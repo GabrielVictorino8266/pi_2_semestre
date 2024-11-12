@@ -415,6 +415,7 @@ class Query{
 
             $conditions[] = "et.ativado = 1";
 
+
             // Concatena condições no SQL se houver alguma
             if (count($conditions) > 0) {
                 $query .= " WHERE " . implode(" AND ", $conditions);

@@ -176,8 +176,8 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
                         ?>
                     </select>
                     <div>
-                        <label for="ativado">Ativado:</label>
-                        <input type="number" id="atualizar_ativado" name="ativado" value="">
+                        <label for="atualizar_ativado">Ativado:</label>
+                        <input type="number" id="atualizar_ativado" name="atualizar_ativado" value="">
                     </div>
 
                 </div>

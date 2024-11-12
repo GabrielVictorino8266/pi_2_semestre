@@ -1,82 +1,25 @@
 # DATAMIND - PI FATEC ARARAS 2 SEMESTRE
 
+Este readme apresenta informações gerais do projeto. Se você quiser acessar uma DOCUMENTAÇÃO TÉCNICA,
+acesse a pasta docs.
+
+
 ## Estrutura de pasta do projeto
 
 ```
-└── 📁pi_2_semestre
-    └── 📁assets
-    └── 📁docs
-        └── 📁database
-            └── PI-2-SEM.brM3
-            └── PI-2-SEM.png
-        └── 📁design
-            └── 📁Screens
-                └── gabriel.victorino's team library.png
-                └── T001 - Login.jpg
-                └── T001.1 - Cadastrar.jpg
-                └── T002 - Tela Inicial-1.jpg
-                └── T002 - Tela Inicial.jpg
-            └── logo-nossa-empresa.png
-            └── logo-original.jpg
-        └── 📁diagrams
-            └── DIAG-CLA01.jpg
-            └── DIAG-SEQ02.jpg
-            └── DIAG-SEQ03.jpg
-            └── DIAG-SEQ04.jpg
-            └── DIAG-UC01.jpg
-            └── diagrama_sequencia.login1.jpg
-            └── diagrama_sequencia.login2.jpeg
-            └── diagrama_sequencia.login3.jpg
-            └── Diagrama.sequencia.estoque.jpg
-            └── driagrama_sequencia.cadastro1.png
-            └── README.md
-        └── 📁entrevistas
-            └── 01_10_2024-PERGUNTAS_PARA_CLIENTE.pdf
-        └── 1-CRONOGRAMA - cronograma.pdf
-        └── 1-CRONOGRAMA.xlsx
-        └── DOCUMENTAÇÃO_PROJETO_14-10-2024.docx
-        └── DOCUMENTAÇÃO_PROJETO_14-10-2024.pdf
-        └── guide-for-commits.md
-    └── 📁html
-        └── agendamento.html
-        └── cadastro.html
-        └── dashboard.html
-        └── estoque.html
-        └── login.html
-    └── 📁js
-        └── estoque.js
-        └── navbar.js
-        └── script.js
-    └── 📁php
-        └── 📁classes
-            └── agendamento.php
-            └── conexao.php
-            └── estoque.php
-            └── paginacao.php
-            └── query.php
-            └── usuario.php
-        └── ctr_agendamento.php
-        └── ctr_cadastro.php
-        └── ctr_dashboard.php
-        └── ctr_estoque.php
-        └── ctr_login.php
-        └── error_guide.md
-    └── 📁sql
-        └── database.sql
-    └── 📁style
-        └── agendamento.css
-        └── cadastro.css
-        └── estoque.css
-        └── login.css
-        └── style.css
-    └── .gitignore
-    └── agendamento.php
-    └── cadastro.php
-    └── dashboard.php
-    └── estoque.php
-    └── index.php
-    └── logout.php
-    └── README.md
+┣ assets/   # fotos e ícones.
+┣ docs/     # documentação técnica do projeto.
+┣ html/     # html para teste de design.
+┣ js/       # scripts de páginas da view.
+┣ php/      # controller e classes.
+   ┣classes/    
+┣ sql/      # código sql do Banco.
+┣ style/    # arquivos de estilo css.
+┣ test/     # arquivos de teste para php e inserção no banco.
+┣ view/     # arquivos frontend
+┣ .gitignore
+┣ index.php # arquivo index do projeto.
+┗ README.md
 ```
 
 Abaixo estão listadas todas as informações referente a este projeto integrador realizado na Fatec Araras referente ao 2 Semestre de 2024, contemplando as disciplinas e professores:

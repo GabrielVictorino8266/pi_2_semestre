@@ -31,7 +31,6 @@ Listagem da contagem de todo o estoque.
 function listarEstoque($estoque, $pagina, $limite_pagina){
     $filtrosDados = listarFiltros();
     $contagemEstoque = $estoque->getTotalEstoque($filtrosDados['tipo_pesquisa'], $filtrosDados['nome_pesquisa'], $filtrosDados['categoria_pesquisa']);
-    
     if($contagemEstoque['total'] ){
         $paginacao = new Paginacao($pagina, $limite_pagina, $contagemEstoque['total']);
     }else{
