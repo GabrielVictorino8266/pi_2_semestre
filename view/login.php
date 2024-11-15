@@ -1,18 +1,38 @@
+<?php
+session_start();
+
+if(isset($_SESSION["user_id"])){
+    header('location: ./dashboard.php');
+    exit;
+};
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Entre no Sistema</title>
+    <link rel="stylesheet" href="./style/login.css">
 </head>
 <body>
-    <form action="../php/ctr_login.php" method="post">
-        <label for="user_email">Email do usuário:</label>
-        <input type="email" name="user_email" id="user_email" required>
-        <label for="user_password">Senha de usuário:</label>
-        <input type="text" name="user_password" id="user_password" required>
-        <button type="submit">Entrar</button>
-        <?php if (isset($_GET['error'])): ?>
+   <div class="block">
+        <img src="" alt="img cliente">
+    </div>
+
+    <div class="login">
+        <div class="title">
+            <h2>Entrar</h2>
+        </div>
+
+        <form action="./php/ctr_login.php" method="post">
+            <label for="user_email" class="email-user">Email do usuário:</label>
+            <input type="email" name="user_email" id="user_email" class="email-input" required>
+            <label for="user_password" class="password-user">Senha de usuário:</label>
+            <input type="password" name="user_password" id="user_password" class="password-input" required>
+            <button type="submit" class="btn">Entrar</button>
+            <?php if (isset($_GET['error'])): ?>
             <div class="error">
                 <?php
                 if (($_GET['error']) == 'login'){
@@ -21,6 +41,8 @@
                 ?>
             </div>
         <?php endif; ?>
-    </form>
+        </form>
+
+    </div>
 </body>
 </html>
