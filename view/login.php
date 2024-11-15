@@ -37,6 +37,8 @@ if(isset($_SESSION["user_id"])){
                 <?php
                 if (($_GET['error']) == 'login'){
                     echo "Login Incorreto. Verifique sua senha e email";
+                }else if(($_GET['error']) == 'credenciaisnaopreenchidas'){
+                    echo "Verifique se os campos estão preenchidos.";
                 }
                 ?>
             </div>
