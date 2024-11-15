@@ -8,7 +8,6 @@ require_once __DIR__ . "../../php/ctr_dashboard.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
 </head>
 <body>
     <!-- NAV -->
