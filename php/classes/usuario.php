@@ -21,33 +21,36 @@ class Usuario{
         $this->setFuncao($funcao);
     }
 
-    //analisar implementação de consulta no banco de dados
+    //Getters
+
     public function getId(){
         return $this->id;
-    }
-    public function setId($id){
-        $this->id = $id;
     }
 
     public function getNome(){
         return $this->nome;
     }
 
-    public function setNome($nome){
-        $this->nome = $nome;
-    }
-
-
     public function getEmail(){
         return $this->email;
     }
 
-    public function setEmail($email){
-        $this->email = $email;
-    }
-
     public function getSenha(){
         return $this->senha;
+    }
+
+    //Setters
+
+    public function setId($id){
+        $this->id = $id;
+    }
+
+    public function setNome($nome){
+        $this->nome = $nome;
+    }
+
+    public function setEmail($email){
+        $this->email = $email;
     }
 
     public function setSenha($senha){
@@ -121,7 +124,6 @@ class Usuario{
             echo $e->getMessage();
             return false;
         }
-
     }
 
     public function getFuncao($funcao){
@@ -160,12 +162,5 @@ class Usuario{
             return false;
         }
 
-    }
-
-    // Método para serializar o usuário
-    public function serialize() {
-        return serialize([
-            'id' => $this->id
-        ]);
     }
 }

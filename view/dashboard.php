@@ -10,7 +10,7 @@ require_once __DIR__ . "../../php/ctr_dashboard.php";
     <title>Dashboard</title>
 </head>
 <body>
-    <!-- NAV -->
+    <!-- NAVBAR -->
     <div>
         <nav>
             <div>
