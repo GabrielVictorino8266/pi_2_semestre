@@ -7,14 +7,20 @@ Este documentto contempla toda a documentação técnica de código
 ### Sumário
 
 - [Processo Login](#1-processo-login)
+- [Processo Dashboard](#2-processo-dashboard)
 
 
 ## 1. Processo Login
 
 O processo de login envolve o frontend, controller e banco de dados para consulta das informações.
 
-Diagrama de Fluxo Geral<br>
-<img src="./assets/image.png" alt="Fluxo Geral de Login"><br><br>
+Diagrama de Fluxo Geral
+<details>
+    <summary>Visualizar diagrama.</summary>
+    <h3>Diagrama de Fluxo de Login</h3> 
+    <img src="./assets/image.png" alt="Fluxo Geral de Login"><br><br>
+
+</details>
 
 Classes utilizadas no processo:
 - Conexao
@@ -39,3 +45,7 @@ Classes utilizadas no processo:
     ```
     
 </details>
+
+## 2. Processo Dashboard
+
+O processo de dashboard.

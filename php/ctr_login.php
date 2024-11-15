@@ -30,6 +30,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             // Salva o id e o nome do usuario na sessao
             $_SESSION['user_id'] = $usuario->getId();
             $_SESSION['user_name'] = $usuario->getNome();
+            $_SESSION['user_funcao'] = $usuario->getFuncaoUsuarioId($_SESSION['user_id']);
             // Redireciona para a pagina de dashboard
             echo "ok vai redirecionar";
             header('location: ../view/dashboard.php');

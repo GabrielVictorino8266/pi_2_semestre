@@ -52,24 +52,24 @@ class Query{
     }
 
 
-    public function getFuncao($funcao){
-        /*
-        Método usado para retornar o id da função do usuário,
-        buscando pela descricao da funcao.
-        */
-        try{
-            $query = "SELECT * FROM tb_funcoes WHERE descricao = :funcao";
-            $stmt = $this->conexao->prepare($query);
+    // public function getFuncao($funcao){
+    //     /*
+    //     Método usado para retornar o id da função do usuário,
+    //     buscando pela descricao da funcao.
+    //     */
+    //     try{
+    //         $query = "SELECT * FROM tb_funcoes WHERE descricao = :funcao";
+    //         $stmt = $this->conexao->prepare($query);
     
-            $stmt->bindParam(":funcao", $funcao, PDO::PARAM_STR);
-            $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        }catch(PDOException $e){
-            echo $e->getMessage();
-            return false;
-        }
+    //         $stmt->bindParam(":funcao", $funcao, PDO::PARAM_STR);
+    //         $stmt->execute();
+    //         return $stmt->fetch(PDO::FETCH_ASSOC);
+    //     }catch(PDOException $e){
+    //         echo $e->getMessage();
+    //         return false;
+    //     }
 
-    }
+    // }
 
     public function getFuncaoUsuarioId($id){
         /*

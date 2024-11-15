@@ -128,7 +128,7 @@ class Usuario{
 
     public function getFuncao($funcao){
         /*
-        Método usado para retornartodas as informações da função do usuário,
+        Método usado para retornar todas as informações da função do usuário,
         buscando pela descricao da funcao na pagina dashboard, exibindo
         cadastrar usuario ao administrador.
         */
@@ -151,10 +151,10 @@ class Usuario{
         buscando pelo id do usuário.
         */
         try{
-            $query = "SELECT * FROM tb_usuarios INNER JOIN tb_funcoes ON tb_usuarios.funcao_id = tb_funcoes.id WHERE tb_usuarios.id = :id";
+            $query = "SELECT funcao_id, descricao FROM tb_usuarios INNER JOIN tb_funcoes ON tb_usuarios.funcao_id = tb_funcoes.id WHERE tb_usuarios.id = :id";
             $stmt = $this->conexao->prepare($query);
     
-            $stmt->bindParam(":id", $id, PDO::PARAM_STR);
+            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
