@@ -12,7 +12,6 @@ acesse a pasta docs.
 ┣ html/     # html para teste de design.
 ┣ js/       # scripts de páginas da view.
 ┣ php/      # controller e classes.
-   ┣classes/    
 ┣ sql/      # código sql do Banco.
 ┣ style/    # arquivos de estilo css.
 ┣ test/     # arquivos de teste para php e inserção no banco.

@@ -8,6 +8,9 @@ Este documentto contempla toda a documentação técnica de código
 
 - [Processo Login](#1-processo-login)
 - [Processo Dashboard](#2-processo-dashboard)
+- [Processo Estoque](#3-processo-de-estoque)
+- [Processo Agendamento](#4-processo-de-agendamento)
+- [Processo Cadastrar Usuário](#5-processo-de-cadastro-de-usuário)
 
 
 ## 1. Processo Login
@@ -18,11 +21,11 @@ Diagrama de Fluxo Geral
 <details>
     <summary>Visualizar diagrama.</summary>
     <h3>Diagrama de Fluxo de Login</h3> 
-    <img src="./assets/image.png" alt="Fluxo Geral de Login"><br><br>
+    <img src="./assets/login_fluxo_geral.png" alt="Fluxo Geral de Login"><br><br>
 
 </details>
 
-Classes utilizadas no processo:
+Classes e arquivos utilizados no processo:
 - Conexao
 - Usuario
 
@@ -48,4 +51,46 @@ Classes utilizadas no processo:
 
 ## 2. Processo Dashboard
 
-O processo de dashboard.
+O processo de dashboard envolve:
+
+- Carregamento de informação do usuário logado (ctr_login.php)
+- Classe Dashboard para filtros e dados de reotrno do banco.
+- Classe paginação para criar a paginação na tela.
+- Controller para centralizar as lógicas acima (incluindo verificação de sessão).
+
+Diagrama de Fluxo Geral
+<details>
+    <summary>Visualizar diagrama.</summary>
+    <h3>Diagrama de Fluxo de Dashboard</h3> 
+    <img src="./assets/dashboard_fluxo_geral.png" alt="Fluxo Geral de Dashboard"><br><br>
+
+</details>
+
+Classes e arquivos utilizados no processo:
+- Dashboard
+- Paginação
+- Arquivo Session_Check
+
+```
+# Classe Dashboard
+    A resposbilidade da classe se destina em:
+```
+```
+# Classe Paginação
+    A resposbilidade da classe se destina em
+```
+<details>
+    <summary>Explicação detalhada de código.</summary>
+    Explicações:
+
+    ```php
+    // Será implementado.
+    ```
+    
+</details>
+
+## 3. Processo de Estoque
+
+## 4. Processo de Agendamento
+
+## 5. Processo de Cadastro de Usuário
