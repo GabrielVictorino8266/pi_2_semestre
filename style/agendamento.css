@@ -133,8 +133,15 @@ li {
 
 .search input{
     font-size: 20px;
-    width: 30vw;
+    width: 35vw;
     border-radius: 8px;
+}
+
+.filtros-datas{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .dropdown{

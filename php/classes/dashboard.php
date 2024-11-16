@@ -27,7 +27,7 @@ class Dashboard{
                 $query .=" ORDER BY data_retirada ASC LIMIT :inicio, :limite";
                 
             $nome_cliente = "%".$nome_cliente."%";
-            // var_dump($query);
+
             $stmt = $this->conexao->prepare($query);
             $stmt->bindParam(":inicioDaSemana", $inicioDaSemana, PDO::PARAM_STR);
             $stmt->bindParam(":fimDaSemana", $fimDaSemana, PDO::PARAM_STR);
