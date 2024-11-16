@@ -88,19 +88,27 @@ require_once __DIR__ . "../../php/ctr_dashboard.php";
             <div>
                 <!-- Paginacao -->
                 <?php
-                    for($i = $intervalo['inicio']; $i <= $intervalo['fim']; $i++){
-                        if(!isset($_GET['buscar']) || !isset($_GET['status'])){
-                            if($i == $pagina){
-                                echo "<a class='active' href='?pagina={$i}'>{$i}</a> ";
-                            }else{
-                                echo "<a href='?pagina={$i}'>{$i}</a> ";
-                            }
-                        }else{
-                            if($i == $pagina){
-                                echo "<a class='active' href='?pagina={$i}&buscar={$nome_cliente}'>{$i}</a> ";
-                            }else{
-                                echo "<a href='?pagina={$i}&buscar={$nome_cliente}&status={$status_id}'>{$i}</a> ";
-                            }
+                    for ($i = $intervalo['inicio']; $i <= $intervalo['fim']; $i++) {
+                        // Inicializa a URL com o parâmetro de página
+                        $pagina_url = "?pagina={$i}";
+
+                        // Adiciona o parâmetro 'buscar' se estiver definido
+                        if (isset($_GET['buscar']) && $_GET['buscar'] != "") {
+                            $nome_cliente = htmlspecialchars($_GET['buscar'], ENT_QUOTES, 'UTF-8');
+                            $pagina_url .= "&buscar={$nome_cliente}";
+                        }
+
+                        // Adiciona o parâmetro 'status' se estiver definido
+                        if (isset($_GET['status']) && $_GET['status'] != "") {
+                            $status_id = htmlspecialchars($_GET['status'], ENT_QUOTES, 'UTF-8');
+                            $pagina_url .= "&status={$status_id}";
+                        }
+
+                        // Define o link com a classe 'active' para a página atual
+                        if ($i == $pagina) {
+                            echo "<a class='active' href='{$pagina_url}'>{$i}</a> ";
+                        } else {
+                            echo "<a href='{$pagina_url}'>{$i}</a> ";
                         }
                     }
                 ?>
