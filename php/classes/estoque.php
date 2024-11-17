@@ -61,5 +61,4 @@ class Estoque{
     public function getPesquisarEstoque($inicio, $limite, $tipo_pesquisa, $nome_pesquisa, $categoria_pesquisa){
         return $this->query->getPesquisarEstoque($inicio, $limite, $tipo_pesquisa, $nome_pesquisa, $categoria_pesquisa);
     }
-
 }

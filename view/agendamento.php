@@ -133,6 +133,16 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
                     <h3>Ficha técnica</h3>
                 </div>
                 <form action="" method="POST" class="description">
+                    <h5>Informações Cliente</h5>
+                    <input type="text" id="id_cliente" name="id_cliente" style="display: none;">
+                    <label for="nome_cliente">Cliente:</label>
+                    <p id="nome_cliente" name="nome_cliente" style="display: inline;"></p><br>
+                    <label for="email_cliente">Email:</label>
+                    <p id="email_cliente" name="email_cliente" style="display: inline;"></p><br>
+                    <label for="telefone_cliente">Telefone:</label>
+                    <p id="telefone_cliente" name="telefone_cliente" style="display: inline;"></p><br>
+                    
+                    <h5>Informações Agendamento</h5>
                     <input type="text" id="id_agendamento" name="id_agendamento" style="display: none;">
                     <label for="receita">Receita:</label>
                     <input type="text" id="receita" name="receita"><br>
@@ -160,6 +170,7 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
                     <div class="form-buttons-acao">
                             <button type="button" class="btn" onclick="atualizar()">Atualizar</button>
                             <button type="button" class="btn" onclick="excluir()">Excluir</button>
+                            <button type="button" class="btn" onclick="voltarAgendamento()">Voltar</button>
                     </div>
                 </form>
             </div>
@@ -169,5 +180,4 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
     <script src="../js/navbar.js"></script>
     <script src="../js/agendamento.js"></script>
 </body>
-
 </html>
