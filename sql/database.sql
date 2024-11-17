@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS tb_agendamentos(
     receita_id INT NOT NULL,
     cliente_id INT NOT NULL,
     status_id INT NOT NULL,
+    quantidade_receita INT NOT NULL,
     data_retirada DATETIME NOT NULL,
     observacoes TEXT,
     FOREIGN KEY (status_id) REFERENCES tb_satus(id),
