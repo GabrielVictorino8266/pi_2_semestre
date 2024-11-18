@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . './classes/conexao.php';
-require_once __DIR__ . './classes/query.php';
-require_once __DIR__ . './classes/estoque.php';
-require_once __DIR__ . './classes/paginacao.php';
-require_once __DIR__ . './session_check.php';
+require_once __DIR__ . '/classes/conexao.php';
+require_once __DIR__ . '/classes/query.php';
+require_once __DIR__ . '/classes/estoque.php';
+require_once __DIR__ . '/classes/paginacao.php';
+require_once __DIR__ . '/session_check.php';
 
 define('PROJECT_ROOT_MYPATH', '../view'); // Ajuste para o caminho da raiz do projeto, como '/' para a raiz ou '/meu_projeto/'
 verificarSessao(PROJECT_ROOT_MYPATH);
@@ -31,7 +31,6 @@ Listagem da contagem de todo o estoque.
 function listarEstoque($estoque, $pagina, $limite_pagina){
     $filtrosDados = listarFiltros();
     $contagemEstoque = $estoque->getTotalEstoque($filtrosDados['tipo_pesquisa'], $filtrosDados['nome_pesquisa'], $filtrosDados['categoria_pesquisa']);
-    
     if($contagemEstoque['total'] ){
         $paginacao = new Paginacao($pagina, $limite_pagina, $contagemEstoque['total']);
     }else{
