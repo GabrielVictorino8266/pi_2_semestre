@@ -1,4 +1,5 @@
 :root{
+    /* Main */
     --cor-fundo-main: #412416;
     --cor-fundo-segundaria: #efdabb;
     --cor-fundo-button: #727351;
@@ -6,6 +7,9 @@
 
     --font-size-main: 20px;
     --font-size-segundaria: 18px;
+
+    /* Media */
+    --font-size-media-segundaria: 18px;
 }
 
 
@@ -55,7 +59,7 @@ body{
     display: flex;
     align-items: center;
     font-size: var(--font-size-main);
-    color: #412416;
+    color: var(--cor-fundo-main);
 }
 
 form {
@@ -129,7 +133,7 @@ button:hover{
 
     .login{
         width: 90%;
-        height: 70%;
+        height: 77%;
         padding: 2%;
 
         box-sizing: border-box;
@@ -150,7 +154,7 @@ button:hover{
     }
 
     .email-user, .password-user{
-        font-size: 1.5rem;
+        font-size: var(--font-size-media-segundaria);
         margin-bottom: .5rem;
     }
 
