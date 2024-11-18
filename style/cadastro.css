@@ -1,9 +1,23 @@
+:root{
+    /* Main */
+    --cor-fundo-main: #412416;
+    --cor-fundo-segundaria: #efdabb;
+    --cor-fundo-button: #727351;
+    --cor-fundo-button-hover: #4e4c33;
+
+    --font-size-main: 20px;
+    --font-size-segundaria: 18px;
+
+    /* Media */
+    --font-size-media-segundaria: 18px;
+}
+
 body{
     margin: 0% 0% 0% 0%;
     padding: 0px 0px 0px 0px;
     border: 0px 0px 0px 0px;
     display: flex;
-    
+    background-color: var(--cor-fundo-main);
 }
 
 
@@ -16,21 +30,21 @@ body{
     border-left: none;
     height: 100vh;
     width: 30%;
-    background-color: #d9d9d9;
+    background-color: var(--cor-fundo-segundaria);
 }
 
 .block img{
     width: 70%;
     padding-top: 45%;
     padding-left: 28%;
-    border-color: aqua;
+    
 }
 
 .cadastro{
     width: 40%;
-    height: 70vh;
+    height: 80vh;
 
-    background-color: #d9d9d9;
+    background-color: var(--cor-fundo-segundaria);
 
     margin-left: 15%;
     margin-top: 6%;
@@ -44,8 +58,8 @@ body{
 .cadastro .title{
     display: flex;
     align-items: center;
-    font-size: 20px;
-    color: black;
+    font-size: var(--font-size-main);
+    color: #412416;
 }
 
 form {
@@ -59,8 +73,8 @@ form {
     align-self: flex-start;
     margin-left: 5%;
     margin-bottom: 0.5%;
-    font-size: 18px;
-    color: black;
+    font-size: var(--font-size-segundaria);
+    color: var(--cor-fundo-main);
 }
 
 .user-input, .input-email2, .input-password2, .conf-input-password2{
@@ -74,7 +88,7 @@ form {
 
     padding: 1%;
 
-    font-size: 15px;
+    font-size: var(--font-size-segundaria);
 }
 
 select{
@@ -85,18 +99,19 @@ select{
 }
 
 .btn{
-    height: 100%;
+    height: 8vh;
     width: 40%;
 
     border-radius: 10px;
     border: none;
 
-    margin-top: 5%;
+    margin-top: 3%;
     margin-left: 30%;
 
-    background-color: white;
+    background-color: var(--cor-fundo-button);
+    color: #ffff;
 
-    font-size: 20px;
+    font-size: var(--font-size-segundaria);
     cursor: pointer;
 
     align-self: baseline;
@@ -104,8 +119,7 @@ select{
 }
 
 button:hover{
-    color: white;
-    background-color: #424242;
+    background-color: var(--cor-fundo-button-hover);
 }
 
 @media (max-width:740px){
@@ -147,7 +161,7 @@ button:hover{
     }
 
     .email-user, .password-user{
-        font-size: 1.5rem;
+        font-size: var(--font-size-media-segundaria);
         margin-bottom: .5rem;
     }
 
