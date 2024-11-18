@@ -28,6 +28,7 @@ require_once __DIR__ . "../../php/ctr_dashboard.php";
                 <a href="./estoque.php">Estoque</a>
                 <a href="./agendamento.php">Agendamento</a>
                 <a href="./dashboard.php">Dashboard</a>
+                <a href="./cadastro_cliente.php">Cadastrar Cliente</a>
             </div>
         </nav>
     </div>

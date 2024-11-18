@@ -46,6 +46,9 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
                     }
                     ?>
                     </li>
+                    <li>
+                        <a href="./agendamento.php" class="box choose">CADASTRAR CLIENTE</a>
+                    </li>
                 </ul>
             </div>
         </div>

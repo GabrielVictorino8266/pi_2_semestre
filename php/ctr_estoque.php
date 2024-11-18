@@ -13,7 +13,7 @@ $query = new Query($conexao);#Chamo a query
 
 $estoque = new Estoque($query);
 
-$funcao = $query->getFuncaoUsuarioId($_SESSION['user_id']);
+$funcao = $_SESSION['user_funcao'];
 
 /*
 Configuração de pagina.
