@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/classes/conexao.php';
+require_once __DIR__ . '/conexao.php';
 
 class CadastroUsuario{
     private $conexao;
