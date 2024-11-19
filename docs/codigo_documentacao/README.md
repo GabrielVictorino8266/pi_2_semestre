@@ -110,3 +110,11 @@ O processo de cadastro de usuário envolve:
 - Verificação de sessão.
 - Classe de cadastro do usuário no banco de dados.
 - Validação de informações antes de cadastro.
+
+Diagrama de Fluxo Geral
+<details>
+    <summary>Visualizar diagrama.</summary>
+    <h3>Diagrama de Fluxo de Cadastro</h3> 
+    <img src="./assets/cadastro_usuario.png" alt="Fluxo Geral de Cadastro"><br><br>
+
+</details>

@@ -33,6 +33,9 @@ require_once __DIR__ . '../../php/ctr_cadastro.php';
                 if (($_GET['error']) == 'cadastro'){
                     echo "Verifque os campos, troque o email e tente novamente.";
                 }
+                if (($_GET['error']) == 'emailexist'){
+                    echo "Email ja cadastrado. Informe outro.";
+                }
                 ?>
             </div>
         <?php endif; ?>

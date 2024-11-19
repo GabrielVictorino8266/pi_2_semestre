@@ -27,6 +27,9 @@ class CadastroUsuario{
             return true;
 
         }catch(PDOException $e){
+            if($e->errorInfo[1] == 1062){
+                header('location: ../view/cadastro.php?error=emailexist');
+            }
             echo $e->getMessage();
             return false;
         }
