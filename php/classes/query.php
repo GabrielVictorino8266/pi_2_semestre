@@ -27,29 +27,28 @@ class Query{
     //     }
     // }
 
-    public function registarUsuario($nome, $email, $senha, $funcao_id){
-        /*  
-        Método usadao para registrar o usuario.
-        */
-        $query = "INSERT INTO tb_usuarios (nome, email, senha, funcao_id) VALUES (:nome, :email, :senha, :funcao_id)";
+    // public function registarUsuario($nome, $email, $senha, $funcao_id){
+    //     /*  
+    //     Método usadao para registrar o usuario.
+    //     */
+    //     $query = "INSERT INTO tb_usuarios (nome, email, senha, funcao_id) VALUES (:nome, :email, :senha, :funcao_id)";
 
-        try{
-            $stmt = $this->conexao->prepare($query);
+    //     try{
+    //         $stmt = $this->conexao->prepare($query);
 
-            $stmt->bindParam(":nome", $nome, PDO::PARAM_STR);
-            $stmt->bindParam(":email", $email, PDO::PARAM_STR);
-            $stmt->bindParam(":senha", $senha, PDO::PARAM_STR);
-            $stmt->bindParam(":funcao_id", $funcao_id, PDO::PARAM_INT);
+    //         $stmt->bindParam(":nome", $nome, PDO::PARAM_STR);
+    //         $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+    //         $stmt->bindParam(":senha", $senha, PDO::PARAM_STR);
+    //         $stmt->bindParam(":funcao_id", $funcao_id, PDO::PARAM_INT);
 
-            $stmt->execute();
-            return true;
+    //         $stmt->execute();
+    //         return true;
 
-        }catch(PDOException $e){
-            echo $e->getMessage();
-            return false;
-        }
-
-    }
+    //     }catch(PDOException $e){
+    //         echo $e->getMessage();
+    //         return false;
+    //     }
+    // }
 
 
     // public function getFuncao($funcao){
