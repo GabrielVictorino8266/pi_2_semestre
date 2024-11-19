@@ -115,6 +115,6 @@ Diagrama de Fluxo Geral
 <details>
     <summary>Visualizar diagrama.</summary>
     <h3>Diagrama de Fluxo de Cadastro</h3> 
-    <img src="./assets/cadastro_usuario.png" alt="Fluxo Geral de Cadastro"><br><br>
+    <img src="./assets/cadastro_usuario_fluxo.jpg" alt="Fluxo Geral de Cadastro"><br><br>
 
 </details>
