@@ -3,6 +3,11 @@ require_once __DIR__ . '/conexao.php';
 
 class Agendamento{
     private $conexao;
+    // private $data_agendamento;
+    // private $receita_id;
+    // private $cliente_id;
+    // private $data_retirada;
+    // private $status_id;
 
     public function __construct(){
         $conexao = new Conexao();
@@ -116,17 +121,74 @@ class Agendamento{
             return false;
         }
     }
+    public function getTodosProdutosFinais(){
+        /*
+        Lista receitas para campos de receitas.
+        */
+        $query = "SELECT estoque.id, estoque.descricao FROM tb_estoque AS estoque
+        INNER JOIN tb_tipoitem AS tipo_item ON estoque.tipo_id = tipo_item.id
+        WHERE tipo_item.tipo = 'Produto Final'
+        ORDER BY estoque.descricao ASC;"; 
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            return false;
+        }
+    }
 
     public function carregarInformacoesItem($id){
-        $query = "SELECT ag.id as id_agendamento, DATE(ag.data_agendamento) as data_agendamento, ag.receita_id, ag.cliente_id, ag.status_id, ag.observacoes, DATE(ag.data_retirada) as data_retirada, ag.quantidade_receita, rec.id as id_receita, rec.quantidade_necessaria, rec.ingrediente_id, est.id as estoque_id, est.descricao as estoque_descricao, est.preco_venda, sta.id as id_status, sta.descricao as status_descricao, sta.status_activated, cli.id as id_cliente, cli.nome as nome_cliente, cli.email as email_cliente, cli.telefone as telefone_cliente
-        FROM tb_agendamentos as ag inner join tb_receitas as rec on ag.receita_id = rec.id inner join tb_estoque as est on rec.produto_final_id = est.id inner join tb_status as sta on ag.status_id = sta.id 
+        // $query = "SELECT ag.id as id_agendamento, DATE(ag.data_agendamento) as data_agendamento, ag.receita_id, ag.cliente_id, ag.status_id, ag.observacoes, DATE(ag.data_retirada) as data_retirada, ag.quantidade_receita, rec.id as id_receita, rec.produto_final_id, rec.quantidade_necessaria, rec.ingrediente_id, est.id as estoque_id, est.descricao as estoque_descricao, est.preco_venda, sta.id as id_status, sta.descricao as status_descricao, sta.status_activated, cli.id as id_cliente, cli.nome as nome_cliente, cli.email as email_cliente, cli.telefone as telefone_cliente
+        // FROM tb_agendamentos as ag inner join tb_receitas as rec on ag.receita_id = rec.id inner join tb_estoque as est on rec.produto_final_id = est.id inner join tb_status as sta on ag.status_id = sta.id 
+        // inner join tb_clientes as cli on ag.cliente_id = cli.id
+        // WHERE ag.id = :id_item";
+        $query = "SELECT ag.id as id_agendamento, ag.data_agendamento, ag.receita_id, ag.cliente_id, ag.status_id, ag.observacoes, ag.data_retirada as data_retirada, ag.quantidade_receita, cli.id as id_cliente, cli.nome as nome_cliente, cli.email as email_cliente, cli.telefone as telefone_cliente, sta.id as id_status, sta.descricao as status_descricao, sta.status_activated, est.id as estoque_id, est.descricao as estoque_descricao, est.preco_venda from tb_agendamentos as ag
+        inner join tb_estoque as est on ag.receita_id = est.id
         inner join tb_clientes as cli on ag.cliente_id = cli.id
-        WHERE ag.id = :id_item";
+        inner join tb_status as sta on ag.status_id = sta.id
+        where ag.id = :id_item";
         $stmt = $this->conexao->prepare($query);
         $stmt->bindParam(":id_item", $id, PDO::PARAM_INT);
         $stmt->execute();
         if($stmt->rowCount() > 0){
             return $stmt->fetch(PDO::FETCH_ASSOC);
+        }else{
+            return false;
+        }
+    }
+
+    public function cadastrarAgendamento($dados){
+        $query = "INSERT INTO tb_agendamentos (data_agendamento, receita_id, cliente_id, status_id, observacoes, data_retirada, quantidade_receita) VALUES (:data_agendamento, :receita_id, :cliente_id, :status_id, :observacoes, :data_retirada, :quantidade_receita)";
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindParam(":data_agendamento", $dados['data_agendamento'], PDO::PARAM_STR);
+        $stmt->bindParam(":receita_id", $dados['receita_id'], PDO::PARAM_INT);
+        $stmt->bindParam(":cliente_id", $dados['cliente_id'], PDO::PARAM_INT);
+        $stmt->bindParam(":status_id", $dados['status'], PDO::PARAM_INT);
+        $stmt->bindParam(":observacoes", $dados['observacoes'], PDO::PARAM_STR);
+        $stmt->bindParam(":data_retirada", $dados['data_retirada'], PDO::PARAM_STR);
+        $stmt->bindParam(":quantidade_receita", $dados['quantidade_receita'], PDO::PARAM_INT);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function atualizarAgendamento($dados){
+        $query = "UPDATE tb_agendamentos SET data_agendamento = :data_agendamento, receita_id = :produto_final_id,status_id = :status_id, observacoes = :observacoes, data_retirada = :data_retirada, quantidade_receita = :quantidade_receita WHERE id = :id_agendamento";
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindParam(":data_agendamento", $dados['data_agendamento'], PDO::PARAM_STR);
+        $stmt->bindParam(":produto_final_id", $dados['produto_final_id'], PDO::PARAM_INT);
+        $stmt->bindParam(":status_id", $dados['status_id'], PDO::PARAM_INT);
+        $stmt->bindParam(":observacoes", $dados['observacoes'], PDO::PARAM_STR);
+        $stmt->bindParam(":data_retirada", $dados['data_retirada'], PDO::PARAM_STR);
+        $stmt->bindParam(":quantidade_receita", $dados['quantidade_receita'], PDO::PARAM_INT);
+        $stmt->bindParam(":id_agendamento", $dados['id_agendamento'], PDO::PARAM_INT);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            return true;
         }else{
             return false;
         }
