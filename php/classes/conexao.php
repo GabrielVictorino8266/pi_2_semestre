@@ -1,10 +1,15 @@
 <?php
 
 class Conexao{
-    private $host = "localhost";
-    private $dbname = "rotisdb";
-    private $user = "root";
-    private $password = "";
+    private $host = "127.0.0.1";
+    // private $host = "127.0.0.1::3306";
+    // private $host = "localhost";
+    private $dbname = "u579326255_g2";
+    // private $dbname = "rotisdb";
+    private $user = "u579326255_g2";
+    // private $user = "root";
+    private $password = "*G8z@tt|pGy";
+    // private $password = "";
     private $conexao;
 
     public function __construct(){
