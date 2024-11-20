@@ -24,12 +24,12 @@ DROP TABLE IF EXISTS `tb_agendamentos`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tb_agendamentos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `data_agendamento` datetime NOT NULL,
+  `data_agendamento` date NOT NULL,
   `receita_id` int(11) NOT NULL,
   `cliente_id` int(11) NOT NULL,
   `status_id` int(11) NOT NULL,
   `observacoes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `data_retirada` datetime DEFAULT NULL,
+  `data_retirada` date DEFAULT NULL,
   `quantidade_receita` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `status_id` (`status_id`),
@@ -45,7 +45,7 @@ CREATE TABLE `tb_agendamentos` (
 
 LOCK TABLES `tb_agendamentos` WRITE;
 /*!40000 ALTER TABLE `tb_agendamentos` DISABLE KEYS */;
-INSERT INTO `tb_agendamentos` VALUES (1,'2024-10-26 10:00:00',1,1,1,NULL,'2024-10-27 21:32:00',0),(2,'2024-10-20 15:30:00',2,2,2,NULL,'2024-10-23 21:32:05',0),(6,'2024-10-21 18:21:05',1,1,2,NULL,'2024-10-30 21:32:08',0),(7,'2024-10-28 18:24:47',2,1,1,NULL,'2024-10-31 21:32:11',0),(8,'2024-10-30 00:25:30',2,1,2,'Retirada a combinar.\r\nIrá pagar...','2024-10-29 20:25:30',0),(9,'2024-10-16 20:25:30',3,2,2,'pago por pix antecipado','2024-11-01 20:25:30',0),(10,'2024-10-29 20:31:11',3,1,2,'DSADASDAS','2024-11-12 20:31:11',0),(11,'2024-10-29 20:31:11',1,1,2,'teste1','2024-11-16 20:31:11',0),(12,'2024-10-29 20:31:11',2,2,3,'teste2','2024-11-13 20:31:11',0),(13,'2024-10-29 20:31:11',3,2,1,'fsdafds','2024-11-14 20:31:11',0),(14,'2024-10-30 20:31:11',1,1,2,'fsdafdsfs','2024-10-30 20:31:11',0),(15,'2024-10-29 20:31:11',3,1,2,'obs4','2024-10-30 20:31:11',0),(16,'2024-10-29 20:31:11',2,2,2,'ob5','2024-10-30 20:31:11',0),(17,'2024-10-31 20:31:11',3,2,2,'DSADASDAS','2024-10-30 20:31:11',0),(18,'2024-10-31 20:31:11',3,2,2,'obs6','2024-10-30 20:31:11',0),(19,'2024-10-31 20:31:11',1,2,2,'DSADASDAS','2024-10-30 20:31:11',0),(20,'2024-10-31 20:31:11',3,1,2,'oobs7','2024-10-30 20:31:11',0),(21,'2024-11-01 20:31:11',3,1,2,'DSADASDAS','2024-10-30 20:31:11',0),(22,'2024-11-02 20:31:11',1,2,2,'obs8','2024-10-30 20:31:11',0),(23,'2024-11-02 20:31:11',3,2,2,'DSADASDAS','2024-10-30 20:31:11',0),(24,'2024-11-02 20:31:11',2,2,2,'obs9','2024-10-30 20:31:11',0),(25,'2024-11-02 20:31:11',2,2,2,'DSADASDAS','2024-10-30 20:31:11',0),(26,'2024-11-02 20:31:11',2,1,2,'DSADASDAS','2024-10-30 20:31:11',0),(27,'2024-11-02 20:31:11',2,1,2,'obs10','2024-10-30 20:31:11',0),(28,'2024-11-02 20:31:11',2,2,2,'DSADASDAS','2024-10-30 20:31:11',0),(29,'2024-10-29 10:30:00',1,1,1,'Observação 1','2024-10-29 12:00:00',0),(30,'2024-10-29 10:30:00',2,2,2,'Observação 2','2024-10-29 13:00:00',0),(31,'2024-10-29 10:30:00',1,1,3,'Observação 3','2024-10-30 11:00:00',0),(32,'2024-10-29 10:30:00',2,1,1,'Observação 4','2024-10-30 14:00:00',1),(33,'2024-10-29 10:30:00',1,2,2,'Observação 5','2024-10-31 10:30:00',0),(34,'2024-10-29 10:30:00',2,1,3,'Observação 6','2024-10-31 13:15:00',0),(35,'2024-10-29 10:30:00',1,1,1,'Observação 7','2024-10-31 15:30:00',0),(36,'2024-10-29 10:30:00',2,2,2,'Observação 8','2024-11-01 09:45:00',0),(37,'2024-10-29 10:30:00',1,2,3,'Observação 9','2024-11-01 12:00:00',0),(38,'2024-10-29 10:30:00',2,1,1,'Observação 10','2024-11-01 16:45:00',0),(39,'2024-10-29 10:30:00',1,2,2,'Observação 11','2024-11-02 11:00:00',0),(40,'2024-10-29 10:30:00',2,1,3,'Observação 12','2024-11-02 13:00:00',0),(41,'2024-10-29 10:30:00',1,2,1,'Observação 13','2024-11-03 09:30:00',0),(42,'2024-10-29 10:30:00',2,1,2,'Observação 14','2024-11-03 14:00:00',0),(43,'2024-10-29 10:30:00',1,1,3,'Observação 15','2024-11-03 16:30:00',0);
+INSERT INTO `tb_agendamentos` VALUES (41,'2024-11-22',10,2,2,'Retirar dia 15/12FDFSDF','2024-11-21',3),(42,'2024-10-29',2,1,2,'Observação 14','2024-11-21',4),(43,'2024-10-29',2,1,2,'Observação 15','2024-11-23',1);
 /*!40000 ALTER TABLE `tb_agendamentos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,7 +161,7 @@ CREATE TABLE `tb_estoque` (
 
 LOCK TABLES `tb_estoque` WRITE;
 /*!40000 ALTER TABLE `tb_estoque` DISABLE KEYS */;
-INSERT INTO `tb_estoque` VALUES (1,'atualizar126',30,150.00,150.01,3,1,0),(2,'BOLO COBERTURA EXTRA DOCE CHOCOLATE CARAMELO',3,5.20,52.00,2,2,0),(3,'TORTA SALGADA',2,5.90,0.02,2,4,1),(4,'COCO RALADO',5,5.60,10.04,1,1,1),(5,'Farinha de Trigo',100,2.50,NULL,1,1,1),(6,'Leite Condensado',80,4.00,NULL,1,3,1),(7,'Queijo Mussarela',50,10.00,NULL,1,5,1),(8,'Bolo de Chocolate',20,5.00,25.00,2,2,1),(9,'Torta de Frango',15,8.00,40.00,2,4,1),(10,'Pão de Queijo',60,1.50,3.00,2,6,1),(11,'Recheio de Doce de Leite',40,3.50,NULL,1,3,1),(12,'Massa de Pizza',30,2.00,8.00,3,1,1),(13,'Pão Francês',100,0.80,1.60,2,6,1),(14,'Brigadeiro Gourmet',25,1.20,5.00,2,3,1),(15,'Margarina',70,3.00,NULL,1,7,1),(16,'Frango Desfiado',50,7.00,NULL,1,4,1),(17,'Quiche de Espinafre',15,6.00,25.00,2,4,1),(18,'Pão de Calabresa',30,1.20,2.40,2,5,1),(19,'Molho de Tomate',40,2.50,NULL,1,7,1),(21,'dsa',3,45.00,45.50,2,4,1),(22,'dasdasda',2,45.45,45.50,1,3,2);
+INSERT INTO `tb_estoque` VALUES (1,'atualizar126',30,150.00,150.01,3,1,0),(2,'BOLO COBERTURA EXTRA DOCE CHOCOLATE CARAMELO',3,5.20,52.00,2,2,0),(3,'TORTA SALGADA',2,5.90,25.99,2,4,1),(4,'COCO RALADO',5,5.60,10.04,1,1,1),(5,'Farinha de Trigo',100,2.50,NULL,1,1,1),(6,'Leite Condensado',80,4.00,NULL,1,3,1),(7,'Queijo Mussarela',50,10.00,NULL,1,5,1),(8,'Bolo de Chocolate',20,5.00,25.00,2,2,1),(9,'Torta de Frango',15,8.00,40.00,2,4,1),(10,'Pão de Queijo',60,1.50,3.00,2,6,1),(11,'Recheio de Doce de Leite',40,3.50,NULL,1,3,1),(12,'Massa de Pizza',30,2.00,8.00,3,1,1),(13,'Pão Francês',100,0.80,1.60,2,6,1),(14,'Brigadeiro Gourmet',25,1.20,5.00,2,3,1),(15,'Margarina',70,3.00,NULL,1,7,1),(16,'Frango Desfiado',50,7.00,NULL,1,4,1),(17,'Quiche de Espinafre',15,6.00,25.00,2,4,1),(18,'Pão de Calabresa',30,1.20,2.40,2,5,1),(19,'Molho de Tomate',40,2.50,NULL,1,7,1),(21,'dsa',3,45.00,45.50,2,4,1),(22,'dasdasda',2,45.45,45.50,1,3,2);
 /*!40000 ALTER TABLE `tb_estoque` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,7 +312,7 @@ CREATE TABLE `tb_usuarios` (
   UNIQUE KEY `uc_email` (`email`),
   KEY `funcao_id` (`funcao_id`),
   CONSTRAINT `tb_usuarios_ibfk_1` FOREIGN KEY (`funcao_id`) REFERENCES `tb_funcoes` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -334,4 +334,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-19  1:01:12
+-- Dump completed on 2024-11-20 16:59:34

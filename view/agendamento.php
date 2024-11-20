@@ -53,7 +53,6 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
             </div>
         </div>
 
-
         <div class="card">
                 <form action="" method="GET">
                 <div class="search-dropdown">
@@ -148,11 +147,19 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
                     <h5>Informações Agendamento</h5>
                     <input type="text" id="id_agendamento" name="id_agendamento" style="display: none;">
                     <label for="receita">Receita:</label>
-                    <input type="text" id="receita" name="receita"><br>
+                    <select name="receita" id="receita">
+                        <?php
+                                if($todosProdutosFinais){
+                                    foreach($todosProdutosFinais as $produtofinal){
+                                        echo "<option value=".$produtofinal['id'] .">". $produtofinal['descricao']."</option>";
+                                    }
+                                }
+                            ?>
+                        </select><br>
                     <label for="quantidade">Quantidade:</label>
-                    <input type="number" id="quantidade" name="quantidade"><br>
+                    <input type="number" id="quantidade" name="quantidade" min="0"><br>
                     <label for="preco-venda">Preço Venda:</label>
-                    <input type="text" id="preco-venda" name="preco-venda"><br>
+                    <input type="text" id="preco-venda" name="preco-venda" readonly><br>
                     <label for="status">Status:</label>
                     <select name="status" id="status">
                        <?php
