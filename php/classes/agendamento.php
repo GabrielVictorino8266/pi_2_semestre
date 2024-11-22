@@ -139,10 +139,6 @@ class Agendamento{
     }
 
     public function carregarInformacoesItem($id){
-        // $query = "SELECT ag.id as id_agendamento, DATE(ag.data_agendamento) as data_agendamento, ag.receita_id, ag.cliente_id, ag.status_id, ag.observacoes, DATE(ag.data_retirada) as data_retirada, ag.quantidade_receita, rec.id as id_receita, rec.produto_final_id, rec.quantidade_necessaria, rec.ingrediente_id, est.id as estoque_id, est.descricao as estoque_descricao, est.preco_venda, sta.id as id_status, sta.descricao as status_descricao, sta.status_activated, cli.id as id_cliente, cli.nome as nome_cliente, cli.email as email_cliente, cli.telefone as telefone_cliente
-        // FROM tb_agendamentos as ag inner join tb_receitas as rec on ag.receita_id = rec.id inner join tb_estoque as est on rec.produto_final_id = est.id inner join tb_status as sta on ag.status_id = sta.id 
-        // inner join tb_clientes as cli on ag.cliente_id = cli.id
-        // WHERE ag.id = :id_item";
         $query = "SELECT ag.id as id_agendamento, ag.data_agendamento, ag.receita_id, ag.cliente_id, ag.status_id, ag.observacoes, ag.data_retirada as data_retirada, ag.quantidade_receita, cli.id as id_cliente, cli.nome as nome_cliente, cli.email as email_cliente, cli.telefone as telefone_cliente, sta.id as id_status, sta.descricao as status_descricao, sta.status_activated, est.id as estoque_id, est.descricao as estoque_descricao, est.preco_venda from tb_agendamentos as ag
         inner join tb_estoque as est on ag.receita_id = est.id
         inner join tb_clientes as cli on ag.cliente_id = cli.id
