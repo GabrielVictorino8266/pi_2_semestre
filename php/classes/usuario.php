@@ -161,7 +161,6 @@ class Usuario{
             echo $e->getMessage();
             return false;
         }
-
     }
 
 
