@@ -57,3 +57,15 @@
     Preparação de perguntas para nova entrevista com cliente (marcado para o dia 15/10/2024)
     Realizado tabela comparativa entre método atual e antigo do cliente para organizar seu negócio.
     Refatoração de algumas telas para possível apresentação e discussão de melhorias no dia 15/10/2024
+
+
+### 01/11/2024 - 16/11/2024
+
+    Alinhamento geral com o time, solicitação de alteração de projeto.
+    Entrevista com cliente
+    Criação de Paleta de Cores junto com Gustavo
+    Distruição de tarefa de Código entre Gustavo e João Vitor
+    Alinhamento e organização de documentação com Rafael.
+
+
+### 17/11/2024 - 30/11/2024

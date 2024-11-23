@@ -118,3 +118,19 @@ Diagrama de Fluxo Geral
     <img src="./assets/cadastro_usuario_fluxo.jpg" alt="Fluxo Geral de Cadastro"><br><br>
 
 </details>
+
+## Cadastro de Clientes
+
+O processo de cadastro de cliente envolve:
+- Verificao de sessão
+- Classe de cadastro do usuário no banco de dados.
+- Validação de informações antes de cadastro.
+
+Diagrama de Fluxo Geral
+
+<details>
+    <summary>Visualizar diagrama.</summary>
+    <h3>Diagrama de Fluxo de Cadastro de Clientes</h3> 
+    <img src="./assets/cadastro_clientes_fluxo.jpg" alt="Fluxo Geral de Cadastro de Cliente"><br><br>
+
+</details>
