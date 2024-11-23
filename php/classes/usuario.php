@@ -163,4 +163,19 @@ class Usuario{
         }
 
     }
+
+
+    public function SP_Registra_Acesso(){
+        /*
+            Chama a procedure para registrar o acesso do usuario.
+        */
+        try{
+            $stmt = $this->conexao->prepare("CALL SP_Registra_Acesso(:email)");
+            $stmt->bindParam(":email", $this->email);
+            $stmt->execute();
+        }catch(PDOException $e){
+            echo $e->getMessage();
+            return false;
+        }
+    }
 }
