@@ -11,7 +11,7 @@ require_once __DIR__ . "/../php/ctr_cadastro_clientes.php";
 <body>
     <h2>Cadastro de Clientes</h2>
     
-    <form action="../php/ctr_cadastrocliente.php" method="POST">
+    <form action="../php/ctr_cadastro_clientes.php" method="POST">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required><br><br>
         
