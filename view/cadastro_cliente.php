@@ -42,7 +42,7 @@ require_once __DIR__ . "/../php/ctr_cadastro_clientes.php";
                     <?php
                     foreach ($listagem_clientes as $cliente){
                         echo "<tr>";
-                        echo "<th scope='row' id='idcliente'>".$cliente['id']."</th>";
+                        echo "<th scope='row' id='idcliente'>".$cliente['id_cliente']."</th>";
                         echo "<td>".$cliente['nome']."</td>";
                         echo "<td>".$cliente['email']."</td>";
                         echo "<td>".$cliente['telefone']."</td>";
@@ -53,7 +53,7 @@ require_once __DIR__ . "/../php/ctr_cadastro_clientes.php";
                         echo "<td>".$cliente['estado']."</td>";
                         echo "<td>".$cliente['cep']."</td>";
                         echo "<td>";
-                        echo "<button class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#formModalAtualizar' onclick='mostrarFormAtualizar({$cliente['id']})'>Atualizar</button>";
+                        echo "<button class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#formModalAtualizar' onclick='mostrarFormAtualizar({$cliente['id_cliente']})'>Atualizar</button>";
                         echo "</td>";
                         echo "</tr>";
                     }
