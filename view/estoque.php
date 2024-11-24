@@ -239,21 +239,13 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
                     // Verifica se é a página atual para definir a classe 'active'
                     if ($i == $pagina) {
                         echo "<li class='page-item'><a class='page-link' href='{$url_params}'>{$i}</a></li>";
-                        // echo "<a class='active' href='{$url_params}'>{$i}</a> ";
                     } else {
                         echo "<li class='page-item'><a class='page-link' href='{$url_params}'>{$i}</a></li>";
-                        // echo "<a href='{$url_params}'>{$i}</a> ";
                     }
                 }
             ?>
             </ul>
         </nav>
-
-    <!-- <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"><a class="page-link" href="#">Next</a></li> -->
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
