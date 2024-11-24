@@ -185,23 +185,23 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
             </form>
         </div>
 
-        <div>
-            <table>
+        <div class="table-responsive">
+            <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Produto</th>
-                        <th>Quantidade</th>
-                        <th>Custo Unitário</th>
-                        <th>Preço de Venda</th>
-                        <th>Ações</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Produto</th>
+                        <th scope="col">Quantidade</th>
+                        <th scope="col">Custo Unitário</th>
+                        <th scope="col">Preço de Venda</th>
+                        <th scope="col">Ações</th>
                     </tr>
                 </thead>
                     <?php
                     if($listagemEstoque){
                         foreach($listagemEstoque as $item){
                             echo "<tr>";
-                                echo "<td>{$item['id']}</td>";
+                                echo "<th scope='row'>{$item['id']}</th>";
                                 echo "<td>{$item['descricao']}</td>";
                                 echo "<td>{$item['quantidade']}</td>";
                                 echo "<td>{$item['preco_unitario']}</td>";
@@ -220,6 +220,8 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
         </div>
         <!-- Paginacao -->
         <div>
+        <nav aria-label="Paginacao">
+            <ul class="pagination justify-content-center">
             <?php
                 for($i = $intervalo['inicio']; $i <= $intervalo['fim']; $i++){
                     // Inicializa os parâmetros de URL vazios e os adiciona se existirem
@@ -236,12 +238,22 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
 
                     // Verifica se é a página atual para definir a classe 'active'
                     if ($i == $pagina) {
-                        echo "<a class='active' href='{$url_params}'>{$i}</a> ";
+                        echo "<li class='page-item'><a class='page-link' href='{$url_params}'>{$i}</a></li>";
+                        // echo "<a class='active' href='{$url_params}'>{$i}</a> ";
                     } else {
-                        echo "<a href='{$url_params}'>{$i}</a> ";
+                        echo "<li class='page-item'><a class='page-link' href='{$url_params}'>{$i}</a></li>";
+                        // echo "<a href='{$url_params}'>{$i}</a> ";
                     }
                 }
             ?>
+            </ul>
+        </nav>
+
+    <!-- <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li> -->
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
