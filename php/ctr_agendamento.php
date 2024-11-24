@@ -183,6 +183,7 @@ function atualizar($agendamentos, $input){
     }else{
         echo json_encode([
             "success" => false,
-            "message" => "Erro ao atualizar o agendamento. Parametros incorretos."        ]);
+            "message" => "Erro ao atualizar o agendamento. Parametros incorretos."        
+        ]);
     }
 }
