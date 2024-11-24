@@ -13,7 +13,8 @@ class CadastroClientes {
 
     public function adicionarCliente($nome, $email, $telefone) {
         // Definindo a query de inserção
-        $query = "INSERT INTO tb_clientes (nome, email, telefone) VALUES (:nome, :email, :telefone)";
+        $query = "INSERT INTO tb_clientes (nome, email, telefone) VALUES (:nome, :email, :telefone);";
+        $query .= " INSERT INTO tb_endereco (cep, rua, numero, cidade, estado, bairro) VALUES (:cep, :rua, :numero, :cidade, :estado, :bairro);";
         
         // Preparando a consulta
         $stmt = $this->conexao->prepare($query);
@@ -27,35 +28,22 @@ class CadastroClientes {
         $stmt->execute();
     }
 
-    public function listarClientes() {
-        // Consulta para listar todos os clientes
-        $query = "SELECT * FROM tb_clientes
-        INNER JOIN tb_endereco ON tb_clientes.id = tb_endereco.cliente_id";
-        // Preparando e executando a consulta
-        $stmt = $this->conexao->prepare($query);
-        $stmt->execute();
-        
-        // Retorna todos os clientes
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
 
-    public function buscarClientePorNome($nome) {
-        // Consulta para buscar clientes por nome
-        $query = "SELECT * FROM tb_clientes
-        INNER JOIN tb_endereco ON tb_clientes.id = tb_endereco.cliente_id
-        WHERE nome = :nome";
-        
-        // Preparando a consulta
+    public function pesquisarClientes($nome) {
+        // Consulta para listar todos os clientes
+        $query = "SELECT tb_clientes.id as id_cliente, tb_clientes.nome, tb_clientes.telefone, tb_clientes.email, tb_endereco.* FROM tb_clientes
+        INNER JOIN tb_endereco ON tb_clientes.id = tb_endereco.cliente_id 
+        WHERE nome LIKE :nome";
+
+        $nome = "%".$nome."%";
+
+        // Preparando e executando a consulta
         $stmt = $this->conexao->prepare($query);
         $stmt->bindParam(":nome", $nome, PDO::PARAM_STR);
         $stmt->execute();
         
-        // Verificando se algum cliente foi encontrado
-        if($stmt->rowCount() > 0) {
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } else {
-            return false;
-        }
+        // Retorna todos os clientes
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function buscarClientePorId($id) {

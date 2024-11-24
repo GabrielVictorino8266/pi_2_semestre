@@ -9,7 +9,16 @@ verificarSessao(PROJECT_ROOT_MYPATH);
 
 
 $cadastro = new CadastroClientes();
-$listagem_clientes = $cadastro->listarClientes();
+
+if(isset($_GET['nome'])){
+    $nome = $_GET['nome'];
+    $listagem_clientes = $cadastro->pesquisarClientes($nome);
+    // echo json_encode($listagem_clientes);
+}else{
+    $nome = "";
+    $listagem_clientes = $cadastro->pesquisarClientes($nome);
+    // var_dump($listagem_clientes);
+}
 
 // $_SERVER['REQUEST_METHOD'] = 'POST';
 // $input = json_decode('{

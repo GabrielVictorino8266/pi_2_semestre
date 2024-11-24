@@ -42,7 +42,7 @@ function atualizar() {
 
 function mostrarFormAtualizar(id) {
     /*
-    Função que mostra o formulário de atualização com os dados do produto respectivo.
+    Função que mostra o formulário de atualização com os dados do cliente respectivo.
     */
    const formAtualizar = document.getElementById('formModalAtualizar');
    formAtualizar.style.display = 'block';
@@ -84,5 +84,40 @@ function mostrarFormAtualizar(id) {
 }
 
 function cadastrar(){
-console.log('ola');
+    const dados_cadastro = {
+        action: "cadastrar",
+        nome : document.getElementById('atualizar_nome').value,
+        email : document.getElementById('atualizar_email').value,
+        telefone : document.getElementById('atualizar_telefone').value,
+        rua : document.getElementById('atualizar_rua').value,
+        numero : document.getElementById('atualizar_numero').value,
+        bairro : document.getElementById('atualizar_bairro').value,
+        cidade : document.getElementById('atualizar_cidade').value,
+        estado : document.getElementById('atualizar_estado').value,
+        cep : document.getElementById('atualizar_cep').value
+    };
+    
+    console.log(dados_cadastro);
+    // Fazendo a requisição com fetch
+    fetch('../php/ctr_cadastro_clientes.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados_cadastro)
+    })
+    .then(response => response.json())
+    .then(dados_retorno => {
+        console.log(dados_retorno);
+
+        if (dados_retorno.success) {
+            alert("Cadastro com sucesso.");
+            location.reload();
+        } else {
+            alert("Cadastro sem sucesso.");
+        }
+    })
+    .catch(() => {
+        alert('Erro na requisição. Tente novamente. Frontend no Cadastro.');
+    });
 }
