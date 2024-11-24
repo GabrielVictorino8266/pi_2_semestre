@@ -32,11 +32,11 @@ require_once __DIR__ . "/../php/ctr_cadastro_clientes.php";
                     <th scope="col">Email</th>
                     <th scope="col">Telefone</th>
                     <th scope="col">Rua</th>
-                    <th scope="col">Numero</th>
+                    <th scope="col">Número</th>
                     <th scope="col">Bairro</th>
                     <th scope="col">Cidade</th>
                     <th scope="col">Estado</th>
-                    <th scope="col">Cep</th>
+                    <th scope="col">CEP</th>
                 </thead>
                 <tbody>
                     <?php
