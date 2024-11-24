@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/classes/conexao.php';
-require_once __DIR__ . '/classes/query.php';
+// require_once __DIR__ . '/classes/conexao.php';
+// require_once __DIR__ . '/classes/query.php';
 require_once __DIR__ . '/classes/estoque.php';
 require_once __DIR__ . '/classes/paginacao.php';
 require_once __DIR__ . '/session_check.php';
@@ -8,10 +8,7 @@ require_once __DIR__ . '/session_check.php';
 define('PROJECT_ROOT_MYPATH', '../view'); // Ajuste para o caminho da raiz do projeto, como '/' para a raiz ou '/meu_projeto/'
 verificarSessao(PROJECT_ROOT_MYPATH);
 
-$conexao= new Conexao();#Chamo a conexao
-$query = new Query($conexao);#Chamo a query
-
-$estoque = new Estoque($query);
+$estoque = new Estoque();
 
 $funcao = $_SESSION['user_funcao'];
 
@@ -52,6 +49,21 @@ Retorno de dados para filtros de Tipo Item e Categoria.
  */
 $filtroTipo = $estoque->listarTipoItem();
 $filtroCategoria = $estoque->listarCategoria();
+
+
+// $_SERVER['REQUEST_METHOD'] = 'POST';
+// $input = json_decode('{
+//     "id": 4,
+//     "action": "atualizar",
+//     "descricao":"descricao",
+//     "quantidade": 3,
+//     "custo":5.99,
+//     "venda":20.99,
+//     "tipo": 2,
+//     "categoria": 2,
+//     "ativado": 1
+//     }', true);
+// $_SERVER['CONTENT_TYPE'] = 'application/json';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false){
     $input = json_decode(file_get_contents('php://input'), true);
@@ -116,7 +128,6 @@ function atualizar($estoque, $input){
             'categoria_id' => $input['categoria'],
             'ativado'=> $input['ativado']
         ];
-
         
         // Chama o método para atualizar o item no estoque
         $produto = $estoque->atualizarItem($input['id'], $dados);

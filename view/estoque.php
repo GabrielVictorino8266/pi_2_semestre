@@ -37,33 +37,33 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
     </div>
     
 
-        <div>
-            <form action="" method="GET" id="form_filtro">
-                <input type="text" name="buscar" id="buscar" placeholder="Digite um nome de produto...">
-                <button type="submit">Pesquisar</button>
-                <button type="button" onclick="mostrarFormCadastro()">Cadastrar</button>
-                <select name="tipo" id="tipo">
-                    <option value="">Escolha um tipo</option>
-                    <?php
-                    if($filtroTipo){
-                        foreach($filtroTipo as $tipo_produto){
-                            echo "<option value=".$tipo_produto['id'] .">". $tipo_produto['tipo']."</option>";
-                        }
+    <div>
+        <form action="" method="GET" id="form_filtro">
+            <input type="text" name="buscar" id="buscar" placeholder="Digite um nome de produto...">
+            <button type="submit">Pesquisar</button>
+            <button type="button" onclick="mostrarFormCadastro()">Cadastrar</button>
+            <select name="tipo" id="tipo">
+                <option value="">Escolha um tipo</option>
+                <?php
+                if($filtroTipo){
+                    foreach($filtroTipo as $tipo_produto){
+                        echo "<option value=".$tipo_produto['id'] .">". $tipo_produto['tipo']."</option>";
                     }
-                    ?>
-                </select>
-                <select name="categoria" id="categoria">
-                    <option value="">Escolha uma categoria</option>
-                    <?php
-                    if($filtroCategoria){
-                        foreach($filtroCategoria as $categoria){
-                            echo "<option value=".$categoria['id'] .">". $categoria['descricao']."</option>";
-                        }
+                }
+                ?>
+            </select>
+            <select name="categoria" id="categoria">
+                <option value="">Escolha uma categoria</option>
+                <?php
+                if($filtroCategoria){
+                    foreach($filtroCategoria as $categoria){
+                        echo "<option value=".$categoria['id'] .">". $categoria['descricao']."</option>";
                     }
-                    ?>
-                </select>
-            </form>
-        </div>
+                }
+                ?>
+            </select>
+        </form>
+    </div>
 
         <div>
             <!-- Formulário de cadastro -->
@@ -114,7 +114,7 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
                 </div>
                 <div>
                     <label for="cadastro_ativado">Ativado:</label>
-                    <input type="number" id="cadastro_ativado" name="cadastro_ativado" value="">
+                    <input type="number" id="cadastro_ativado" name="cadastro_ativado" value="" min="0" max="1">
                 </div>
                 <div>
                     <button type="button" onclick="cadastrar()">Cadastrar</button>
@@ -172,7 +172,7 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
                     </select>
                     <div>
                         <label for="atualizar_ativado">Ativado:</label>
-                        <input type="number" id="atualizar_ativado" name="atualizar_ativado" value="">
+                        <input type="number" id="atualizar_ativado" name="atualizar_ativado" value="" min="0" max="1">
                     </div>
 
                 </div>

@@ -38,6 +38,8 @@ function atualizar() {
         ativado: document.getElementById('atualizar_ativado').value,
     };
 
+    console.log(dados_atualizar);
+
     // Fazendo a requisição com fetch
     fetch('../php/ctr_estoque.php', {
         method: 'POST',
@@ -86,7 +88,7 @@ function mostrarFormAtualizar(id) {
     })
     .then(response => response.json())
     .then(dados_retorno => {
-        console.log(dados_retorno);
+        // console.log(dados_retorno);
         if (dados_retorno.success) {
             document.getElementById('atualizar_nome_produto').value = dados_retorno.data.descricao;
             document.getElementById('atualizar_custo_unitario').value = dados_retorno.data.preco_unitario;
@@ -137,39 +139,6 @@ Isso afeterá todas as queries de consulta.
 //             alert('Erro na requisição. Tente novamente.');
 //         }
 
-//     })
-// }
-
-
-// LÓGICA DE CADASTRO
-// function cadastrar(){
-//     const dados = {
-//         action: 'cadastrar',
-//         descricao: document.getElementById('cadastro_nome_produto').value,
-//         quantidade: document.getElementById('cadastro_quantidade').value,
-//         custo: document.getElementById('cadastro_custo_unitario').value,
-//         venda: document.getElementById('cadastro_preco_venda').value,
-//         tipo: document.getElementById('cadastro_tipo').value,
-//         categoria: document.getElementById('cadastro_categoria').value,
-//     }
-//     console.log(dados);
-//     $.ajax({
-//         url: '../pi_2_semestre/php/ctr_estoque.php',
-//         type: 'POST',
-//         data: dados,
-//         success: function (response) {
-//             console.log(response);
-//             const dados_retorno = JSON.parse(response);
-//             if(dados_retorno.success){
-//                 alert(dados_retorno.message);
-//                 voltarFormularioCadastro();
-//             }else{
-//                 alert(dados_retorno.message);
-//             }
-//         },
-//         error: function () {
-//             alert('Erro na requisição. Tente novamente.');
-//         }
 //     })
 // }
 
