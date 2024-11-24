@@ -28,9 +28,8 @@ BEGIN
     VALUES (id_estoque, preco_antigo, NOW());
 END $$
 DELIMITER ;
-```
 
-```sql
+
 -- Procedure para registrar preco de venda ao atualizar de estoque.
 delimiter $$
 CREATE PROCEDURE SP_Registra_Preco_Venda(IN id_estoque INT, IN preco_venda DECIMAL(10,2))
@@ -39,11 +38,9 @@ BEGIN
     VALUES (id_estoque, preco_venda, NOW());
 END $$
 DELIMITER ;
-```
 
-### Triggers
+--### Triggers
 
-```sql
 -- Chama procedure para inserir preco na tb_precos_compra
 DELIMITER $$
 CREATE TRIGGER TRG_Registra_Preco_Unitario BEFORE UPDATE 
@@ -55,9 +52,7 @@ BEGIN
     END IF;
 END $$
 DELIMITER ;
-```
 
-```sql
 -- Chama procedure para inserir preco na tb_precos_compra
 DELIMITER $$
 CREATE trigger TRG_Registra_Preco_Venda BEFORE UPDATE
