@@ -10,20 +10,20 @@ require_once __DIR__ . "/../php/ctr_cadastro_clientes.php";
         
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-        
     </head>
     <body>
         <div class="container mt-5">
+            <a class="link-opacity-75" href="./dashboard.php">Voltar</a>
             <h3 class="text-center">Cadastro de Clientes</h3>
             <form action="" method="GET">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Nome do cliente" aria-label="Nome do cliente" aria-describedby="basic-addon2" name="nome" id="nome">
+                    <input type="text" class="form-control" placeholder="Nome do cliente" aria-label="Nome do cliente" aria-describedby="basic-addon2" name="buscar_nome" id="buscar_nome">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="submit">Pesquisar</button>
                     </div>
                 </div>
             </form>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formModal">Cadastrar</button>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formModal">Criar Cadastro</button>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
@@ -119,7 +119,7 @@ require_once __DIR__ . "/../php/ctr_cadastro_clientes.php";
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary" onclick="cadastrar()">Enviar</button>
+                    <button type="submit" class="btn btn-primary" onclick="cadastrar()">Cadastrar</button>
                 </div>
             </div>
         </div>

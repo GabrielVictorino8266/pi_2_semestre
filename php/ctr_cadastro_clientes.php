@@ -10,8 +10,8 @@ verificarSessao(PROJECT_ROOT_MYPATH);
 
 $cadastro = new CadastroClientes();
 
-if(isset($_GET['nome'])){
-    $nome = $_GET['nome'];
+if(isset($_GET['buscar_nome'])){
+    $nome = $_GET['buscar_nome'];
     $listagem_clientes = $cadastro->pesquisarClientes($nome);
     // echo json_encode($listagem_clientes);
 }else{
@@ -22,18 +22,17 @@ if(isset($_GET['nome'])){
 
 // $_SERVER['REQUEST_METHOD'] = 'POST';
 // $input = json_decode('{
-//     "id_cliente": "1",
-//     "action": "atualizar",
-//     "nome": "Teste",
-//     "email": "r8xXa@example.com",
-//     "telefone": "123456789",
-//     "rua": "Rua Teste",
-//     "numero": "123",
-//     "bairro": "Bairro Teste",
-//     "cidade": "Cidade Teste",
-//     "estado": "Estado Teste",
-//     "cep": "12345678"
-// }', true);
+//     "action": "cadastrar",
+//     "nome": "gabriel",
+//     "email": "email@email",
+//     "telefone": "456789",
+//     "rua": "rua teste",
+//     "numero": "numeor teste",
+//     "bairro": "bairro teste",
+//     "cidade": "cidade tete",
+//     "estado": "estado teste",
+//         "cep": "cep teste"
+//     }', true);
 // $_SERVER['CONTENT_TYPE'] = 'application/json';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false){
@@ -52,9 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && strpos($_SERVER['CONTENT_TYPE'], 'ap
         case "atualizar":
             atualizar($cadastro, $input);
             break;
-        // case "cadastrar":
-        //     cadastrar($agendamentos, $input);
-        //     break;
+        case "cadastrar":
+            cadastrar($cadastro, $input);
+            break;
         default:
         echo json_encode([
             "success" => false,
@@ -108,6 +107,34 @@ function atualizar($cadastro, $input){
         echo json_encode([
             "success" => false,
             "message" => "Erro ao atualizar informações do cliente. Chegou no controller."
+        ]);
+        exit;
+    }
+}
+function cadastrar($cadastro, $input){
+    if(isset($input['nome'], $input['email'], $input['telefone'], $input['rua'], $input['numero'], $input['bairro'], $input['cidade'], $input['estado'], $input['cep']) && $input['action'] == 'cadastrar'){
+        $dados = [
+            'nome' => $input['nome'],
+            'email' => $input['email'],
+            'telefone' => $input['telefone'],
+            'rua' => $input['rua'],
+            'numero' => $input['numero'],
+            'bairro' => $input['bairro'],
+            'cidade' => $input['cidade'],
+            'estado' => $input['estado'],
+            'cep' => $input['cep']
+        ];
+        $clienteCadastrado = $cadastro->adicionarCliente($dados);
+        if($clienteCadastrado){
+            echo json_encode([
+                "success" => true,
+                "message" => "Cliente Cadastrado com suscesso."
+            ]);
+        }
+    }else{
+        echo json_encode([
+            "success" => false,
+            "message" => "Erro ao cadastrar informações do cliente. Chegou no controller."
         ]);
         exit;
     }

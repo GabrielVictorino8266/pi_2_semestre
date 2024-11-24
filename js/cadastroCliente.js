@@ -86,17 +86,17 @@ function mostrarFormAtualizar(id) {
 function cadastrar(){
     const dados_cadastro = {
         action: "cadastrar",
-        nome : document.getElementById('atualizar_nome').value,
-        email : document.getElementById('atualizar_email').value,
-        telefone : document.getElementById('atualizar_telefone').value,
-        rua : document.getElementById('atualizar_rua').value,
-        numero : document.getElementById('atualizar_numero').value,
-        bairro : document.getElementById('atualizar_bairro').value,
-        cidade : document.getElementById('atualizar_cidade').value,
-        estado : document.getElementById('atualizar_estado').value,
-        cep : document.getElementById('atualizar_cep').value
+        nome : document.getElementById('nome').value,
+        email : document.getElementById('email').value,
+        telefone : document.getElementById('telefone').value,
+        rua : document.getElementById('rua').value,
+        numero : document.getElementById('numero').value,
+        bairro : document.getElementById('bairro').value,
+        cidade : document.getElementById('cidade').value,
+        estado : document.getElementById('estado').value,
+        cep : document.getElementById('cep').value
     };
-    
+    // 
     console.log(dados_cadastro);
     // Fazendo a requisição com fetch
     fetch('../php/ctr_cadastro_clientes.php', {

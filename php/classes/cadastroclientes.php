@@ -11,21 +11,43 @@ class CadastroClientes {
         $this->conexao = $conexao->getConexao(); 
     }
 
-    public function adicionarCliente($nome, $email, $telefone) {
+    public function adicionarCliente($dados) {
+
+    try{
         // Definindo a query de inserção
+        $this->conexao->beginTransaction();
+
         $query = "INSERT INTO tb_clientes (nome, email, telefone) VALUES (:nome, :email, :telefone);";
-        $query .= " INSERT INTO tb_endereco (cep, rua, numero, cidade, estado, bairro) VALUES (:cep, :rua, :numero, :cidade, :estado, :bairro);";
-        
-        // Preparando a consulta
         $stmt = $this->conexao->prepare($query);
+        $stmt->bindParam(":nome", $dados['nome'], PDO::PARAM_STR);
+        $stmt->bindParam(":email", $dados['email'], PDO::PARAM_STR);
+        $stmt->bindParam(":telefone", $dados['telefone'], PDO::PARAM_STR);
+        $stmt->execute();
         
+        
+        $cliente_id = $this->conexao->lastInsertId();
+        $queryEndereco = "INSERT INTO tb_endereco (cep, rua, numero, cidade, estado, bairro, cliente_id) VALUES (:cep, :rua, :numero, :cidade, :estado, :bairro, :cliente_id);";
+        $stmt = $this->conexao->prepare($queryEndereco);
+                
         // Associando os parâmetros
-        $stmt->bindParam(":nome", $nome, PDO::PARAM_STR);
-        $stmt->bindParam(":email", $email, PDO::PARAM_STR);
-        $stmt->bindParam(":telefone", $telefone, PDO::PARAM_STR);
+        $stmt->bindParam(":cep", $dados['cep'], PDO::PARAM_STR);
+        $stmt->bindParam(":rua", $dados['rua'], PDO::PARAM_STR);
+        $stmt->bindParam(":numero", $dados['numero'], PDO::PARAM_STR);
+        $stmt->bindParam(":cidade", $dados['cidade'], PDO::PARAM_STR);
+        $stmt->bindParam(":estado", $dados['estado'], PDO::PARAM_STR);
+        $stmt->bindParam(":bairro", $dados['bairro'], PDO::PARAM_STR);
+        $stmt->bindParam(":cliente_id", $cliente_id, PDO::PARAM_INT);
         
         // Executando a consulta
-        $stmt->execute();
+        if($stmt->execute()){
+            $this->conexao->commit();
+            return true;
+        }
+    }catch (Exception $e) {
+            // Em caso de erro, reverte a transação
+            $this->conexao->rollBack();
+            throw new Exception("Erro ao cadastrar cliente e endereço: " . $e->getMessage());
+        }
     }
 
 
