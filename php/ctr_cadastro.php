@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/classes/conexao.php';
-require_once __DIR__ . '/classes/query.php';
+// require_once __DIR__ . '/classes/query.php';
 require_once __DIR__ . '/classes/CadastroUsuario.php';
 require_once __DIR__ . '/session_check.php';
 

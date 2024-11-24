@@ -5,7 +5,7 @@ O Banco de dados utilizado no sistema deste projeto é  10.4.24-MariaDB, uma esp
 ### Nomenclatura
 A nomenclatura para tabelas buscou seguir a ideia de tb_nome, visando padronizar e facilitar uso do banco de dados.
 
-### Procedures
+### Procedures, Triggers e Transactions
 Dentre as procedures criadas, temos:
 
 ```sql
@@ -64,4 +64,46 @@ BEGIN
     END IF;
 END $$
 DELIMITER ;
+```
+
+```php
+--### Transactions
+    public function adicionarCliente($dados) {
+
+    try{
+        // Definindo a query de inserção
+        $this->conexao->beginTransaction();
+
+        $query = "INSERT INTO tb_clientes (nome, email, telefone) VALUES (:nome, :email, :telefone);";
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindParam(":nome", $dados['nome'], PDO::PARAM_STR);
+        $stmt->bindParam(":email", $dados['email'], PDO::PARAM_STR);
+        $stmt->bindParam(":telefone", $dados['telefone'], PDO::PARAM_STR);
+        $stmt->execute();
+        
+        
+        $cliente_id = $this->conexao->lastInsertId();
+        $queryEndereco = "INSERT INTO tb_endereco (cep, rua, numero, cidade, estado, bairro, cliente_id) VALUES (:cep, :rua, :numero, :cidade, :estado, :bairro, :cliente_id);";
+        $stmt = $this->conexao->prepare($queryEndereco);
+                
+        // Associando os parâmetros
+        $stmt->bindParam(":cep", $dados['cep'], PDO::PARAM_STR);
+        $stmt->bindParam(":rua", $dados['rua'], PDO::PARAM_STR);
+        $stmt->bindParam(":numero", $dados['numero'], PDO::PARAM_STR);
+        $stmt->bindParam(":cidade", $dados['cidade'], PDO::PARAM_STR);
+        $stmt->bindParam(":estado", $dados['estado'], PDO::PARAM_STR);
+        $stmt->bindParam(":bairro", $dados['bairro'], PDO::PARAM_STR);
+        $stmt->bindParam(":cliente_id", $cliente_id, PDO::PARAM_INT);
+        
+        // Executando a consulta
+        if($stmt->execute()){
+            $this->conexao->commit();
+            return true;
+        }
+    }catch (Exception $e) {
+            // Em caso de erro, reverte a transação
+            $this->conexao->rollBack();
+            throw new Exception("Erro ao cadastrar cliente e endereço: " . $e->getMessage());
+        }
+    }
 ```
