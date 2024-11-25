@@ -238,7 +238,7 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
 
                     // Verifica se é a página atual para definir a classe 'active'
                     if ($i == $pagina) {
-                        echo "<li class='page-item'><a class='page-link' href='{$url_params}'>{$i}</a></li>";
+                        echo "<li class='page-item'><a class='page-link active' href='{$url_params}'>{$i}</a></li>";
                     } else {
                         echo "<li class='page-item'><a class='page-link' href='{$url_params}'>{$i}</a></li>";
                     }
