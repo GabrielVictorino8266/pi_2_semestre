@@ -10,6 +10,8 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>agendamento</title>
     <link rel="stylesheet" href="../style/agendamento.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body>
@@ -54,30 +56,32 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
         </div>
 
         <div class="card">
-                <form action="" method="GET">
-                <div class="search-dropdown">
-                    <div class="search">
-                        <input type="text" name="buscar" id="buscar" placeholder="Digite um nome de cliente">
-                        <button type="submit">Pesquisar</button>
-                        <button type="button" onclick="cadastrarAgendamento()">Cadastrar</button>
+                <form action="" method="GET" class="container mt-3">
+                <div class="row g-3 align-items-end search-dropdown">
+                    <div class="col-md-7 search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="buscar" id="buscar" placeholder="Digite um nome de cliente">
+                            <button class="btn btn-primary" type="submit">Pesquisar</button>
+                            <button class="btn btn-secondary" type="button" onclick="cadastrarAgendamento()">Cadastrar</button>
+                        </div>
                     </div>
-                </div>
-                <div class="filtros-datas">
-                    <div class="filtro">
-                        <label for="data_retirada_inicial">Data Retirada</label>
-                        <input type="date" name="data_retirada_inicial" id="data_retirada_inicial">
+                    <div class="col-md-4 filtro">
+                        <div class="form-group">
+                            <label for="data_retirada_inicial" class="input-group-text">Data Retirada</label>
+                            <input type="date" class="form-control" name="data_retirada_inicial" id="data_retirada_inicial">
+                        </div>
                     </div>
                 </div>
             </form>
             
-            <div class="dados-tabela">
-                <table>
+            <div class="table-responsive dados-tabela">
+                <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>Data Retirada</th>
-                            <th>Cliente</th>
-                            <th>Status</th>
-                            <th>Visualizar</th>
+                            <th scope="col">Data Retirada</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Visualizar</th>
                         </tr>
                     </thead>
                     <?php
@@ -90,7 +94,7 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
                                     echo "<td>{$agendamento['nome']}</td>";
                                     echo "<td>{$agendamento['descricao']}</td>";
                                     echo "<td>
-                                            <button type='button' onclick='visualizar({$agendamento['id_agendamento']})'>Visualizar</button>
+                                            <button type='button' class='btn btn-primary' onclick='visualizar({$agendamento['id_agendamento']})'>Visualizar</button>
                                         </td>";
                                 echo "</tr>";
                             }
@@ -101,33 +105,37 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
                 </table>
                 <div>
                 <!-- Paginacao -->
-                <?php
-                    for ($i = $intervalo['inicio']; $i <= $intervalo['fim']; $i++) {
-                        $pagina_url = "?pagina={$i}";
-                        
-                        // Inclua o parâmetro "buscar" se estiver definido
-                        if (isset($_GET['buscar']) && $_GET['buscar'] != "") {
-                            $nome_cliente = htmlspecialchars($_GET['buscar'], ENT_QUOTES, 'UTF-8');
-                            $pagina_url .= "&buscar={$nome_cliente}";
-                        }
-                        
-                        // Inclua o parâmetro "data_retirada" se estiver definido
-                        if (isset($_GET['data_retirada']) && $_GET['data_retirada'] != "") {
-                            $data_retirada = htmlspecialchars($_GET['data_retirada'], ENT_QUOTES, 'UTF-8');
-                            $pagina_url .= "&data_retirada={$data_retirada}";
-                        }
-                        
-                        // Adicione a classe 'active' para a página atual
-                        if ($i == $pagina) {
-                            echo "<a class='active' href='{$pagina_url}'>{$i}</a> ";
-                        } else {
-                            echo "<a href='{$pagina_url}'>{$i}</a> ";
-                        }
-                    }
-                ?>
-            </div>
+                <nav aria-label="Paginacao">
+                    <ul class="pagination justify-content-center">
+                        <?php
+                            for ($i = $intervalo['inicio']; $i <= $intervalo['fim']; $i++) {
+                                $pagina_url = "?pagina={$i}";
+                                
+                                // Inclua o parâmetro "buscar" se estiver definido
+                                if (isset($_GET['buscar']) && $_GET['buscar'] != "") {
+                                    $nome_cliente = htmlspecialchars($_GET['buscar'], ENT_QUOTES, 'UTF-8');
+                                    $pagina_url .= "&buscar={$nome_cliente}";
+                                }
+                                
+                                // Inclua o parâmetro "data_retirada" se estiver definido
+                                if (isset($_GET['data_retirada']) && $_GET['data_retirada'] != "") {
+                                    $data_retirada = htmlspecialchars($_GET['data_retirada'], ENT_QUOTES, 'UTF-8');
+                                    $pagina_url .= "&data_retirada={$data_retirada}";
+                                }
+                                
+                                // Adicione a classe 'active' para a página atual
+                                if ($i == $pagina) {
+                                    echo "<li class='page-item'><a class='page-link active' href='{$pagina_url}'>{$i}</a> </li>";
+                                } else {
+                                    echo "<li class='page-item'><a class='page-link' href='{$pagina_url}'>{$i}</a></li>";
+                                }
+                            }
+                        ?>
+                    </ul>
+                </nav>
             </div>
         </div>
+    </div>
 
         <div class="card2">
             <div class="content">
@@ -189,5 +197,6 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
 
     <script src="../js/navbar.js"></script>
     <script src="../js/agendamento.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
