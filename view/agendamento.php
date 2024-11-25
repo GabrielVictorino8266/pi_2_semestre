@@ -210,13 +210,12 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
                     <h5 class="modal-title" id="formModalCadastrarLabel">Cadastrar Agendamento</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                    <!-- <div class="card2">
-                        <div class="content"> -->
                 <div class="modal-body">
                     <form action="" method="POST" class="description">
                     <div class="mb-3">
                         <h5>Informações Cliente</h5>
                         <input class="form-control" type="text" id="id_cliente" name="id_cliente" style="display: none;">
+                        <input class="form-control" type="text" id="nome_cliente" name="nome_cliente" style="display: none;">
                         <label class="form-label" for="nome_cliente">Cliente:</label>
                         <p id="nome_cliente" name="nome_cliente" style="display: inline;"></p>
                         <label class="form-label" for="email_cliente">Email:</label>

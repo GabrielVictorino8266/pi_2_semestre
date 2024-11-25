@@ -39,37 +39,51 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
     </div>
     
 
-    <div>
-        <form action="" method="GET" id="form_filtro">
-            <input type="text" name="buscar" id="buscar" placeholder="Digite um nome de produto...">
-            <button type="submit">Pesquisar</button>
-            <button type="button" onclick="mostrarFormCadastro()">Cadastrar</button>
-            <select name="tipo" id="tipo">
-                <option value="">Escolha um tipo</option>
-                <?php
-                if($filtroTipo){
-                    foreach($filtroTipo as $tipo_produto){
-                        echo "<option value=".$tipo_produto['id'] .">". $tipo_produto['tipo']."</option>";
-                    }
-                }
-                ?>
-            </select>
-            <select name="categoria" id="categoria">
-                <option value="">Escolha uma categoria</option>
-                <?php
-                if($filtroCategoria){
-                    foreach($filtroCategoria as $categoria){
-                        echo "<option value=".$categoria['id'] .">". $categoria['descricao']."</option>";
-                    }
-                }
-                ?>
-            </select>
-        </form>
-    </div>
+    <div class="container mt-5">
+        <form action="" method="GET" id="form_filtro" class="container mt-3">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-7">
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="buscar" id="buscar" placeholder="Digite um nome de produto...">
+                        <button class="btn btn-primary" type="submit">Pesquisar</button>
+                        <button class="btn btn-secondary" data-bs-toggle='modal' data-bs-target='#formModalCadastrar' type="button">Cadastrar</button>
+                    </div>
+                </div>
+                    <div class="col-md-5">
+                        <div class="d-flex align-items-center">
+                            <div class="me-3">
+                                <label for="tipo" class="form-label">Tipo</label>
+                                <select class="form-control" name="tipo" id="tipo">
+                                    <option value="">Escolha um tipo</option>
+                                    <?php
+                                    if($filtroTipo){
+                                        foreach($filtroTipo as $tipo_produto){
+                                            echo "<option value=".$tipo_produto['id'] .">". $tipo_produto['tipo']."</option>";
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="me-3">
+                                <label for="categoria" class="form-label">Categoria</label>
+                                <select class="form-control" name="categoria" id="categoria">
+                                    <option value="">Escolha uma categoria</option>
+                                    <?php
+                                    if($filtroCategoria){
+                                        foreach($filtroCategoria as $categoria){
+                                            echo "<option value=".$categoria['id'] .">". $categoria['descricao']."</option>";
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>   
+                        </div>
+                    </div>
+                </div>
+            </form>
+        
 
-        <div>
-            <!-- Formulário de cadastro -->
-
+        <!-- <div>
             <form action="" method="POST" id="form_cadastro" style="display: none;">
             <h3>Cadastrar Novo Produto</h3>
                 <div>
@@ -123,11 +137,11 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
                     <button type="button" onclick="voltarFormularioCadastro()">Voltar</button>
                 </div>
             </form>
-        </div>
+        </div> -->
 
-        <div>
-            <!-- Formulário de atualização -->
-            <form action="" method="POST" id="form_atualizar" style="display: none;">
+        <!-- <div>
+            Formulário de atualização
+             <form action="" method="POST" id="form_atualizar" style="display: none;">
                 <input type="hidden" id="produto_id" value="">
                 
                 <h3>Atualizar Produto</h3>
@@ -183,7 +197,7 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
                     <button type="button" onclick="voltarFormularioAtualizar()">Voltar</button>
                 </div>
             </form>
-        </div>
+        </div> -->
 
         <div class="table-responsive">
             <table class="table table-striped">
@@ -207,8 +221,8 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
                                 echo "<td>{$item['preco_unitario']}</td>";
                                 echo "<td>{$item['preco_venda']}</td>";
                                 echo "<td>
-                                    <button type='button' onclick='mostrarFormAtualizar({$item['id']})'>Atualizar</button>
-                                    <button type='button' onclick='deletar({$item['id']})'>Deletar</button>
+                                    <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#formModalAtualizar' onclick='mostrarFormAtualizar({$item['id']})'>Atualizar</button>
+                                    <button type='button' class='btn btn-secondary' onclick='deletar({$item['id']})'>Deletar</button>
                                 </td>";
                             echo "</tr>";
                         }
@@ -218,7 +232,6 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
                     ?>
             </table>
         </div>
-        <!-- Paginacao -->
         <div>
         <nav aria-label="Paginacao">
             <ul class="pagination justify-content-center">
@@ -247,6 +260,142 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
             </ul>
         </nav>
         </div>
+    </div>
+
+    <div class="modal fade" id="formModalAtualizar" tabindex="-1" aria-labelledby="formModalAtualizarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formModalAtualizarLabel">Atualizar Estoque</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST" id="form_atualizar" style="display: none;">
+                        <input class="form-control" type="hidden" id="produto_id" value="">
+                        <div>
+                            <label class="form-label" for="atualizar_nome_produto">Nome:</label>
+                            <input class="form-control" type="text" name="atualizar_nome_produto" id="atualizar_nome_produto">
+                        </div>
+                        <div>
+                            <div>
+                                <label class="form-label" for="atualizar_custo_unitario">Custo Unitário:</label>
+                                <input class="form-control" type="text" name="atualizar_custo_unitario" id="atualizar_custo_unitario">
+                            </div>
+                            <div>
+                                <label class="form-label" for="atualizar_preco_venda">Preço de Venda:</label>
+                                <input class="form-control" type="text" name="atualizar_preco_venda" id="atualizar_preco_venda">
+                            </div>
+                            <div>
+                                <label class="form-label" for="atualizar_quantidade">Quantidade:</label>
+                                <input class="form-control" type="number" name="atualizar_quantidade" id="atualizar_quantidade">
+                            </div>
+                        </div>            
+                        <div>
+                            <label class="form-label" for="atualizar_tipo">Tipo</label>
+                            <select class="form-control" name="atualizar_tipo" id="atualizar_tipo">
+                                <option value="">Escolha um tipo</option>
+                                <?php
+                                if($filtroTipo){
+                                    foreach($filtroTipo as $tipo_produto){
+                                        echo "<option value=".$tipo_produto['id'] .">". $tipo_produto['tipo']."</option>";
+                                    }
+                                }
+                                ?>
+                            </select>
+                            <label class="form-label" for="atualizar_categoria">Categoria</label>
+                            <select class="form-control" name="atualizar_categoria" id="atualizar_categoria">
+                                <option value="">Escolha uma categoria:</option>
+                                <?php
+                                if($filtroCategoria){
+                                    foreach($filtroCategoria as $categoria){
+                                        echo "<option value=".$categoria['id'] .">". $categoria['descricao']."</option>";
+                                    }
+                                }
+                                ?>
+                            </select>
+                            <div>
+                                <label class="form-label" for="atualizar_ativado">Ativado:</label>
+                                <input  class="form-control" type="number" id="atualizar_ativado" name="atualizar_ativado" value="" min="0" max="1">
+                            </div>
+
+                        </div>
+                        <div>
+                           
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  class='btn btn-primary' onclick="atualizar()">Atualizar</button>
+                    <!-- <button type="button"  class='btn btn-secondary' onclick="voltarFormularioAtualizar()">Voltar</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="formModalCadastrar" tabindex="-1" aria-labelledby="formModalCadastrarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formModalCadastrarLabel">Cadastrar Estoque</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST" id="form_cadastro">
+                        <div>
+                            <label class="form-label" for="cadastro_nome_produto">Nome:</label>
+                            <input class="form-control" type="text" name="cadastro_nome_produto" id="cadastro_nome_produto">
+                        </div>
+                        <div>
+                            <div>
+                                <label class="form-label" for="cadastro_custo_unitario">Custo Unitário:</label>
+                                <input class="form-control" type="text" name="cadastro_custo_unitario" id="cadastro_custo_unitario">
+                            </div>
+                            <div>
+                                <label class="form-label" for="cadastro_preco_venda">Preço de Venda:</label>
+                                <input class="form-control" type="text" name="cadastro_preco_venda" id="cadastro_preco_venda">
+                            </div>
+                            <div>
+                                <label for="cadastro_quantidade">Quantidade:</label>
+                                <input class="form-control" type="number" name="cadastro_quantidade" id="cadastro_quantidade">
+                            </div>
+                        </div>            
+                        <div>
+                            <label class="form-label" for="cadastro_tipo">Tipo</label>
+                            <select class="form-control" name="cadastro_tipo" id="cadastro_tipo">
+                                <option value="">Escolha um tipo</option>
+                                <?php
+                                if($filtroTipo){
+                                    foreach($filtroTipo as $tipo_produto){
+                                        echo "<option value=".$tipo_produto['id'] .">". $tipo_produto['tipo']."</option>";
+                                    }
+                                }
+                                ?>
+                            </select>
+                            <label class="form-label" for="cadastro_categoria">Categoria</label>
+                            <select class="form-control" name="cadastro_categoria" id="cadastro_categoria">
+                                <option value="">Escolha uma categoria:</option>
+                                <?php
+                                if($filtroCategoria){
+                                    foreach($filtroCategoria as $categoria){
+                                        echo "<option value=".$categoria['id'] .">". $categoria['descricao']."</option>";
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label" for="cadastro_ativado">Ativado:</label>
+                            <input class="form-control" type="number" id="cadastro_ativado" name="cadastro_ativado" value="" min="0" max="1">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="cadastrar()">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
