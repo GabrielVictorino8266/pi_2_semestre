@@ -187,3 +187,15 @@ function atualizar($agendamentos, $input){
         ]);
     }
 }
+
+//Pesquisa dinamica de cadastro
+
+if(isset($_GET['termo'])){
+    $termo = $_GET['termo']; // Obtenha o termo de pesquisa
+    $clientes_pesquisados = $agendamentos->consultaClientes($termo); // Chame o método para buscar clientes com o termo de pesquisa
+    if(is_array($clientes_pesquisados) && !empty($clientes_pesquisados)){
+        echo json_encode($clientes_pesquisados);
+    }else{
+        echo json_encode([]);
+    }
+}

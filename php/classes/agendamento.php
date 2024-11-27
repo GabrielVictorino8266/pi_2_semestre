@@ -189,4 +189,23 @@ class Agendamento{
             return false;
         }
     }
+
+    public function consultaClientes($termo){
+        /*
+            Retorna uma lista de clientes para cadastro de agendamento,
+            referente a cliente.
+        */
+        $query = "SELECT id, nome as nome_cliente FROM tb_clientes WHERE nome LIKE :termo LIMIT 10";
+        $stmt = $this->conexao->prepare($query);
+        if($termo){
+            $termo = "%".$termo."%";
+        }
+        $stmt->bindParam(":termo", $termo, PDO::PARAM_STR);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            return false;
+        }
+    }
 }

@@ -87,13 +87,106 @@ function atualizar(){
 
 
 function cadastrarAgendamento(){
+    const dados_atualizar = {
+        action: "cadastrar",
+        descricao: document.getElementById('cadastro_nome_produto').value,
+        quantidade: document.getElementById('cadastro_quantidade').value,
+        custo: document.getElementById('cadastro_custo_unitario').value,
+        venda: document.getElementById('cadastro_preco_venda').value,
+        tipo: document.getElementById('cadastro_tipo').value,
+        categoria: document.getElementById('cadastro_categoria').value,
+        ativado: document.getElementById('cadastro_ativado').value,
+    };
 
+    // Fazendo a requisição com fetch
+    fetch('../php/ctr_estoque.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados_atualizar)
+    })
+    .then(response => response.json())
+    .then(dados_retorno => {
+        console.log(dados_retorno);
+
+        if (dados_retorno.success) {
+            alert("Cadastro com sucesso.");
+            voltarFormularioAtualizar(); // Função para fechar o formulário de Cadastro
+            location.reload();
+        } else {
+            alert("Cadastro sem sucesso.");
+        }
+    })
+    .catch(() => {
+        alert('Erro na requisição. Tente novamente. Frontend no cadastrar.');
+       });
 }
 
 function excluir(){
 
 }
 
-function voltarAgendamento(){
 
+
+function buscar(termo) {
+    if (termo) {
+        // Faz uma requisição para o controller
+        fetch(`../php/ctr_agendamento.php?termo=${encodeURIComponent(termo)}`)
+            .then(response => response.json())
+            .then(data => {
+                caixaSugestao.innerHTML = '';
+                if (Array.isArray(data) && data.length > 0) {
+                    caixaSugestao.style.display = 'block'; // Exibe a caixa
+
+                    data.forEach(cliente => {
+                        const sugestao = document.createElement('div');
+                        sugestao.className = 'list-group-item list-group-item-action p-2'; // Adiciona espaçamento
+                        sugestao.textContent = cliente.nome_cliente;
+                        sugestao.addEventListener('click', function () {
+                            inputCliente.value = cliente.nome_cliente;
+                            caixaSugestao.style.display = 'none'; // Oculta sugestões ao clicar
+                        });
+                        caixaSugestao.appendChild(sugestao);
+                    });
+                } else {
+                    caixaSugestao.style.display = 'block';
+                    caixaSugestao.innerHTML = '<div class="list-group-item text-muted">Nenhum cliente encontrado.</div>';
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar clientes:', error);
+            });
+    } else {
+        caixaSugestao.style.display = 'none'; // Oculta a caixa se o termo for vazio
+    }
 }
+
+// Essa variável armazena o input do nome do cliente
+const inputCliente = document.getElementById('cadastrar_nome_cliente');
+
+// Essa variável armazena o container que mostra as sugestões de clientes
+const caixaSugestao = document.getElementById('caixaSugestao');
+
+// Adiciona um listener para o clique no documento
+// quando o clique for fora do container de sugestões e do input de nome do cliente
+// ele limpa o container de sugestões
+document.addEventListener('click', (e) => {
+    if (!caixaSugestao.contains(e.target) && e.target !== inputCliente) {
+        caixaSugestao.innerHTML = '';
+    }
+});
+
+// Adiciona um listener para o input do nome do cliente
+// quando o valor do input mudar, ele chama a função buscar
+// passando o valor do input como parâmetro
+inputCliente.addEventListener('input', function(){
+    const termo = this.value.trim();
+
+    if(termo){
+        //Faz a requisição para o controller
+        buscar(termo);
+    }else {
+        caixaSugestao.innerHTML = ''; // Limpa sugestões se o campo estiver vazio
+    }
+});

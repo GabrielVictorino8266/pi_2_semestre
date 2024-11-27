@@ -214,21 +214,15 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
                     <form action="" method="POST" class="description">
                     <div class="mb-3">
                         <h5>Informações Cliente</h5>
-                        <input class="form-control" type="text" id="id_cliente" name="id_cliente" style="display: none;">
-                        <input class="form-control" type="text" id="nome_cliente" name="nome_cliente" style="display: none;">
-                        <label class="form-label" for="nome_cliente">Cliente:</label>
-                        <p id="nome_cliente" name="nome_cliente" style="display: inline;"></p>
-                        <label class="form-label" for="email_cliente">Email:</label>
-                        <p id="email_cliente" name="email_cliente" style="display: inline;"></p>
-                        <label class="form-label" for="telefone_cliente">Telefone:</label>
-                        <p id="telefone_cliente" name="telefone_cliente" style="display: inline;"></p>
+                        <label class="form-label" for="cadastrar_nome_cliente">Nome do cliente:</label>
+                        <input class="form-control" type="text" id="cadastrar_nome_cliente" name="cadastrar_nome_cliente" autocomplete="off">
+                        <div id="caixaSugestao" class="list-group position-absolute w-75 shadow "></div>
                     </div>
                         
                     <div class="mb-3">
                         <h5>Informações Agendamento</h5>
-                        <input class="form-control" type="text" id="id_agendamento" name="id_agendamento" style="display: none;">
-                        <label class="form-label" for="receita">Receita:</label>
-                        <select class="form-control" name="receita" id="receita">
+                        <label class="form-label" for="cadastrar_receita">Receita:</label>
+                        <select class="form-control" name="cadastrar_receita" id="cadastrar_receita">
                             <?php
                                     if($todosProdutosFinais){
                                         foreach($todosProdutosFinais as $produtofinal){
@@ -237,12 +231,12 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
                                     }
                                 ?>
                             </select>
-                        <label class="form-label" for="quantidade">Quantidade:</label>
-                        <input class="form-control" type="number" id="quantidade" name="quantidade" min="0">
-                        <label class="form-label" for="preco-venda">Preço Venda:</label>
-                        <input class="form-control" type="text" id="preco-venda" name="preco-venda" readonly>
-                        <label class="form-label" for="status">Status:</label>
-                        <select class="form-control" name="status" id="status">
+                        <label class="form-label" for="cadastrar_quantidade">Quantidade:</label>
+                        <input class="form-control" type="number" id="cadastrar_quantidade" name="cadastrar_quantidade" min="0">
+                        <label class="form-label" for="cadastrar_preco-venda">Preço Venda:</label>
+                        <input class="form-control" type="text" id="cadastrar_preco-venda" name="cadastrar_preco-venda" readonly>
+                        <label class="form-label" for="cadastrar_status">Status:</label>
+                        <select class="form-control" name="cadastrar_status" id="cadastrar_status">
                         <?php
                                 if($todosStatus){
                                     foreach($todosStatus as $status){
@@ -251,16 +245,15 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
                                 }
                             ?>
                         </select>
-                        <label class="form-label" for="data_retirada">Data Retirada:</label>
-                        <input class="form-control" type="date" id="data_retirada" name="data_retirada">
-                        <label class="form-label" for="data_agendamento">Data Agendamento:</label>
-                        <input class="form-control" type="date" id="data_agendamento" name="data_agendamento">
-                        <label class="form-label" for="observacoes">Observações:</label>
-                        <textarea class="form-control" id="observacoes" name="observacoes" rows="5" cols="33"></textarea>
+                        <label class="form-label" for="cadastrar_data_retirada">Data Retirada:</label>
+                        <input class="form-control" type="date" id="cadastrar_data_retirada" name="cadastrar_data_retirada">
+                        <label class="form-label" for="cadastrar_data_agendamento">Data Agendamento:</label>
+                        <input class="form-control" type="date" id="cadastrar_data_agendamento" name="cadastrar_data_agendamento">
+                        <label class="form-label" for="cadastrar_observacoes">Observações:</label>
+                        <textarea class="form-control" id="cadastrar_observacoes" name="cadastrar_observacoes" rows="5" cols="33"></textarea>
                     </div>
                         <div class="modal-footer form-buttons-acao">
-                                <button type="button" class="btn btn-primary" onclick="atualizar()">Atualizar</button>
-                                <button type="button" class="btn btn-secondary" onclick="excluir()">Excluir</button>
+                                <button type="button" class="btn btn-primary" onclick="cadastrar()">Cadastrar</button>
                         </div>
                     </form>
                </div>
