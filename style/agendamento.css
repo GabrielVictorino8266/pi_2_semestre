@@ -1,6 +1,25 @@
+:root{
+     /* Main */
+     --cor-fundo-main: #201814;
+     --cor-fundo-segundaria: #f7f3ee;
+     --cor-fundo-button: #5f2323;
+     --cor-fundo-button-hover: #231111;
+     --cor-font-main: #ffffff;
+     --cor-quit-hover: #D3AD82;
+     --cor-table-head: #000000;
+     --cor-table-row: #5a5a5a;
+     --var-button-cad: #727351;
+     --var-button-cad-hover: #4e4c33;
+ 
+     --font-size-main: 30px;
+     --font-size-segundaria: 20px;
+     --font-size-button: 1.1vw;
+}
+
 body {
     margin: 0;
     padding: 0;
+    background-color: var(--cor-fundo-main);
 }
 
 .main{
@@ -27,8 +46,8 @@ body {
     display: flex;
     height: 100vh;
     width: 30vh;
-    border: 3px solid #D9D9D9;
-    background-color: #D9D9D9;
+    border: 3px solid var(--cor-fundo-segundaria);
+    background-color: var(--cor-fundo-segundaria);
     justify-content: center;
     flex-direction: column;
     align-items: center;
@@ -40,9 +59,10 @@ li {
 }
 
 .quit{
-    height: 4%;
-    width: 30%;
-    border: 2px solid black;
+    height: 5%;
+    width: 40%;
+    border: 2px solid var(--cor-fundo-button-hover);
+    background-color: var(--cor-fundo-button-hover);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -51,8 +71,8 @@ li {
 
 .quit a{
     text-decoration: none;
-    color: black;
-    font-size: 2rem;
+    color: var(--cor-font-main);
+    font-size: var(--font-size-segundaria);
     width: 100%;
     height: 100%;
     display: flex;
@@ -61,97 +81,94 @@ li {
 }
 
 .quit:hover{
-    border: 2px solid red;
+    height: 6%;
+    width: 45%;
+    border: 2px solid var(--cor-quit-hover);
+    background-color: var(--cor-quit-hover);
 }
 
 .quit a:hover{
     border: none;
-    color: red;
+    color: var(--cor-fundo-button-hover);
 }
 
 .tools ul{
     flex-direction: column;
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
     align-items: center;
     justify-content: center;
     text-align: center;
+    margin: 0px;
+    padding-left: 0px;
 }
 
 .box{
     align-items: center;
     justify-content: center;
     display: flex;
-    background-color: #5C4646;
-    color: white;
-    margin-top: 2.0rem;
+    background-color: #472323;
+    color: var(--cor-font-main);
+    margin-top: 1.0rem;
     width: 9vw;
     height: 9vh;
     justify-content: center;
-    margin-left: -3.4rem;
     text-decoration: none;
     border: 2px solid black;
-    font-size: 1.1vw;
+    font-size: var(--font-size-button);
+    transition: background-color 0.25s;
 }
 
 .first {
-    margin-top: 4rem;
+    margin-top: 1rem;
 }
 
 .box:hover{
-    background-color: #343333;
-    color: rgb(255, 255, 255);
+    background-color: var(--cor-fundo-button-hover);
+    color: var(--cor-font-main);
 }
 
 .box.choose{
-    background-color: #d3a8a8;
-    color: #313131;
+    background-color: var(--cor-fundo-button-hover);
 }
 
-.card{
-    background-color: #D9D9D9;
-    width: 40vw;
-    height: 90vh;
+.container.mt-5{
+    background-color: var(--cor-fundo-segundaria);
     margin-top: 2rem;
     border-radius: 10px;
 }
 
-.search-dropdown {
+/* .search-dropdown {
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
     margin-top: 1.5rem;
     height: 4%;
-}
+} */
 
-.search{
+.form-control{
     display: flex;
     flex-grow: 1;
     margin-left: 2rem;
 }
 
 .search input{
-    font-size: 20px;
-    width: 25vw;
+    font-size: var(--font-size-segundaria);
+    width: 30vw;
     border-radius: 8px;
 }
 
-.filtros-datas{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-}
 
-.dropdown{
+
+/* .dropdown{
     margin-right: 3rem;
-    font-size: 30px;
+    font-size: var(--font-size-main);
     cursor: pointer;
-}
+} */
 
-.card2{
-    background-color: #D9D9D9;
+/* .card2{
+    background-color: var(--cor-fundo-segundaria);
     height: 65vh;
     width: 30vw;
     margin-top: 2rem;
@@ -165,7 +182,7 @@ li {
 .content{
     width: 90%;
     height: 90%;
-    background-color: #999999;
+    background-color: var(--cor-fundo-segundaria);
     border-radius: 10px;
 }
 
@@ -179,4 +196,4 @@ li {
 .description h4{
     margin-left: .5rem;
     margin-bottom: .8rem;
-}
+} */
