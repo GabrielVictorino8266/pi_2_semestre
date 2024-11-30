@@ -87,24 +87,25 @@ function atualizar(){
 
 
 function cadastrarAgendamento(){
-    const dados_atualizar = {
+    const dados_cadastrar = {
         action: "cadastrar",
-        descricao: document.getElementById('cadastro_nome_produto').value,
-        quantidade: document.getElementById('cadastro_quantidade').value,
-        custo: document.getElementById('cadastro_custo_unitario').value,
-        venda: document.getElementById('cadastro_preco_venda').value,
-        tipo: document.getElementById('cadastro_tipo').value,
-        categoria: document.getElementById('cadastro_categoria').value,
-        ativado: document.getElementById('cadastro_ativado').value,
+        nome_cliente: document.getElementById('cadastrar_nome_cliente').value,
+        receita: document.getElementById('cadastrar_receita').value,
+        quantidade: document.getElementById('cadastrar_quantidade').value,
+        status_id: document.getElementById('cadastrar_status').value,
+        data_retirada: document.getElementById('cadastrar_data_retirada').value,
+        data_agendamento: document.getElementById('cadastrar_data_agendamento').value,
+        observacoes: document.getElementById('cadastrar_observacoes').value
     };
 
+    console.log(dados_cadastrar);
     // Fazendo a requisição com fetch
-    fetch('../php/ctr_estoque.php', {
+    fetch('../php/ctr_agendamento.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(dados_atualizar)
+        body: JSON.stringify(dados_cadastrar)
     })
     .then(response => response.json())
     .then(dados_retorno => {
@@ -112,21 +113,18 @@ function cadastrarAgendamento(){
 
         if (dados_retorno.success) {
             alert("Cadastro com sucesso.");
-            voltarFormularioAtualizar(); // Função para fechar o formulário de Cadastro
             location.reload();
         } else {
             alert("Cadastro sem sucesso.");
         }
     })
-    .catch(() => {
+    .catch((error) => {
+        if(error){
+            console.log(error);
+        }
         alert('Erro na requisição. Tente novamente. Frontend no cadastrar.');
        });
 }
-
-function excluir(){
-
-}
-
 
 
 function buscar(termo) {

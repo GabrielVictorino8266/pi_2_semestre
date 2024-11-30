@@ -233,8 +233,8 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
                             </select>
                         <label class="form-label" for="cadastrar_quantidade">Quantidade:</label>
                         <input class="form-control" type="number" id="cadastrar_quantidade" name="cadastrar_quantidade" min="0">
-                        <label class="form-label" for="cadastrar_preco-venda">Preço Venda:</label>
-                        <input class="form-control" type="text" id="cadastrar_preco-venda" name="cadastrar_preco-venda" readonly>
+                        <!-- <label class="form-label" for="cadastrar_preco-venda">Preço Venda:</label>
+                        <input class="form-control" type="text" id="cadastrar_preco-venda" name="cadastrar_preco-venda" readonly> -->
                         <label class="form-label" for="cadastrar_status">Status:</label>
                         <select class="form-control" name="cadastrar_status" id="cadastrar_status">
                         <?php
@@ -253,7 +253,7 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
                         <textarea class="form-control" id="cadastrar_observacoes" name="cadastrar_observacoes" rows="5" cols="33"></textarea>
                     </div>
                         <div class="modal-footer form-buttons-acao">
-                                <button type="button" class="btn btn-primary" onclick="cadastrar()">Cadastrar</button>
+                                <button type="button" class="btn btn-primary" onclick="cadastrarAgendamento()">Cadastrar</button>
                         </div>
                     </form>
                </div>
