@@ -1,3 +1,21 @@
+:root{
+    /* Main */
+    --cor-fundo-main: #201814;
+    --cor-fundo-segundaria: #f7f3ee;
+    --cor-fundo-button: #5f2323;
+    --cor-fundo-button-hover: #231111;
+    --cor-font-main: #ffffff;
+    --cor-quit-hover: #D3AD82;
+    --cor-table-head: #000000;
+    --cor-table-row: #5a5a5a;
+    --var-button-cad: #727351;
+    --var-button-cad-hover: #4e4c33;
+
+    --font-size-main: 30px;
+    --font-size-segundaria: 20px;
+    --font-size-button: 1.1vw;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -7,6 +25,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    background-color: var(--cor-fundo-main);
 }
 
 .hamburger{
@@ -192,4 +211,19 @@ li {
 }
 #caixaSugestao .list-group-item:hover {
     background-color: #f8f9fa; /* Realce no hover */
+}
+
+.card-simulado {
+    display: block;  /* Garante que o link ocupe o bloco inteiro */
+    background-color: var(--cor-fundo-segundaria);  /* Cor de fundo escura para o card */
+    color: white;  /* Cor do texto */
+    padding: 10px 15px;  /* Preenchimento do card */
+    border-radius: 10px;  /* Bordas arredondadas para dar o efeito de "card" */
+    margin-bottom: 10px;  /* Espaçamento entre os itens */
+    text-decoration: none;  /* Remove o sublinhado do link */
+    transition: background-color 0.3s ease;  /* Transição suave no hover */
+}
+
+:hover.card-simulado {
+    background-color: var(--cor-fundo-button-hover);
 }

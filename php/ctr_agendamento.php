@@ -125,7 +125,6 @@ function cadastrar($agendamentos, $input){
 
         //realiza pesquisa do id do cliente
         $cliente = $agendamentos->pesquisarCliente($nome_cliente)['id'];
-        // var_dump($cliente); 
 
         if(!$cliente){// Caso o retorno nao seja valido, atribui novamente
             echo json_encode([
