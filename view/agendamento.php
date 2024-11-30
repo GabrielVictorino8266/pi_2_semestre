@@ -12,44 +12,50 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
     <link rel="stylesheet" href="../style/agendamento.css">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 </head>
 
 <body class="d-flex flex-nowrap">
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark min-vh-100">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"></a>
-        <span class="fs-4">Olá, <?php echo $_SESSION['user_name']; ?></span>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto flex-grow-1 justify-content-around">
-            <li class="nav-item">
-                <div>
-                    <a href="./dashboard.php" class="nav-link" aria-current="page">DASHBOARD</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="./estoque.php">ESTOQUE</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="./agendamento.php">AGENDAMENTO</a>
-            </li>
-            <li class="nav-item card-simulado">
-                <a href="./agendamento.php" class="nav-link active">
-                    AGENDAMENTO
-                </a>
-            </li>
-            <?php if ($funcao && $funcao['descricao'] == "Administrador"): ?>
+    <div class="d-flex flex-column flex-shrink-0 p-3 min-vh-100" id="navbarMenu">
+
+        <!-- Botão de hambúrguer fixo no topo -->
+        <button class="navbar-toggler d-lg-none position-fixed top-0 start-0 m-3" id="hamburgerButton" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-list" style="color: black;"></i>
+        </button>
+
+        <!-- Menu lateral que vai aparecer/ocultar no mobile -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav nav-pills flex-column mb-auto flex-grow-1 justify-content-around">
                 <li class="nav-item">
-                    <a class="nav-link" href="./cadastro.php">CADASTRAR USUÁRIO</a>
+                    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"></a>
+                    <span class="fs-4">Olá, <?php echo $_SESSION['user_name']; ?></span>
                 </li>
-            <?php endif; ?>
-            <li class="nav-item">
-                <a class="nav-link" href="./agendamento.php">CADASTRAR CLIENTE</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-danger" href="./logout.php">SAIR</a>
-            </li>
-        </ul>
+                <hr>
+                <li class="nav-item">
+                    <a href="./dashboard.php" class="nav-link" aria-current="page">DASHBOARD</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./estoque.php">ESTOQUE</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="./agendamento.php">AGENDAMENTO</a>
+                </li>
+                <?php if ($funcao && $funcao['descricao'] == "Administrador"): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./cadastro.php">CADASTRAR USUÁRIO</a>
+                    </li>
+                <?php endif; ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="./agendamento.php">CADASTRAR CLIENTE</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-danger" href="./logout.php">SAIR</a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="container mt-5 card">
+    <div class="container mt-5">
         <form action="" method="GET" class="container mt-3">
             <div class="row g-3 align-items-end search-dropdown">
                 <div class="col-md-7 search">
@@ -137,19 +143,26 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
                         <h5 class="modal-title" id="formModalAtualizarLabel">Ficha Técnica</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <!-- <div class="card2">
-                        <div class="content"> -->
                     <div class="modal-body">
                         <form action="" method="POST" class="description">
                             <div class="mb-3">
                                 <h5>Informações Cliente</h5>
                                 <input class="form-control" type="text" id="id_cliente" name="id_cliente" style="display: none;">
-                                <label class="form-label" for="nome_cliente">Cliente:</label>
-                                <p id="nome_cliente" name="nome_cliente" style="display: inline;"></p>
-                                <label class="form-label" for="email_cliente">Email:</label>
-                                <p id="email_cliente" name="email_cliente" style="display: inline;"></p>
-                                <label class="form-label" for="telefone_cliente">Telefone:</label>
-                                <p id="telefone_cliente" name="telefone_cliente" style="display: inline;"></p>
+
+                                <div class="d-flex">
+                                    <label class="form-label me-2" for="nome_cliente">Cliente:</label>
+                                    <p id="nome_cliente" name="nome_cliente"></p>
+                                </div>
+
+                                <div class="d-flex">
+                                    <label class="form-label me-2" for="email_cliente">Email:</label>
+                                    <p id="email_cliente" name="email_cliente" style="display: inline;"></p>
+                                </div>
+                                
+                                <div class="d-flex">
+                                    <label class="form-label me-2" for="telefone_cliente">Telefone:</label>
+                                    <p id="telefone_cliente" name="telefone_cliente" style="display: inline;"></p>
+                                </div>
                             </div>
 
                             <div class="mb-3">
@@ -203,7 +216,7 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
                         <h5 class="modal-title" id="formModalCadastrarLabel">Cadastrar Agendamento</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body dflex">
                         <form action="" method="POST" class="description">
                             <div class="mb-3">
                                 <h5>Informações Cliente</h5>
@@ -252,8 +265,6 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
             </div>
         </div>
     </div>
-
-    <script src="../js/navbar.js"></script>
     <script src="../js/agendamento.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
