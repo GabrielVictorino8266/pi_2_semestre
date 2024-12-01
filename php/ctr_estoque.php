@@ -53,15 +53,8 @@ $filtroCategoria = $estoque->listarCategoria();
 
 // $_SERVER['REQUEST_METHOD'] = 'POST';
 // $input = json_decode('{
-//     "id": 4,
-//     "action": "atualizar",
-//     "descricao":"descricao",
-//     "quantidade": 3,
-//     "custo":5.99,
-//     "venda":20.99,
-//     "tipo": 2,
-//     "categoria": 2,
-//     "ativado": 1
+//     "id": "3",
+//     "action": "deletar"
 //     }', true);
 // $_SERVER['CONTENT_TYPE'] = 'application/json';
 
@@ -81,6 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['CONTENT_TYPE'], 'a
         case "cadastrar":
             cadastrar($estoque, $input);
             $listagemEstoque = listarEstoque($estoque, $pagina, $limite_pagina)['listagem'];
+            break;
+        case "deletar":
+            deletarEstoque($estoque, $input);
             break;
         default:
         echo json_encode([
@@ -215,4 +211,25 @@ function listarFiltros(){
     $filtros['categoria_pesquisa'] = $categoria_pesquisa;
 
     return $filtros;
+}
+function deletarEstoque($estoque, $input){
+    if (isset($input['id']) && $input['action'] == 'deletar') {
+        $id = $input['id'];
+        try {
+            // Chama o método para deletar o item no estoque
+            $response = $estoque->deletarEstoque($id);
+            
+            // Retorna a resposta com base no sucesso ou falha
+            echo json_encode([
+                "success" => $response['success'],
+                "message" => $response['message'] ?? "Erro desconhecido. Contate o Suporte."
+            ]);
+        } catch (PDOException $e) {
+            // Captura e retorna a mensagem de erro, independentemente do tipo de erro
+            echo json_encode([
+                "success" => false,
+                "message" => $e->getMessage()
+            ]);
+        }
+    }
 }

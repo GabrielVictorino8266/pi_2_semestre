@@ -138,9 +138,43 @@ class Estoque{
     }
     
 
-    // public function deletarProduto($id){
-    //     return $this->conexao->deletarProduto($id);
-    // }
+    public function deletarEstoque($id){
+        try {
+            // Atualiza o campo 'ativado' para 0 (desativado) no estoque
+            $query = "UPDATE tb_estoque SET ativado = 0 WHERE id = :id_item";
+            $stmt = $this->conexao->prepare($query);
+            $stmt->bindParam(":id_item", $id, PDO::PARAM_INT);
+            if ($stmt->execute()) {
+                // Sucesso na atualização
+                $response = [
+                    "success" => true,
+                    "message" => "Deletado com sucesso. O item foi desativado."
+                ];
+            } else {
+                // Caso a execução da query falhe, mas a operacao funcionou
+                $response = [
+                    "success" => false,
+                    "message" => "Erro ao desativar o item. Tente novamente."
+                ];
+            }
+        } catch (PDOException $e) {
+            // Verifica se o erro é relacionado à trigger de banco
+            if ($e->getCode() == '45000') { // Código de erro da trigger
+                $cleanedMessage = preg_replace('/SQLSTATE\[\d+\]: <<Unknown error>>: \d+ /', '', $e->getMessage()); // Remove o que nao e texto para exibicao
+                $response = [
+                    "success" => false,
+                    "message" => $cleanedMessage  // Mensagem personalizada da trigger
+                ];
+            } else {
+                // Outros erros
+                $response = [
+                    "success" => false,
+                    "message" => "Erro inesperado: " . $e->getMessage()
+                ];
+            }
+        }
+        return $response;
+    }
 
     public function getTotalEstoque($tipo_pesquisa, $nome_pesquisa, $categoria_pesquisa){
          /*
