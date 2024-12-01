@@ -81,123 +81,6 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
                     </div>
                 </div>
             </form>
-        
-
-        <!-- <div>
-            <form action="" method="POST" id="form_cadastro" style="display: none;">
-            <h3>Cadastrar Novo Produto</h3>
-                <div>
-                    <label for="cadastro_nome_produto">Nome:</label>
-                    <input type="text" name="cadastro_nome_produto" id="cadastro_nome_produto">
-                </div>
-                <div>
-                    <div>
-                        <label for="cadastro_custo_unitario">Custo Unitário:</label>
-                        <input type="text" name="cadastro_custo_unitario" id="cadastro_custo_unitario">
-                    </div>
-                    <div>
-                        <label for="cadastro_preco_venda">Preço de Venda:</label>
-                        <input type="text" name="cadastro_preco_venda" id="cadastro_preco_venda">
-                    </div>
-                    <div>
-                        <label for="cadastro_quantidade">Quantidade:</label>
-                        <input type="number" name="cadastro_quantidade" id="cadastro_quantidade">
-                    </div>
-                </div>            
-                <div>
-                    <label for="cadastro_tipo">Tipo</label>
-                    <select name="cadastro_tipo" id="cadastro_tipo">
-                        <option value="">Escolha um tipo</option>
-                        <?php
-                        if($filtroTipo){
-                            foreach($filtroTipo as $tipo_produto){
-                                echo "<option value=".$tipo_produto['id'] .">". $tipo_produto['tipo']."</option>";
-                            }
-                        }
-                        ?>
-                    </select>
-                    <label for="cadastro_categoria">Categoria</label>
-                    <select name="cadastro_categoria" id="cadastro_categoria">
-                        <option value="">Escolha uma categoria:</option>
-                        <?php
-                        if($filtroCategoria){
-                            foreach($filtroCategoria as $categoria){
-                                echo "<option value=".$categoria['id'] .">". $categoria['descricao']."</option>";
-                            }
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div>
-                    <label for="cadastro_ativado">Ativado:</label>
-                    <input type="number" id="cadastro_ativado" name="cadastro_ativado" value="" min="0" max="1">
-                </div>
-                <div>
-                    <button type="button" onclick="cadastrar()">Cadastrar</button>
-                    <button type="button" onclick="voltarFormularioCadastro()">Voltar</button>
-                </div>
-            </form>
-        </div> -->
-
-        <!-- <div>
-            Formulário de atualização
-             <form action="" method="POST" id="form_atualizar" style="display: none;">
-                <input type="hidden" id="produto_id" value="">
-                
-                <h3>Atualizar Produto</h3>
-                <div>
-                    <label for="atualizar_nome_produto">Nome:</label>
-                    <input type="text" name="atualizar_nome_produto" id="atualizar_nome_produto">
-                </div>
-                <div>
-                    <div>
-                        <label for="atualizar_custo_unitario">Custo Unitário:</label>
-                        <input type="text" name="atualizar_custo_unitario" id="atualizar_custo_unitario">
-                    </div>
-                    <div>
-                        <label for="atualizar_preco_venda">Preço de Venda:</label>
-                        <input type="text" name="atualizar_preco_venda" id="atualizar_preco_venda">
-                    </div>
-                    <div>
-                        <label for="atualizar_quantidade">Quantidade:</label>
-                        <input type="number" name="atualizar_quantidade" id="atualizar_quantidade">
-                    </div>
-                </div>            
-                <div>
-                    <label for="atualizar_tipo">Tipo</label>
-                    <select name="atualizar_tipo" id="atualizar_tipo">
-                        <option value="">Escolha um tipo</option>
-                        <?php
-                        if($filtroTipo){
-                            foreach($filtroTipo as $tipo_produto){
-                                echo "<option value=".$tipo_produto['id'] .">". $tipo_produto['tipo']."</option>";
-                            }
-                        }
-                        ?>
-                    </select>
-                    <label for="atualizar_categoria">Categoria</label>
-                    <select name="atualizar_categoria" id="atualizar_categoria">
-                        <option value="">Escolha uma categoria:</option>
-                        <?php
-                        if($filtroCategoria){
-                            foreach($filtroCategoria as $categoria){
-                                echo "<option value=".$categoria['id'] .">". $categoria['descricao']."</option>";
-                            }
-                        }
-                        ?>
-                    </select>
-                    <div>
-                        <label for="atualizar_ativado">Ativado:</label>
-                        <input type="number" id="atualizar_ativado" name="atualizar_ativado" value="" min="0" max="1">
-                    </div>
-
-                </div>
-                <div>
-                    <button type="button" onclick="atualizar()">Atualizar</button>
-                    <button type="button" onclick="voltarFormularioAtualizar()">Voltar</button>
-                </div>
-            </form>
-        </div> -->
 
         <div class="table-responsive">
             <table class="table table-striped">
@@ -326,7 +209,6 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
                 </div>
                 <div class="modal-footer">
                     <button type="button"  class='btn btn-primary' onclick="atualizar()">Atualizar</button>
-                    <!-- <button type="button"  class='btn btn-secondary' onclick="voltarFormularioAtualizar()">Voltar</button> -->
                 </div>
             </div>
         </div>
