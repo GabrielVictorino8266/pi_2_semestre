@@ -176,7 +176,7 @@ require_once __DIR__ . '../../php/ctr_estoque.php';
                             </div>
                             <div>
                                 <div>
-                                    <label class="form-label" for="atualizar_custo_unitario">Custo Unitário:</label>
+                                    <label class="form-label"> for="atualizar_custo_unitario">Custo Unitário:</label>
                                     <input class="form-control" type="text" name="atualizar_custo_unitario" id="atualizar_custo_unitario">
                                 </div>
                                 <div>

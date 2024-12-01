@@ -21,7 +21,6 @@ document.addEventListener('click', (event) => {
 });
 
 
-
 function visualizar(id) {
     /*
     Função que carrega as informações do agendamento ao form.
