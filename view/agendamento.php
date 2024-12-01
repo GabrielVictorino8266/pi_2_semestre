@@ -86,7 +86,6 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
                 </thead>
                 <?php
                 if ($listagemAgendamentos) {
-                    // var_dump($listagemAgendamentos);
                     foreach ($listagemAgendamentos as $agendamento) {
                         echo "<tr>";
                         echo "<td style='display: none;'>{$agendamento['id_agendamento']}</td>";
