@@ -24,8 +24,8 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
             <i class="bi bi-list" style="color: black;"></i>
         </button>
 
-        <!-- Menu lateral que vai aparecer/ocultar no mobile -->
-        <div class="collapse navbar-collapse" id="navbarNav">
+         <!-- Menu lateral que vai aparecer/ocultar no mobile -->
+         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="nav nav-pills flex-column mb-auto flex-grow-1 justify-content-around">
                 <li class="nav-item">
                     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"></a>
@@ -47,7 +47,7 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
                     </li>
                 <?php endif; ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="./agendamento.php">CADASTRAR CLIENTE</a>
+                    <a class="nav-link" href="./cadastro_cliente.php">CADASTRAR CLIENTE</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-danger" href="./logout.php">SAIR</a>
