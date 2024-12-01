@@ -36,18 +36,8 @@ CREATE TABLE `tb_agendamentos` (
   KEY `cliente_id` (`cliente_id`),
   CONSTRAINT `tb_agendamentos_ibfk_1` FOREIGN KEY (`status_id`) REFERENCES `tb_status` (`id`),
   CONSTRAINT `tb_agendamentos_ibfk_2` FOREIGN KEY (`cliente_id`) REFERENCES `tb_clientes` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tb_agendamentos`
---
-
-LOCK TABLES `tb_agendamentos` WRITE;
-/*!40000 ALTER TABLE `tb_agendamentos` DISABLE KEYS */;
-INSERT INTO `tb_agendamentos` VALUES (41,'2024-11-22',10,2,2,'Retirar dia 15/12FDFSDF','2024-11-21',3),(42,'2024-10-29',2,1,2,'Observação 14','2024-11-21',4),(43,'2024-10-29',21,1,2,'Observação 15','2024-11-23',1);
-/*!40000 ALTER TABLE `tb_agendamentos` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tb_categorias`
@@ -64,16 +54,6 @@ CREATE TABLE `tb_categorias` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_categorias`
---
-
-LOCK TABLES `tb_categorias` WRITE;
-/*!40000 ALTER TABLE `tb_categorias` DISABLE KEYS */;
-INSERT INTO `tb_categorias` VALUES (1,'Massas'),(2,'Bolo'),(3,'Doces (bomba)'),(4,'Tortas'),(5,'Pães (com recheio)'),(6,'Pães (sem recheio)'),(7,'Outros');
-/*!40000 ALTER TABLE `tb_categorias` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tb_clientes`
 --
 
@@ -88,16 +68,6 @@ CREATE TABLE `tb_clientes` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tb_clientes`
---
-
-LOCK TABLES `tb_clientes` WRITE;
-/*!40000 ALTER TABLE `tb_clientes` DISABLE KEYS */;
-INSERT INTO `tb_clientes` VALUES (1,'Gabriel Victorino','gabriel@gmail.com','66678989'),(2,'Ana Lima Fernandes','ana_teste@gmail.com','11987654321dsada'),(6,'Isadora Pontes','isadora@gmail.com','1999899999');
-/*!40000 ALTER TABLE `tb_clientes` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tb_endereco`
@@ -122,16 +92,6 @@ CREATE TABLE `tb_endereco` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_endereco`
---
-
-LOCK TABLES `tb_endereco` WRITE;
-/*!40000 ALTER TABLE `tb_endereco` DISABLE KEYS */;
-INSERT INTO `tb_endereco` VALUES (1,'Rua Crisantemos Teste','123','Bairro Teste','Cidade Teste','ES','12345678',1),(3,'Rua Crisantemos Pereira','112','Nova Leme','Leme','SP','2345678',6),(7,'Rua teste 2','3123','Teste 2','Teste 2','SP','321312312',2);
-/*!40000 ALTER TABLE `tb_endereco` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tb_estoque`
 --
 
@@ -152,18 +112,8 @@ CREATE TABLE `tb_estoque` (
   KEY `tipo_id` (`tipo_id`),
   CONSTRAINT `tb_estoque_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `tb_categorias` (`id`),
   CONSTRAINT `tb_estoque_ibfk_2` FOREIGN KEY (`tipo_id`) REFERENCES `tb_tipoitem` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tb_estoque`
---
-
-LOCK TABLES `tb_estoque` WRITE;
-/*!40000 ALTER TABLE `tb_estoque` DISABLE KEYS */;
-INSERT INTO `tb_estoque` VALUES (1,'atualizar126',30,150.00,150.01,3,1,0),(2,'BOLO COBERTURA EXTRA DOCE CHOCOLATE CARAMELO',3,25.99,2.00,2,2,0),(3,'TORTA SALGADA',2,6.00,40.00,2,4,1),(4,'descricao',3,5.99,20.99,2,2,1),(5,'Farinha de Trigo',100,2.50,0.00,1,1,1),(6,'Leite Condensado',80,4.00,0.00,1,3,1),(7,'Queijo Mussarela',50,10.00,NULL,1,5,1),(8,'Bolo de Chocolate',20,5.00,25.00,2,2,1),(9,'Torta de Frango',15,8.00,40.00,2,4,1),(10,'Pão de Queijo',60,1.50,3.00,2,6,1),(11,'Recheio de Doce de Leite',40,3.50,NULL,1,3,1),(12,'Massa de Pizza',30,2.00,8.00,3,1,1),(13,'Pão Francês',100,0.80,1.60,2,6,1),(14,'Brigadeiro Gourmet',25,1.20,5.00,2,3,1),(15,'Margarina',70,3.00,NULL,1,7,1),(16,'Frango Desfiado',50,7.00,NULL,1,4,1),(17,'Quiche de Espinafre',15,6.00,25.00,2,4,1),(18,'Pão de Calabresa',30,1.20,2.40,2,5,1),(19,'Molho de Tomate',40,2.50,NULL,1,7,1),(21,'dsa',3,45.00,45.50,2,4,1),(22,'dasdasda',2,45.45,45.50,1,3,2),(24,'CADASTRO 24',1,5.99,6.00,2,5,1);
-/*!40000 ALTER TABLE `tb_estoque` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -173,12 +123,85 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER TRG_Registra_Preco_Unitario BEFORE UPDATE 
-ON tb_estoque
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER TRG_Registra_Preco_Unitario BEFORE UPDATE 
+
+ON tb_estoque
+
+FOR EACH ROW
+
+BEGIN
+
+	IF OLD.preco_unitario <> NEW.preco_unitario THEN
+
+    	CALL SP_Registra_Alteracao_Preco_Custo(OLD.id, OLD.preco_unitario);
+
+    END IF;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger TRG_Registra_Preco_Venda BEFORE UPDATE
+
+ON tb_estoque
+
+FOR EACH ROW
+
+BEGIN
+
+	IF OLD.preco_venda <> NEW.preco_venda THEN
+
+    	CALL SP_Registra_Preco_Venda(OLD.id, OLD.preco_venda);
+
+    END IF;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER before_update_estoque
+BEFORE UPDATE ON tb_estoque
 FOR EACH ROW
 BEGIN
-	IF OLD.preco_unitario <> NEW.preco_unitario THEN
-    	CALL SP_Registra_Alteracao_Preco_Custo(OLD.id, OLD.preco_unitario);
+    -- Evitar alteração do campo 'ativado' quando outros campos estão sendo atualizados
+    IF OLD.preco_unitario = NEW.preco_unitario AND OLD.preco_venda = NEW.preco_venda THEN
+        -- Verificar se o item de estoque está relacionado a agendamentos ativos
+        IF EXISTS (
+            SELECT 1
+            FROM tb_agendamentos AS a
+            JOIN tb_receitas AS r ON a.receita_id = r.id
+            WHERE (r.produto_final_id = OLD.id OR r.ingrediente_id = OLD.id)
+              AND a.status_id IN (SELECT id FROM tb_status WHERE descricao IN ('Em Andamento', 'Finalizado'))
+        ) THEN
+            -- Atualizar o atributo ativado para 0 (desativado) em vez de excluir
+            SET NEW.ativado = 0;
+
+            -- Definir uma mensagem de erro para o controle da aplicação
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Nao foi possivel desativar. Possivelmente existem agendamentos com este item de estoque.';
+        END IF;
     END IF;
 END */;;
 DELIMITER ;
@@ -195,12 +218,21 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger TRG_Registra_Preco_Venda BEFORE UPDATE
-ON tb_estoque
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER before_delete_estoque
+BEFORE DELETE ON tb_estoque
 FOR EACH ROW
 BEGIN
-	IF OLD.preco_venda <> NEW.preco_venda THEN
-    	CALL SP_Registra_Preco_Venda(OLD.id, OLD.preco_venda);
+    -- Verificar se o item de estoque está relacionado a agendamentos ativos
+    IF EXISTS (
+        SELECT 1
+        FROM tb_agendamentos AS a
+        JOIN tb_receitas AS r ON a.receita_id = r.id
+        WHERE (r.produto_final_id = OLD.id OR r.ingrediente_id = OLD.id)
+          AND a.status_id IN (SELECT id FROM tb_status WHERE descricao IN ('Em Andamento', 'Finalizado'))
+    ) THEN
+        -- Bloquear exclusão com uma mensagem de erro
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Nao foi possivel Excluir. Possivelmente existem agendamentos com este item de estoque.';
     END IF;
 END */;;
 DELIMITER ;
@@ -224,16 +256,6 @@ CREATE TABLE `tb_funcoes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_funcoes`
---
-
-LOCK TABLES `tb_funcoes` WRITE;
-/*!40000 ALTER TABLE `tb_funcoes` DISABLE KEYS */;
-INSERT INTO `tb_funcoes` VALUES (1,'Administrador'),(2,'Funcionário');
-/*!40000 ALTER TABLE `tb_funcoes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tb_logs_login`
 --
 
@@ -245,18 +267,8 @@ CREATE TABLE `tb_logs_login` (
   `email` varchar(255) NOT NULL,
   `data_horario_acesso` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tb_logs_login`
---
-
-LOCK TABLES `tb_logs_login` WRITE;
-/*!40000 ALTER TABLE `tb_logs_login` DISABLE KEYS */;
-INSERT INTO `tb_logs_login` VALUES (1,'teste@gmail.com','2024-11-22 23:41:30'),(2,'teste@gmail.com','2024-11-23 00:20:25'),(3,'teste@gmail.com','2024-11-23 01:56:26'),(4,'teste@gmail.com','2024-11-24 01:03:08');
-/*!40000 ALTER TABLE `tb_logs_login` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tb_preco_venda`
@@ -271,18 +283,8 @@ CREATE TABLE `tb_preco_venda` (
   `preco_venda` decimal(10,2) NOT NULL,
   `data_atualizacao` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tb_preco_venda`
---
-
-LOCK TABLES `tb_preco_venda` WRITE;
-/*!40000 ALTER TABLE `tb_preco_venda` DISABLE KEYS */;
-INSERT INTO `tb_preco_venda` VALUES (1,3,25.99,'2024-11-23 02:06:43'),(2,2,52.00,'2024-11-23 02:07:14'),(3,4,10.04,'2024-11-24 01:11:16'),(4,24,0.00,'2024-11-24 01:12:16');
-/*!40000 ALTER TABLE `tb_preco_venda` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tb_precos_compra`
@@ -299,18 +301,8 @@ CREATE TABLE `tb_precos_compra` (
   PRIMARY KEY (`id`),
   KEY `estoque_id` (`estoque_id`),
   CONSTRAINT `tb_precos_compra_ibfk_1` FOREIGN KEY (`estoque_id`) REFERENCES `tb_estoque` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tb_precos_compra`
---
-
-LOCK TABLES `tb_precos_compra` WRITE;
-/*!40000 ALTER TABLE `tb_precos_compra` DISABLE KEYS */;
-INSERT INTO `tb_precos_compra` VALUES (1,2,5.20,'2024-11-23 01:54:49'),(2,2,100.00,'2024-11-23 01:55:44'),(3,3,5.90,'2024-11-23 01:56:39'),(4,4,5.60,'2024-11-24 01:11:16'),(5,24,0.00,'2024-11-24 01:12:16');
-/*!40000 ALTER TABLE `tb_precos_compra` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tb_receitas`
@@ -333,16 +325,6 @@ CREATE TABLE `tb_receitas` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_receitas`
---
-
-LOCK TABLES `tb_receitas` WRITE;
-/*!40000 ALTER TABLE `tb_receitas` DISABLE KEYS */;
-INSERT INTO `tb_receitas` VALUES (1,3,1,2.00),(2,3,4,3.00),(3,2,4,4.00),(4,2,1,5.00);
-/*!40000 ALTER TABLE `tb_receitas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tb_status`
 --
 
@@ -358,16 +340,6 @@ CREATE TABLE `tb_status` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_status`
---
-
-LOCK TABLES `tb_status` WRITE;
-/*!40000 ALTER TABLE `tb_status` DISABLE KEYS */;
-INSERT INTO `tb_status` VALUES (1,'Finalizado',1),(2,'Em Andamento',1),(3,'Cancelado',0);
-/*!40000 ALTER TABLE `tb_status` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tb_tipoitem`
 --
 
@@ -380,16 +352,6 @@ CREATE TABLE `tb_tipoitem` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tb_tipoitem`
---
-
-LOCK TABLES `tb_tipoitem` WRITE;
-/*!40000 ALTER TABLE `tb_tipoitem` DISABLE KEYS */;
-INSERT INTO `tb_tipoitem` VALUES (1,'Ingrediente'),(2,'Produto Final'),(3,'Outros');
-/*!40000 ALTER TABLE `tb_tipoitem` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tb_usuarios`
@@ -412,16 +374,6 @@ CREATE TABLE `tb_usuarios` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_usuarios`
---
-
-LOCK TABLES `tb_usuarios` WRITE;
-/*!40000 ALTER TABLE `tb_usuarios` DISABLE KEYS */;
-INSERT INTO `tb_usuarios` VALUES (4,'teste','teste@gmail.com','$2y$10$3LESeYRHARp96oGGxzLuKe269oVdCTA41F28CqyGGj3fwBnNHVB9O',1),(13,'','','$2y$10$XDtymEqQ2ZXNneogd3xXFu.exblOiRqoZAzAxY6TCFzCssjfUu1.y',1),(14,'Gabriel','gustavo@gmail.com','$2y$10$lWxluQs.cxv/fGSq0Ewpl.HgSFvSzFe0ekz89lHqW3pWxMf1H3Ww.',2),(16,'fernando','fernado@gmail.com','$2y$10$OHLuAa61/U6vOPYuzKajk.JifOacJRkedrByypPWJP.4bNb4bVUUK',1);
-/*!40000 ALTER TABLE `tb_usuarios` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping routines for database 'rotisdb'
 --
 /*!50003 DROP PROCEDURE IF EXISTS `SP_Registra_Acesso` */;
@@ -435,9 +387,12 @@ UNLOCK TABLES;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_Registra_Acesso`(IN email VARCHAR(255))
-BEGIN
-	INSERT INTO tb_logs_login (email, data_horario_acesso)
-    VALUES (email, NOW());
+BEGIN
+
+	INSERT INTO tb_logs_login (email, data_horario_acesso)
+
+    VALUES (email, NOW());
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -455,9 +410,12 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_Registra_Alteracao_Preco_Custo`(IN id_estoque INT,IN preco_antigo DECIMAL(10,2))
-BEGIN
-    INSERT INTO tb_precos_compra (estoque_id, preco_unitario, data_atualizacao) 
-    VALUES (id_estoque, preco_antigo, NOW());
+BEGIN
+
+    INSERT INTO tb_precos_compra (estoque_id, preco_unitario, data_atualizacao) 
+
+    VALUES (id_estoque, preco_antigo, NOW());
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -475,9 +433,12 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_Registra_Preco_Venda`(IN id_estoque INT, IN preco_venda DECIMAL(10,2))
-BEGIN
-	INSERT INTO tb_preco_venda (id_estoque, preco_venda, data_atualizacao)
-    VALUES (id_estoque, preco_venda, NOW());
+BEGIN
+
+	INSERT INTO tb_preco_venda (id_estoque, preco_venda, data_atualizacao)
+
+    VALUES (id_estoque, preco_venda, NOW());
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -494,4 +455,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-24  1:41:50
+-- Dump completed on 2024-12-01  4:35:15

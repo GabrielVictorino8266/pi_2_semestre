@@ -71,7 +71,7 @@ As tecnologias utilizadas no projeto envolvem as três matérias apresentadas an
 
 ## Tecnologias Utilizadas
 
-As tecnologias utilizadas no projeto envolvem as três matérias apresentadas anteriormente. Portanto, são as seguintes tecnologias:
+As tecnologias de desenvolvimento de software e prototipação de telas utilizadas no projeto envolvem as três matérias apresentadas anteriormente. Portanto, são as seguintes tecnologias:
 
 - **Banco de Dados:** MySQL 10.4.32-MariaDB <img src="https://www.tshirtgeek.com.br/wp-content/uploads/2021/08/com031.jpg" alt="MySQL" width="32" height="32" style="display:inline;">
 - **Frontend:** HTML, CSS, JS, Bootstrap  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/1200px-HTML5_logo_and_wordmark.svg.png" alt="HTML" width="32" height="32" style="display:inline;">
@@ -82,3 +82,5 @@ As tecnologias utilizadas no projeto envolvem as três matérias apresentadas an
 - **Codificação:** VSCode  <img src="https://code.visualstudio.com/assets/favicon.ico" alt="VSCode" width="32" height="32" style="display:inline;">
 - **Prototipação / Design:** Figma
    <img src="https://cdn4.iconfinder.com/data/icons/logos-brands-in-colors/3000/figma-logo-512.png" alt="Figma" width="32" height="32" style="display:inline;">
+
+> Demais ferramentas utilizadas em outras partes do projeto, estão documentadas no documento principal, arquivo WORD na pasta docs.

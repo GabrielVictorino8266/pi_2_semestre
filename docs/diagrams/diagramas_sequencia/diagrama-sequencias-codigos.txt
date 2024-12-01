@@ -1,0 +1,31 @@
+Sequencia LOGIN
+
+
+sequenceDiagram
+    participant User as Usuario
+    participant LoginForm as ViewLoginForm
+    participant ctr_login.php as ctr_login.php
+    participant Usuario as Usuario
+    participant Database as Database
+    participant Session as Session
+    participant Dashboard as Dashboard
+
+    User->>LoginForm: Preenche email e password
+    LoginForm->>ctr_login.php: Envia dados login
+    ctr_login.php->>Usuario: Novo Usuario() (null)
+    ctr_login.php->>Usuario: verifica login(email, password)
+    activate Usuario
+    Usuario->>Database: Query usuario por email e password
+    Usuario->>ctr_login.php: Retorna dados usuario (Se encontrado)
+    deactivate Usuario
+    alt Usuario Existe
+        ctr_login.php->>Session: Inicia Sessao
+        Session->>Session: Armazena user_id, user_name, user_funcao
+        ctr_login.php->>Usuario: Chama SP_Registra_Acesso()
+        ctr_login.php->>Dashboard: Redireciona para dashboard.php
+    else Usuario nao existe
+        ctr_login.php->>LoginForm: Redireciona para login.php com erro
+    end
+
+
+===========================================================

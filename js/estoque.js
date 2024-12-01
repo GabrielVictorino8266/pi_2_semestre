@@ -1,3 +1,28 @@
+// Selecionando o botão e a navbar
+const hamburgerButton = document.getElementById('hamburgerButton');
+const navbarMenu = document.getElementById('navbarNav');
+
+// Detecta se o menu foi aberto ou fechado e ajusta a visibilidade do botão
+navbarMenu.addEventListener('show.bs.collapse', () => {
+    hamburgerButton.style.display = 'none'; // Esconde o botão quando o menu é aberto
+});
+
+navbarMenu.addEventListener('hidden.bs.collapse', () => {
+    hamburgerButton.style.display = 'block'; // Mostra o botão quando o menu é fechado
+});
+
+// Fecha o menu ao clicar fora dele e exibe o botão hambúrguer
+document.addEventListener('click', (event) => {
+    if (!navbarMenu.contains(event.target) && !hamburgerButton.contains(event.target)) {
+        const navbarCollapse = new bootstrap.Collapse(navbarMenu, { toggle: false });
+        navbarCollapse.hide(); // Fecha o menu ao clicar fora
+        hamburgerButton.style.display = 'block'; // Exibe o botão hambúrguer
+    }
+});
+
+
+
+
 function mostrarFormCadastro(){
     /*
     Função que mostra o formulario de cadastro
@@ -107,40 +132,39 @@ function mostrarFormAtualizar(id) {
 }
 
 
-//LÓGICA DE EXCLUSÃO
-/*
-A logica de deleção, irá sofrer uma altereração, direta no banco
-quando apagar, uma coluna de status é disparada e a própria hora de alteração
-é registrada.
+function deletar(id) {
+    const id_atualizacao = id;
+    const dados_excluir = {
+        id: id_atualizacao,
+        action: "deletar",
+    };
 
-Isso afeterá todas as queries de consulta.
+    // console.log(dados_excluir);
 
-*/
-// function deletar(id){
-//     $.ajax({
-//         url: '../pi_2_semestre/php/ctr_estoque.php',
-//         type: 'POST',
-//         data:{
-//             id: id,
-//             action: 'deletar'
-//         },
-//         success: function (response) {
-//             console.log(response);
-//             const dados_retorno = JSON.parse(response);
-            
-//             if(dados_retorno.success){
-//                 alert(dados_retorno.message);
-//                 voltarFormularioAtualizar();
-//             }else{
-//                 alert(dados_retorno.message);
-//             }
-//         },
-//         error: function () {
-//             alert('Erro na requisição. Tente novamente.');
-//         }
+    // Fazendo a requisição com fetch
+    fetch('../php/ctr_estoque.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados_excluir)
+    })
+    .then(response => response.json())
+    .then(dados_retorno => {
+        console.log(dados_retorno);
 
-//     })
-// }
+        if (dados_retorno.success) {
+            alert(dados_retorno.message);
+            location.reload();
+        } else {
+            alert(dados_retorno.message);
+        }
+    })
+    .catch(() => {
+        alert('Erro na requisição. Operação de exclusão não avançou. Tente novamente ou Contate o Suporte.');
+    });
+}
+
 
 function cadastrar() {
     const dados_atualizar = {

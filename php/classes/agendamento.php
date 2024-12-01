@@ -155,15 +155,15 @@ class Agendamento{
     }
 
     public function cadastrarAgendamento($dados){
-        $query = "INSERT INTO tb_agendamentos (data_agendamento, receita_id, cliente_id, status_id, observacoes, data_retirada, quantidade_receita) VALUES (:data_agendamento, :receita_id, :cliente_id, :status_id, :observacoes, :data_retirada, :quantidade_receita)";
+        $query = "INSERT INTO tb_agendamentos (data_agendamento, receita_id, cliente_id, status_id, observacoes, data_retirada, quantidade_receita) VALUES (:data_agendamento, :receita, :cliente_id, :status_id, :observacoes, :data_retirada, :quantidade)";
         $stmt = $this->conexao->prepare($query);
         $stmt->bindParam(":data_agendamento", $dados['data_agendamento'], PDO::PARAM_STR);
-        $stmt->bindParam(":receita_id", $dados['receita_id'], PDO::PARAM_INT);
+        $stmt->bindParam(":receita", $dados['receita'], PDO::PARAM_INT);
         $stmt->bindParam(":cliente_id", $dados['cliente_id'], PDO::PARAM_INT);
-        $stmt->bindParam(":status_id", $dados['status'], PDO::PARAM_INT);
+        $stmt->bindParam(":status_id", $dados['status_id'], PDO::PARAM_INT);
         $stmt->bindParam(":observacoes", $dados['observacoes'], PDO::PARAM_STR);
         $stmt->bindParam(":data_retirada", $dados['data_retirada'], PDO::PARAM_STR);
-        $stmt->bindParam(":quantidade_receita", $dados['quantidade_receita'], PDO::PARAM_INT);
+        $stmt->bindParam(":quantidade", $dados['quantidade'], PDO::PARAM_INT);
         $stmt->execute();
         if($stmt->rowCount() > 0){
             return true;
@@ -185,6 +185,40 @@ class Agendamento{
         $stmt->execute();
         if($stmt->rowCount() > 0){
             return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function consultaClientes($termo){
+        /*
+            Retorna uma lista de clientes para cadastro de agendamento,
+            referente a cliente.
+        */
+        $query = "SELECT id, nome as nome_cliente FROM tb_clientes WHERE nome LIKE :termo LIMIT 10";
+        $stmt = $this->conexao->prepare($query);
+        if($termo){
+            $termo = "%".$termo."%";
+        }
+        $stmt->bindParam(":termo", $termo, PDO::PARAM_STR);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }else{
+            return false;
+        }
+    }
+
+    public function pesquisarCliente($nome){
+        /*
+            Pesquisa cliente pelo nome  e retorno o ID.
+        */
+        $query = "SELECT id FROM tb_clientes WHERE nome = :nome";
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindParam(":nome", $nome, PDO::PARAM_STR);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         }else{
             return false;
         }

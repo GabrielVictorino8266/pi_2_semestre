@@ -56,14 +56,14 @@ if($totalAgendamentos){
 
 // $_SERVER['REQUEST_METHOD'] = 'POST';
 // $input = json_decode('{
-//     "id_agendamento": "28",
-//     "action": "atualizar",
-//     "data_agendamento": "2024-11-02",
-//     "produto_final_id": "3",
-//     "status_id": "2",
-//     "observacoes": "DSADASDAS",
-//     "data_retirada": "2024-10-30",
-//     "quantidade": "0"
+//         "action": "cadastrar",
+//         "nome_cliente": "Gabriel Victorino",
+//         "receita": "2",
+//         "quantidade": "1",
+//         "status_id": "2",
+//         "data_retirada": "2024-11-29",
+//         "data_agendamento": "2024-11-28",
+//         "observacoes": "Retirada no PIX"
 // }', true);
 // $_SERVER['CONTENT_TYPE'] = 'application/json';
 
@@ -76,6 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && strpos($_SERVER['CONTENT_TYPE'], 'ap
     //     "message" => "Entoru no ctr_agendamento.",
     //     "input" => $input
     // ]);
+    // exit;
     switch ($action) {
         case "preencher":
             preeencher($agendamentos, $input);
@@ -117,42 +118,53 @@ function preeencher($agendamentos, $input){
         }
 }
 
-// function cadastrar($agendamentos, $input){
-//     // Verifica se 'acao' e 'id' estão setados na entrada e se 'acao' é 'atualizar'
-//     if(isset($input['data_agendamento'], $input['receita_id'], $input['id_cliente'], $input['status_id'], $input['observacoes'], $input['data_retirada'], $input['quantidade'], $input['produto_final_id']) && $input['action'] == 'cadastrar'){
-//         $dados = [
-//             'data_agendamento' => $input['data_agendamento'],
-//             'receita_id' => $input['receita_id'],
-//             'id_cliente' => $input['cliente_id'],
-//             'status_id' => $input['status_id'],
-//             'observacoes' => $input['observacoes'],
-//             'data_retirada' => $input['data_retirada'],
-//             'quantidade_receita' => $input['quantidade_receita'],
-//             'id_agendamento' => $input['id']
-//         ];
+function cadastrar($agendamentos, $input){
+    // Verifica se 'acao' e 'id' estão setados na entrada e se 'acao' é 'atualizar'
+    if(isset($input['nome_cliente'], $input['receita'], $input['quantidade'], $input['status_id'], $input['data_retirada'],$input['data_agendamento'],$input['observacoes']) && $input['action'] == 'cadastrar'){
+        $nome_cliente = $input['nome_cliente'];
 
-//         // Chama o método para atualizar o item no agendamento
-//         $produto = $agendamentos->cadastrarAgendamento($dados);
+        //realiza pesquisa do id do cliente
+        $cliente = $agendamentos->pesquisarCliente($nome_cliente)['id'];
 
-//         if($produto){
-//             echo json_encode([
-//                 "success" => true,
-//                 "message" => "Agendamento cadastrado com sucesso!",
-//                 "data" => $produto
-//             ]);
-//         }else{
-//             echo json_encode([
-//                 "success" => false,
-//                 "message" => "Erro ao cadastar o agendamento."
-//             ]);
-//         }
-//     }else{
-//         echo json_encode([
-//             "success" => false,
-//             "message" => "Erro ao cadastrar o agendamento. Parametros "
-//         ]);
-//     }
-// }
+        if(!$cliente){// Caso o retorno nao seja valido, atribui novamente
+            echo json_encode([
+                "success" => false,
+                "message" => "Erro ao cadastar o agendamento. Nome de Cliente Invalido"
+            ]);
+            exit;
+        }
+
+        $dados = [
+            'cliente_id' => $cliente,
+            'receita' => $input['receita'],
+            'quantidade' => $input['quantidade'],
+            'status_id' => $input['status_id'],
+            'observacoes' => $input['observacoes'],
+            'data_retirada' => $input['data_retirada'],
+            'data_agendamento' => $input['data_agendamento']
+        ];
+
+        // Chama o método para atualizar o item no agendamento
+        $produto = $agendamentos->cadastrarAgendamento($dados);
+
+        if($produto){
+            echo json_encode([
+                "success" => true,
+                "message" => "Agendamento cadastrado com sucesso!",
+            ]);
+        }else{
+            echo json_encode([
+                "success" => false,
+                "message" => "Erro ao cadastar o agendamento."
+            ]);
+        }
+    }else{
+        echo json_encode([
+            "success" => false,
+            "message" => "Erro ao cadastrar o agendamento. Parametros "
+        ]);
+    }
+}
 
 function atualizar($agendamentos, $input){
     if(isset($input['id_agendamento'], $input['data_agendamento'], $input['produto_final_id'], $input['status_id'], $input['observacoes'], $input['data_retirada'], $input['quantidade']) && $input['action'] == 'atualizar'){
@@ -185,5 +197,17 @@ function atualizar($agendamentos, $input){
             "success" => false,
             "message" => "Erro ao atualizar o agendamento. Parametros incorretos."        
         ]);
+    }
+}
+
+//Pesquisa dinamica de cadastro
+
+if(isset($_GET['termo'])){
+    $termo = $_GET['termo']; // Obtenha o termo de pesquisa
+    $clientes_pesquisados = $agendamentos->consultaClientes($termo); // Chame o método para buscar clientes com o termo de pesquisa
+    if(is_array($clientes_pesquisados) && !empty($clientes_pesquisados)){
+        echo json_encode($clientes_pesquisados);
+    }else{
+        echo json_encode([]);
     }
 }

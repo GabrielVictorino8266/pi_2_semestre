@@ -14,7 +14,7 @@ require_once __DIR__ . "/../php/ctr_cadastro_clientes.php";
     <body>
         <div class="container mt-5">
             <a class="link-opacity-75" href="./dashboard.php">Voltar</a>
-            <h3 class=  "text-center">Cadastro de Clientes</h3>
+            <h3 class="text-center">Cadastro de Clientes</h3>
             <form action="" method="GET">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Nome do cliente" aria-label="Nome do cliente" aria-describedby="basic-addon2" name="buscar_nome" id="buscar_nome">
