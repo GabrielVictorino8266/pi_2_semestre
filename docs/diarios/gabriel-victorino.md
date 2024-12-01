@@ -22,7 +22,9 @@
 
 #### 28/09/2024
     Criação de perguntas para o cliente, buscando compreender melhor as informações referente ao seu negócio.
-    OUTUBRO
+
+
+## OUTUBRO
 
 #### 01/10/2024
     Realização de entrevista com cliente juntamente com Gustavo H. para levantamento de mais informações para iniciar o desenvolvimento do sistema.
@@ -58,6 +60,7 @@
     Realizado tabela comparativa entre método atual e antigo do cliente para organizar seu negócio.
     Refatoração de algumas telas para possível apresentação e discussão de melhorias no dia 15/10/2024
 
+## NOVEMBRO E DEZEMBRO
 
 ### 01/11/2024 - 16/11/2024
 
@@ -68,4 +71,9 @@
     Alinhamento e organização de documentação com Rafael.
 
 
-### 17/11/2024 - 30/11/2024
+### 17/11/2024 - 03/12/2024
+    Alinhameto com Integrantes sobre Triggers e Procedures
+    Alinhamento com Professor Bruno e Orlando sobre documentação e andamento do projeto (aprovado pelo professor)
+    Integração com Frontend desenvolvido pelo Gustavo (mudanças implementadas por mim no frontend)
+    Elaboração do Contrato de Software
+    Alinhamento para Apresentação do Grupo na terca-feira.
