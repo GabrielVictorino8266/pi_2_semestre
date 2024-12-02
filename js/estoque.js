@@ -23,6 +23,96 @@ document.addEventListener('click', (event) => {
 
 
 
+function aplicarMascaraMonetaria(input) {
+    input.addEventListener("input", function () {
+        let value = input.value;
+
+        // Remove tudo que não for número ou vírgula
+        value = value.replace(/\D/g, "");
+
+        // Adiciona a vírgula para os centavos
+        if (value.length > 2) {
+            value = value.replace(/(\d{2})$/, ",$1");
+        }
+
+        // Adiciona os pontos de milhar
+        if (value.length > 5) {
+            value = value.replace(/(\d)(\d{3})(\d{1,2})$/, "$1.$2,$3");
+        } else if (value.length > 3) {
+            value = value.replace(/(\d)(\d{3})$/, "$1.$2");
+        }
+
+        // Coloca o símbolo "R$" no início
+        input.value = "R$ " + value;
+    });
+}
+
+  
+// Aplica a função aos dois campos de valor monetário
+const aplicar_atualizar_preco_venda = document.getElementById("atualizar_preco_venda");
+const aplicar_atualizar_custo_unitario = document.getElementById("atualizar_custo_unitario");
+const aplicar_cadastro_preco_venda = document.getElementById("cadastro_preco_venda");
+const aplicar_cadastro_custo_unitario = document.getElementById("cadastro_custo_unitario");
+
+aplicarMascaraMonetaria(aplicar_atualizar_preco_venda);
+aplicarMascaraMonetaria(aplicar_atualizar_custo_unitario);
+aplicarMascaraMonetaria(aplicar_cadastro_preco_venda);
+aplicarMascaraMonetaria(aplicar_cadastro_custo_unitario);
+
+function limparValorMonetario(input) {
+    console.log(input);
+    let value = input ? input : "";  // Verifica se a string de entrada existe, caso contrário, usa uma string vazia
+
+    // Se o valor do input for vazio, retorna "0"
+    if (!value || value.trim() === "") {
+        return "0";
+    }
+
+    // Remove o símbolo R$ e qualquer outro caractere que não seja número ou vírgula
+    value = value.replace(/R\$\s?/, "");  // Remove o símbolo "R$" e espaços
+    value = value.replace(/[^\d,]/g, ""); // Remove qualquer caractere que não seja número ou vírgula
+
+    // Se o valor for vazio ou apenas zeros, retorna '0' para ser enviado ao banco
+    if (value === "" || value === "0" || value === "00") {
+        return "0";
+    }
+
+    // Se o valor tiver vírgula, converte para ponto
+    value = value.replace(",", ".");
+    
+    // Retorna o valor numérico (float)
+    return parseFloat(value);  
+}
+
+
+
+// Função para aplicar a máscara que permite apenas um único dígito (0 ou 1)
+function aplicarMascaraBinario(input) {
+    input.addEventListener("input", function () {
+        // Pega o valor atual do campo
+        let value = input.value;
+
+        // Remove qualquer coisa que não seja 0 ou 1
+        value = value.replace(/[^01]/g, "");
+
+        // Permite apenas o primeiro dígito, descartando os demais
+        if (value.length > 1) {
+        value = value.slice(0, 1); // Mantém apenas o primeiro dígito
+        }
+
+        // Atualiza o valor do campo com a string filtrada
+        input.value = value;
+    });
+    }
+
+// Aplica a função ao campo de entrada
+const cadastro_ativado = document.getElementById("cadastro_ativado");
+const atualizar_ativado = document.getElementById("atualizar_ativado");
+aplicarMascaraBinario(cadastro_ativado);
+aplicarMascaraBinario(atualizar_ativado);
+
+
+
 function mostrarFormCadastro(){
     /*
     Função que mostra o formulario de cadastro
@@ -50,14 +140,22 @@ function voltarFormularioAtualizar(){
 
 
 function atualizar() {
+    // Obtém os valores dos inputs
+    let limpar_atualizar_preco_venda = document.getElementById("atualizar_preco_venda").value;
+    let limpar_atualizar_custo_unitario = document.getElementById("atualizar_custo_unitario").value;
+    
+    // Limpa os valores antes de enviar
+    let preco_venda = limparValorMonetario(limpar_atualizar_preco_venda);
+    let custo_unitario = limparValorMonetario(limpar_atualizar_custo_unitario);
+
     const id_atualizacao = document.getElementById('produto_id').value;
     const dados_atualizar = {
         id: id_atualizacao,
         action: "atualizar",
         descricao: document.getElementById('atualizar_nome_produto').value,
         quantidade: document.getElementById('atualizar_quantidade').value,
-        custo: document.getElementById('atualizar_custo_unitario').value,
-        venda: document.getElementById('atualizar_preco_venda').value,
+        custo: custo_unitario,
+        venda: preco_venda,
         tipo: document.getElementById('atualizar_tipo').value,
         categoria: document.getElementById('atualizar_categoria').value,
         ativado: document.getElementById('atualizar_ativado').value,
@@ -167,12 +265,20 @@ function deletar(id) {
 
 
 function cadastrar() {
+    // Obtém os valores dos inputs
+    let cadastro_preco_venda = document.getElementById("cadastro_preco_venda").value;
+    let cadastro_custo_unitario = document.getElementById("cadastro_custo_unitario").value;
+
+    // Limpa os valores antes de enviar
+    let preco_venda = limparValorMonetario(cadastro_preco_venda);
+    let custo_unitario = limparValorMonetario(cadastro_custo_unitario);
+
     const dados_atualizar = {
         action: "cadastrar",
         descricao: document.getElementById('cadastro_nome_produto').value,
         quantidade: document.getElementById('cadastro_quantidade').value,
-        custo: document.getElementById('cadastro_custo_unitario').value,
-        venda: document.getElementById('cadastro_preco_venda').value,
+        custo: custo_unitario,
+        venda: preco_venda,
         tipo: document.getElementById('cadastro_tipo').value,
         categoria: document.getElementById('cadastro_categoria').value,
         ativado: document.getElementById('cadastro_ativado').value,

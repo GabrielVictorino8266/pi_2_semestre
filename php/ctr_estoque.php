@@ -53,8 +53,15 @@ $filtroCategoria = $estoque->listarCategoria();
 
 // $_SERVER['REQUEST_METHOD'] = 'POST';
 // $input = json_decode('{
-//     "id": "3",
-//     "action": "deletar"
+//         "id": "29",
+//         "action": "atualizar",
+//         "descricao": "Recheio Para Bolo",
+//         "quantidade": "20",
+//         "custo": 4990.01,
+//         "venda": 0.01,
+//         "tipo": "1",
+//         "categoria": "5",
+//         "ativado": "1"
 //     }', true);
 // $_SERVER['CONTENT_TYPE'] = 'application/json';
 

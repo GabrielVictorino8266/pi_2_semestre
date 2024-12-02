@@ -79,9 +79,6 @@ function limparCep(input) {
     return value;
   }
 
-
-
-
 function atualizar() {
     const atualizar_telefone = document.getElementById("atualizar_telefone");
     const cep = document.getElementById("atualizar_cep");
@@ -106,7 +103,7 @@ function atualizar() {
         cep : cepLimpo
     };
     
-    // console.log(dados_atualizar);
+    console.log(dados_atualizar);
     // Fazendo a requisição com fetch
     fetch('../php/ctr_cadastro_clientes.php', {
         method: 'POST',
