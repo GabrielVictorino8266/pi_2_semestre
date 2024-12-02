@@ -1,0 +1,85 @@
+classDiagram
+
+    class Conexao {
+        -string host
+        -string dbname
+        -PDO conexao
+        -string user
+        -string password
+        +Conexao()
+        +getConexao() PDO
+        +closeConexao() NULL
+    }
+
+    class Paginacao {
+        -int pagina
+        -int limite
+        -int totalRegistros
+        -int quantidadeLinks
+        +Paginacao(int paginaAtual, int limite, int totalRegistros, int quantidadeLinks=4)
+        +calcularInicio() int
+        +calcularTotalPaginas() int
+        +calcularIntervalo() map
+    }
+
+    class CadastroClientes {
+        -Conexao conexao
+        +CadastroClientes()
+        +adicionarCliente(array dados) bool
+        +pesquisarClientes(string nome) array
+        +atualizarCliente(array dados) bool
+        +buscarClientePorId(int id) mixed
+    }
+
+    CadastroClientes --> Conexao : "usa o método getConexao()"
+
+    class CadastroUsuario {
+        -Conexao conexao
+        +CadastroUsuario()
+        +registarUsuario(string nome, string email, string senha, int funcao_id) bool
+        +getFuncao(int funcao) mixed
+        +verificaSenha(string senha, array usuario) mixed
+        +verificaEmailUsuario(string email) mixed
+        +getFuncaoUsuarioId(int id) mixed
+    }
+
+    CadastroUsuario --> Conexao : "usa o método getConexao()"
+
+    class Dashboard {
+        -Conexao conexao
+        +Dashboard()
+        +pesquisarDashboard(string inicioDaSemana, string fimDaSemana, int inicio, int limite, string nome_cliente, int status_id) array
+        +getTodosStatus() array
+        +getTotalPesquisarDashboard(string inicioDaSemana, string fimDaSemana, string nome_cliente, int status_id) int
+    }
+
+    Dashboard --> Conexao : "usa o método getConexao()"
+
+    class Estoque {
+        -Conexao conexao
+        +Estoque()
+        +cadastrarProduto(array dados) bool
+        +listarEstoque(int inicio, int limite) mixed
+        +listarContagemEstoque() mixed
+        +listarTipoItem() mixed
+        +listarCategoria() mixed
+        +atualizarItem(int id, array dados) bool
+        +carregarInformacoesItem(int id) mixed
+        +deletarEstoque(int id) bool
+        +getTotalEstoque(int tipo_pesquisa, string nome_pesquisa, int categoria_pesquisa) mixed
+    }
+
+    Estoque --> Conexao : "usa o método getConexao()"
+
+    class Usuario {
+        -Conexao conexao
+        -int id
+        -string nome
+        -string email
+        -string senha
+        +Usuario()
+        +verificaLogin(string email, string senha) bool
+        +getDadosUsuario() map
+    }
+
+    Usuario --> Conexao : "usa o método getConexao()"
