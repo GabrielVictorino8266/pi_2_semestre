@@ -1,3 +1,65 @@
+// Função para aplicar a máscara e limitar a quantidade de caracteres
+function aplicarMascaraTelefone(input) {
+    input.addEventListener("input", function () {
+        let value = input.value;
+
+        // Remove tudo que não for número
+        value = value.replace(/\D/g, "");
+
+        // Limita o número de dígitos a 11
+        if (value.length > 11) {
+        value = value.slice(0, 11);
+        }
+
+        // Aplica a máscara (XX) XXXXX-XXXX
+        if (value.length > 10) {
+        value = value.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+        } else if (value.length > 6) {
+        value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
+        } else if (value.length > 2) {
+        value = value.replace(/(\d{2})(\d{0,5})/, "($1) $2");
+        }
+
+        input.value = value;
+    });
+    }
+
+// Aplica a função aos dois campos de telefone
+const cadastrar_telefone = document.getElementById("telefone");
+const atualizar_telefone = document.getElementById("atualizar_telefone");
+
+aplicarMascaraTelefone(cadastrar_telefone);
+aplicarMascaraTelefone(atualizar_telefone);
+
+    // Função para aplicar a máscara de CEP
+    function aplicarMascaraCEP(input) {
+    input.addEventListener("input", function () {
+        let value = input.value;
+
+        // Remove tudo que não for número
+        value = value.replace(/\D/g, "");
+
+        // Limita o número de dígitos a 8 (somente os números do CEP)
+        if (value.length > 8) {
+        value = value.slice(0, 8);
+        }
+
+        // Aplica a máscara 00000-000
+        if (value.length > 5) {
+        value = value.replace(/(\d{5})(\d{0,3})/, "$1-$2");
+        }
+
+        input.value = value;
+    });
+    }
+
+    // Aplica a função aos dois campos de CEP
+    const cep = document.getElementById("cep");
+    const atualizar_cep = document.getElementById("atualizar_cep");
+
+    aplicarMascaraCEP(cep);
+    aplicarMascaraCEP(atualizar_cep);
+
 function atualizar() {
     const id_atualizacao = document.getElementById('idcliente').value;
     const dados_atualizar = {
