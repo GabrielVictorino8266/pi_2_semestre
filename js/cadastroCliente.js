@@ -31,52 +31,82 @@ const atualizar_telefone = document.getElementById("atualizar_telefone");
 aplicarMascaraTelefone(cadastrar_telefone);
 aplicarMascaraTelefone(atualizar_telefone);
 
-    // Função para aplicar a máscara de CEP
-    function aplicarMascaraCEP(input) {
-    input.addEventListener("input", function () {
-        let value = input.value;
+// Função para limpar o telefone, removendo a máscara
+function limparTelefone(input) {
+    // Remove tudo que não for número
+    let value = input.value;
+    value = value.replace(/\D/g, ""); // Remover qualquer coisa que não seja dígito
+    
+    // retorna com o valor limpo, apenas números
+    return value;
+}
 
-        // Remove tudo que não for número
-        value = value.replace(/\D/g, "");
+// Função para aplicar a máscara de CEP
+function aplicarMascaraCEP(input) {
+input.addEventListener("input", function () {
+    let value = input.value;
 
-        // Limita o número de dígitos a 8 (somente os números do CEP)
-        if (value.length > 8) {
-        value = value.slice(0, 8);
-        }
+    // Remove tudo que não for número
+    value = value.replace(/\D/g, "");
 
-        // Aplica a máscara 00000-000
-        if (value.length > 5) {
-        value = value.replace(/(\d{5})(\d{0,3})/, "$1-$2");
-        }
-
-        input.value = value;
-    });
+    // Limita o número de dígitos a 8 (somente os números do CEP)
+    if (value.length > 8) {
+    value = value.slice(0, 8);
     }
 
-    // Aplica a função aos dois campos de CEP
-    const cep = document.getElementById("cep");
-    const atualizar_cep = document.getElementById("atualizar_cep");
+    // Aplica a máscara 00000-000
+    if (value.length > 5) {
+    value = value.replace(/(\d{5})(\d{0,3})/, "$1-$2");
+    }
 
-    aplicarMascaraCEP(cep);
-    aplicarMascaraCEP(atualizar_cep);
+    input.value = value;
+});
+}
+
+// Aplica a função aos dois campos de CEP
+const cep = document.getElementById("cep");
+const atualizar_cep = document.getElementById("atualizar_cep");
+
+aplicarMascaraCEP(cep);
+aplicarMascaraCEP(atualizar_cep);
+
+function limparCep(input) {
+    // Remove tudo que não for número
+    let value = input.value;
+    value = value.replace(/\D/g, ""); // Remove qualquer coisa que não seja dígito
+
+    // Retorna o valor limpo (apenas números)
+    return value;
+  }
+
+
+
 
 function atualizar() {
+    const atualizar_telefone = document.getElementById("atualizar_telefone");
+    const cep = document.getElementById("atualizar_cep");
+
+    // Limpa os campos antes de enviar
+    telefone = limparTelefone(atualizar_telefone);
+    const cepLimpo = limparCep(cep);
+
+
     const id_atualizacao = document.getElementById('idcliente').value;
     const dados_atualizar = {
         id_cliente: id_atualizacao,
         action: "atualizar",
         nome : document.getElementById('atualizar_nome').value,
         email : document.getElementById('atualizar_email').value,
-        telefone : document.getElementById('atualizar_telefone').value,
+        telefone : telefone,
         rua : document.getElementById('atualizar_rua').value,
         numero : document.getElementById('atualizar_numero').value,
         bairro : document.getElementById('atualizar_bairro').value,
         cidade : document.getElementById('atualizar_cidade').value,
         estado : document.getElementById('atualizar_estado').value,
-        cep : document.getElementById('atualizar_cep').value
+        cep : cepLimpo
     };
     
-    console.log(dados_atualizar);
+    // console.log(dados_atualizar);
     // Fazendo a requisição com fetch
     fetch('../php/ctr_cadastro_clientes.php', {
         method: 'POST',
@@ -146,17 +176,25 @@ function mostrarFormAtualizar(id) {
 }
 
 function cadastrar(){
+    const cadastrar_telefone = document.getElementById("telefone");
+    const cep = document.getElementById("cep");
+
+    // Limpa os campos antes de enviar
+    telefone = limparTelefone(cadastrar_telefone);
+    const cepLimpo = limparCep(cep);
+
+
     const dados_cadastro = {
         action: "cadastrar",
         nome : document.getElementById('nome').value,
         email : document.getElementById('email').value,
-        telefone : document.getElementById('telefone').value,
+        telefone : telefone,
         rua : document.getElementById('rua').value,
         numero : document.getElementById('numero').value,
         bairro : document.getElementById('bairro').value,
         cidade : document.getElementById('cidade').value,
         estado : document.getElementById('estado').value,
-        cep : document.getElementById('cep').value
+        cep : cepLimpo
     };
     // 
     console.log(dados_cadastro);

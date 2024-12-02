@@ -22,17 +22,18 @@ if(isset($_GET['buscar_nome'])){
 
 // $_SERVER['REQUEST_METHOD'] = 'POST';
 // $input = json_decode('{
-//     "action": "cadastrar",
-//     "nome": "gabriel",
-//     "email": "email@email",
-//     "telefone": "456789",
-//     "rua": "rua teste",
-//     "numero": "numeor teste",
-//     "bairro": "bairro teste",
-//     "cidade": "cidade tete",
-//     "estado": "estado teste",
-//         "cep": "cep teste"
-//     }', true);
+//     "id_cliente": 1,
+//     "action": "atualizar",
+//     "nome": "Gabriel Victorino",
+//     "email": "gabriel@gmail.com",
+//     "telefone": "66678989",
+//     "rua": "Rua Crisantemos Teste",
+//     "numero": "123",
+//     "bairro": "Bairro Teste",
+//     "cidade": "Cidade Teste",
+//     "estado": "ES",
+//     "cep": "12345676"
+// }', true);
 // $_SERVER['CONTENT_TYPE'] = 'application/json';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false){

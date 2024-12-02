@@ -89,23 +89,39 @@ class CadastroClientes {
 
 
     public function atualizarCliente($dados){
-        $query = "UPDATE tb_clientes SET nome = :nome, email = :email, telefone = :telefone WHERE id = :id_cliente;";
-        $query .= " UPDATE tb_endereco SET cep = :cep, rua = :rua, numero = :numero, cidade = :cidade, estado = :estado, bairro = :bairro WHERE cliente_id = :id_cliente";
-        $stmt = $this->conexao->prepare($query);
-        $stmt->bindParam(":nome", $dados['nome'], PDO::PARAM_STR);
-        $stmt->bindParam(":email", $dados['email'], PDO::PARAM_STR);
-        $stmt->bindParam(":telefone", $dados['telefone'], PDO::PARAM_STR);
-        $stmt->bindParam(":id_cliente", $dados['id_cliente'], PDO::PARAM_INT);
-        $stmt->bindParam(":cep", $dados['cep'], PDO::PARAM_STR);
-        $stmt->bindParam(":rua", $dados['rua'], PDO::PARAM_STR);
-        $stmt->bindParam(":numero", $dados['numero'], PDO::PARAM_STR);
-        $stmt->bindParam(":cidade", $dados['cidade'], PDO::PARAM_STR);
-        $stmt->bindParam(":estado", $dados['estado'], PDO::PARAM_STR);
-        $stmt->bindParam(":bairro", $dados['bairro'], PDO::PARAM_STR);
-        $stmt->execute();
-        if($stmt->rowCount() > 0){
+        // Iniciar transação
+        $this->conexao->beginTransaction();
+        try{
+            $query = "UPDATE tb_clientes SET nome = :nome, email = :email, telefone = :telefone WHERE id = :id_cliente;";
+            $stmt_cliente = $this->conexao->prepare($query);
+            $stmt_cliente->bindParam(":nome", $dados['nome'], PDO::PARAM_STR);
+            $stmt_cliente->bindParam(":email", $dados['email'], PDO::PARAM_STR);
+            $stmt_cliente->bindParam(":telefone", $dados['telefone'], PDO::PARAM_STR);
+            $stmt_cliente->bindParam(":id_cliente", $dados['id_cliente'], PDO::PARAM_INT);
+            $stmt_cliente->execute();
+            
+            // Atualizar a tabela tb_endereco
+            $queryendereco = " UPDATE tb_endereco SET cep = :cep, rua = :rua, numero = :numero, cidade = :cidade, estado = :estado, bairro = :bairro WHERE cliente_id = :id_cliente";
+            $stmtendereco = $this->conexao->prepare($queryendereco);
+            $stmtendereco->bindParam(":cep", $dados['cep'], PDO::PARAM_STR);
+            $stmtendereco->bindParam(":rua", $dados['rua'], PDO::PARAM_STR);
+            $stmtendereco->bindParam(":numero", $dados['numero'], PDO::PARAM_STR);
+            $stmtendereco->bindParam(":cidade", $dados['cidade'], PDO::PARAM_STR);
+            $stmtendereco->bindParam(":estado", $dados['estado'], PDO::PARAM_STR);
+            $stmtendereco->bindParam(":bairro", $dados['bairro'], PDO::PARAM_STR);
+            $stmtendereco->bindParam(":id_cliente", $dados['id_cliente'], PDO::PARAM_INT);
+            $stmtendereco->execute();
+
+            // Commit da transação
+            $this->conexao->commit();
+
+            // Retorna true se as duas instruções executaram corretamente
             return true;
-        }else{
+        }catch (Exception $e) {
+            // Em caso de erro, realiza o rollback
+            $this->conexao->rollBack();
+            // Exibe a mensagem de erro para depuração (pode remover ou registrar em produção)
+            echo "Erro: " . $e->getMessage();
             return false;
         }
     }
