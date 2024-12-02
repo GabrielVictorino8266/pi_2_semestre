@@ -1,6 +1,4 @@
 <?php
-// require_once __DIR__ . '/classes/conexao.php';
-// require_once __DIR__ . '/classes/query.php';
 require_once __DIR__ . '/classes/estoque.php';
 require_once __DIR__ . '/classes/paginacao.php';
 require_once __DIR__ . '/session_check.php';
@@ -16,29 +14,30 @@ $funcao = $_SESSION['user_funcao'];
 Configuração de pagina.
 */
 $limite_pagina = 4;
-if(isset($_GET['pagina'])){
+if (isset($_GET['pagina'])) {
     $pagina = $_GET['pagina'];
-}else{  
+} else {
     $pagina = 1;
 }
 
 /*
 Listagem da contagem de todo o estoque.
 */
-function listarEstoque($estoque, $pagina, $limite_pagina){
+function listarEstoque($estoque, $pagina, $limite_pagina)
+{
     $filtrosDados = listarFiltros();
     $contagemEstoque = $estoque->getTotalEstoque($filtrosDados['tipo_pesquisa'], $filtrosDados['nome_pesquisa'], $filtrosDados['categoria_pesquisa']);
-    if($contagemEstoque['total'] ){
+    if ($contagemEstoque['total']) {
         $paginacao = new Paginacao($pagina, $limite_pagina, $contagemEstoque['total']);
-    }else{
+    } else {
         $paginacao = new Paginacao($pagina, $limite_pagina, 0);
     }
     $inicio_pagina = $paginacao->calcularInicio();
     $intervalo = $paginacao->calcularIntervalo();
-    
+
     $listagemEstoque = $estoque->getPesquisarEstoque($inicio_pagina, $limite_pagina, $filtrosDados['tipo_pesquisa'], $filtrosDados['nome_pesquisa'], $filtrosDados['categoria_pesquisa']);
     return ['listagem' => $listagemEstoque, 'paginacao' => $paginacao, 'intervalo' => $intervalo];
-} 
+}
 
 $listagemEstoque = listarEstoque($estoque, $pagina, $limite_pagina)['listagem'];
 $intervalo = listarEstoque($estoque, $pagina, $limite_pagina)['intervalo'];
@@ -65,11 +64,12 @@ $filtroCategoria = $estoque->listarCategoria();
 //     }', true);
 // $_SERVER['CONTENT_TYPE'] = 'application/json';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false){
+// Verifica se a requisição é  do tipo POST e se o cabe alho de conte do  application/json
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
     $input = json_decode(file_get_contents('php://input'), true);
     $action = $input['action'];
 
-    // echo json_encode($input);
+    // Realiza a opera o solicitada
     switch ($action) {
         case "preencher":
             preeencher($estoque, $input);
@@ -84,17 +84,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['CONTENT_TYPE'], 'a
             break;
         case "deletar":
             deletarEstoque($estoque, $input);
+            $listagemEstoque = listarEstoque($estoque, $pagina, $limite_pagina)['listagem'];
             break;
         default:
-        echo json_encode([
-            "success" => false,
-            "message" => "Erro ao Realizar operação."
-        ]);
+            // Retorna um JSON com um erro
+            echo json_encode([
+                "success" => false,
+                "message" => "Erro ao Realizar opera o."
+            ]);
+            exit;
     }
-    
 }
 
-function preeencher($estoque, $input){
+
+/**
+ * Função para preencher um formul rio com as informa es de um item no estoque.
+ *
+ * @param Estoque $estoque
+ * @param array $input
+ *
+ * @return void
+ */
+function preeencher($estoque, $input)
+{
     // Verifica se 'acao' e 'id' est o setados na entrada e se 'acao'   'preencher'
     if (isset($input['action'], $input['id']) && $input['action'] == 'preencher') {
         $id = $input['id']; // Obtenha o id do item da entrada
@@ -107,7 +119,7 @@ function preeencher($estoque, $input){
                 "data" => $produto // Retorne as informações do item
             ]);
         }
-    }else{
+    } else {
         echo json_encode([
             "success" => false,
             "message" => "Erro ao carregar informacoes do item."
@@ -117,10 +129,18 @@ function preeencher($estoque, $input){
 }
 
 
-function atualizar($estoque, $input){
+/**
+ * Função para atualizar um item no estoque.
+ *
+ * @param Estoque $estoque
+ * @param array $input
+ * @return void
+ */
+function atualizar($estoque, $input)
+{
 
     // Verifica se 'acao' e 'id' est o setados na entrada e se 'acao'   'atualizar'
-    if(isset($input['id'], $input['descricao'], $input['quantidade'], $input['custo'], $input['venda'], $input['tipo'], $input['categoria'], $input['ativado']) && $input['action'] == 'atualizar'){
+    if (isset($input['id'], $input['descricao'], $input['quantidade'], $input['custo'], $input['venda'], $input['tipo'], $input['categoria'], $input['ativado']) && $input['action'] == 'atualizar') {
         $dados = [
             'id' => $input['id'],
             'descricao' => $input['descricao'],
@@ -129,25 +149,25 @@ function atualizar($estoque, $input){
             'preco_venda' => $input['venda'],
             'tipo_id' => $input['tipo'],
             'categoria_id' => $input['categoria'],
-            'ativado'=> $input['ativado']
+            'ativado' => $input['ativado']
         ];
-        
+
         // Chama o método para atualizar o item no estoque
         $produto = $estoque->atualizarItem($input['id'], $dados);
 
-        if($produto){
+        if ($produto) {
             echo json_encode([
                 "success" => true,
                 "message" => "Produto atualizado com sucesso!",
                 "data" => $produto
             ]);
-        }else{
+        } else {
             echo json_encode([
                 "success" => false,
                 "message" => "Erro ao atualizar o produto."
             ]);
         }
-    }else{
+    } else {
         echo json_encode([
             "success" => false,
             "input" => $input,
@@ -156,9 +176,17 @@ function atualizar($estoque, $input){
     }
 }
 
-function cadastrar($estoque, $input){
+/**
+ * Função para cadastrar um item no estoque.
+ *
+ * @param Estoque $estoque
+ * @param array $input
+ * @return void
+ */
+function cadastrar($estoque, $input)
+{
     // Verifica se 'acao' e 'id' est o setados na entrada e se 'acao'  é 'atualizar'
-    if(isset($input['descricao'], $input['quantidade'], $input['custo'], $input['venda'], $input['tipo'], $input['categoria'], $input['ativado']) && $input['action'] == 'cadastrar'){
+    if (isset($input['descricao'], $input['quantidade'], $input['custo'], $input['venda'], $input['tipo'], $input['categoria'], $input['ativado']) && $input['action'] == 'cadastrar') {
         $dados = [
             'descricao' => $input['descricao'],
             'quantidade' => $input['quantidade'],
@@ -166,26 +194,26 @@ function cadastrar($estoque, $input){
             'preco_venda' => $input['venda'],
             'tipo_id' => $input['tipo'],
             'categoria_id' => $input['categoria'],
-            'ativado'=> $input['ativado']
+            'ativado' => $input['ativado']
         ];
 
-        
+
         // Chama o método para atualizar o item no estoque
         $produto = $estoque->cadastrarProduto($dados);
 
-        if($produto){
+        if ($produto) {
             echo json_encode([
                 "success" => true,
                 "message" => "Produto cadastrado com sucesso!",
                 "data" => $produto
             ]);
-        }else{
+        } else {
             echo json_encode([
                 "success" => false,
                 "message" => "Erro ao cadastar o produto."
             ]);
         }
-    }else{
+    } else {
         echo json_encode([
             "success" => false,
             "input" => $input,
@@ -194,38 +222,60 @@ function cadastrar($estoque, $input){
     }
 }
 
-function listarFiltros(){
+/**
+ * Retorna um array com os filtros de pesquisa que est o setados, se n o estiver
+ * nenhum filtro setado, retorna um array vazio.
+ *
+ * @return array
+ */
+function listarFiltros()
+{
     $filtros = array();
-    if(isset($_GET['buscar'])){
+    if (isset($_GET['buscar'])) {
         $nome_pesquisa = $_GET['buscar'];
-    }else{
+    } else {
         $nome_pesquisa = '';
     }
     $filtros['nome_pesquisa'] = $nome_pesquisa;
-    
-    if(isset($_GET['tipo'])){
+
+    if (isset($_GET['tipo'])) {
         $tipo_pesquisa = $_GET['tipo'];
-    }else{
+    } else {
         $tipo_pesquisa = '';
     }
     $filtros['tipo_pesquisa'] = $tipo_pesquisa;
 
-    if(isset($_GET['categoria'])){
+    if (isset($_GET['categoria'])) {
         $categoria_pesquisa = $_GET['categoria'];
-    }else{
+    } else {
         $categoria_pesquisa = '';
     }
     $filtros['categoria_pesquisa'] = $categoria_pesquisa;
 
     return $filtros;
 }
-function deletarEstoque($estoque, $input){
+
+
+/**
+ * deletarEstoque
+ *
+ * Recebe um objeto do tipo estoque e um array com informações para deletar
+ * um item do estoque. Chama o método deletarEstoque no objeto estoque e
+ * retorna a resposta em formato JSON.
+ *
+ * @param object $estoque Objeto do tipo estoque
+ * @param array $input Array com informações para deletar o item do estoque
+ *
+ * @return void
+ */
+function deletarEstoque($estoque, $input)
+{
     if (isset($input['id']) && $input['action'] == 'deletar') {
         $id = $input['id'];
         try {
             // Chama o método para deletar o item no estoque
             $response = $estoque->deletarEstoque($id);
-            
+
             // Retorna a resposta com base no sucesso ou falha
             echo json_encode([
                 "success" => $response['success'],
