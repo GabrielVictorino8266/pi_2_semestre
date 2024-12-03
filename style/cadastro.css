@@ -1,163 +1,38 @@
-body{
-    margin: 0% 0% 0% 0%;
-    padding: 0px 0px 0px 0px;
-    border: 0px 0px 0px 0px;
-    display: flex;
-    
+:root {
+    /* Cores principais */
+    --cor-fundo-main: #201814;  /* Cor de fundo principal */
+    --cor-fundo-segundaria: #f7f3ee;  /* Cor de fundo secundária */
+    --cor-fundo-button: #5f2323;  /* Cor do fundo dos botões */
+    --cor-fundo-button-hover: #231111;  /* Cor do fundo dos botões ao passar o mouse */
+    --cor-font-main: #ffffff;  /* Cor principal da fonte */
+    --cor-quit-hover: #D3AD82;  /* Cor ao passar o mouse para 'sair' */
+    --cor-table-head: #000000;  /* Cor de fundo da cabeça da tabela */
+    --cor-table-row: #5a5a5a;  /* Cor de fundo das linhas da tabela */
+    --var-button-cad: #727351;  /* Cor do botão de cadastro */
+    --var-button-cad-hover: #4e4c33;  /* Cor do botão de cadastro ao passar o mouse */
+
+    /* Tamanhos de fontes */
+    --font-size-main: 30px;
+    --font-size-segundaria: 20px;
+    --font-size-button: 1.1vw;
 }
 
-
-.block{
-    margin-left: 0px;
-    margin-bottom: 0px;
-    margin-top: 0%;
-    padding-top: 0%;
-    padding-left: none;
-    border-left: none;
-    height: 100vh;
-    width: 30%;
-    background-color: #d9d9d9;
+.btn-primary {
+    background-color: var(--cor-fundo-button) !important; /* Cor de fundo do botão principal */
+    color: var(--cor-font-main) !important; /* Cor do texto do botão */
+    border: none !important; /* Remove bordas padrão */
+    transition: background-color 0.3s ease, transform 0.2s ease !important; /* Transições suaves */
 }
 
-.block img{
-    width: 70%;
-    padding-top: 45%;
-    padding-left: 28%;
-    border-color: aqua;
+.btn-primary:hover {
+    background-color: var(--cor-fundo-button-hover) !important; /* Cor ao passar o mouse */
+    color: var(--cor-font-main) !important; /* Mantém a cor do texto */
+    transform: scale(1.05) !important; /* Adiciona leve efeito de zoom ao passar o mouse */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important; /* Sombra para dar destaque */
 }
 
-.cadastro{
-    width: 40%;
-    height: 70vh;
-
-    background-color: #d9d9d9;
-
-    margin-left: 15%;
-    margin-top: 6%;
-    border-radius: 3%;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.cadastro .title{
-    display: flex;
-    align-items: center;
-    font-size: 20px;
-    color: black;
-}
-
-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.username, .user-email2, .password2, .conf-password2{
-    align-self: flex-start;
-    margin-left: 5%;
-    margin-bottom: 0.5%;
-    font-size: 18px;
-    color: black;
-}
-
-.user-input, .input-email2, .input-password2, .conf-input-password2{
-    margin-top: .5rem;
-    margin-bottom: .5rem;
-
-    width: 90%;
-    height: 1rem;
-
-    border-radius: 7px;
-
-    padding: 1%;
-
-    font-size: 15px;
-}
-
-select{
-    display: flex;
-    margin-left: 5%;
-    margin-top: 2%;
-    align-self: flex-start;
-}
-
-.btn{
-    height: 100%;
-    width: 40%;
-
-    border-radius: 10px;
-    border: none;
-
-    margin-top: 5%;
-    margin-left: 30%;
-
-    background-color: white;
-
-    font-size: 20px;
-    cursor: pointer;
-
-    align-self: baseline;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-button:hover{
-    color: white;
-    background-color: #424242;
-}
-
-@media (max-width:740px){
-    body{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        margin: 0;
-        padding: 0;
-
-        height: 100vh;
-    }
-
-    .block{
-        display: none;
-    }
-
-    .cadastro{
-        width: 90%;
-        height: 75%;
-        padding: 2%;
-
-        box-sizing: border-box;
-
-        display: flex; 
-        flex-direction: column; 
-        justify-content: flex-start;
-        align-items: center;
-       
-
-        margin: 0px auto;
-    }
-
-    .cadastro .title{
-        align-self: center;
-        margin-top: .5rem;
-        margin-bottom: 1rem;
-    }
-
-    .email-user, .password-user{
-        font-size: 1.5rem;
-        margin-bottom: .5rem;
-    }
-
-    .password-input,.email-input{
-        height: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .btn{
-        height: 3rem;
-    }
-
+.btn-primary:active {
+    background-color: var(--var-button-cad-hover) !important; /* Cor ao clicar */
+    transform: scale(0.98) !important; /* Leve redução ao clicar */
+    box-shadow: none !important; /* Remove sombra ao clicar */
 }

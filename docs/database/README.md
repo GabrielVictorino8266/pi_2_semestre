@@ -47,6 +47,9 @@ BEGIN
 END $$
 DELIMITER ;
 
+```
+
+```sql
 --### Triggers
 
 -- Chama trigger para registrar preco de compra na tb_compras
@@ -74,37 +77,35 @@ END $$
 DELIMITER ;
 
 
-
 -- Trigger acionada para verificar se ira deletar estoque
--- DROP TRIGGER IF EXISTS before_update_estoque;
--- DELIMITER $$
+DROP TRIGGER IF EXISTS before_update_estoque;
+DELIMITER $$
 
--- CREATE TRIGGER before_update_estoque
--- BEFORE UPDATE ON tb_estoque
--- FOR EACH ROW
--- BEGIN
---     -- Evitar alteração do campo 'ativado' quando outros campos estão sendo atualizados
---     IF OLD.preco_unitario = NEW.preco_unitario AND OLD.preco_venda = NEW.preco_venda THEN
---         -- Verificar se o item de estoque está relacionado a agendamentos ativos
---         IF EXISTS (
---             SELECT 1
---             FROM tb_agendamentos AS a
---             JOIN tb_receitas AS r ON a.receita_id = r.id
---             WHERE (r.produto_final_id = OLD.id OR r.ingrediente_id = OLD.id)
---               AND a.status_id IN (SELECT id FROM tb_status WHERE descricao IN ('Em Andamento', 'Finalizado'))
---         ) THEN
---             -- Atualizar o atributo ativado para 0 (desativado) em vez de excluir
---             SET NEW.ativado = 0;
+CREATE TRIGGER before_update_estoque
+BEFORE UPDATE ON tb_estoque
+FOR EACH ROW
+BEGIN
+    -- Evitar alteração do campo 'ativado' quando outros campos estão sendo atualizados
+    IF OLD.preco_unitario = NEW.preco_unitario AND OLD.preco_venda = NEW.preco_venda THEN
+        -- Verificar se o item de estoque está relacionado a agendamentos ativos
+        IF EXISTS (
+            SELECT 1
+            FROM tb_agendamentos AS a
+            JOIN tb_receitas AS r ON a.receita_id = r.id
+            WHERE (r.produto_final_id = OLD.id OR r.ingrediente_id = OLD.id)
+              AND a.status_id IN (SELECT id FROM tb_status WHERE descricao IN ('Em Andamento', 'Finalizado'))
+        ) THEN
+            -- Atualizar o atributo ativado para 0 (desativado) em vez de excluir
+            SET NEW.ativado = 0;
 
---             -- Definir uma mensagem de erro para o controle da aplicação
---             SIGNAL SQLSTATE '45000'
---             SET MESSAGE_TEXT = 'Nao foi possivel desativar. Possivelmente existem agendamentos com este item de estoque.';
---         END IF;
---     END IF;
--- END $$
+            -- Definir uma mensagem de erro para o controle da aplicação
+            SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Nao foi possivel desativar. Possivelmente existem agendamentos com este item de estoque.';
+        END IF;
+    END IF;
+END$$
 
--- DELIMITER ;
-
+DELIMITER ;
 
 ```
 
@@ -146,6 +147,45 @@ DELIMITER ;
             // Em caso de erro, reverte a transação
             $this->conexao->rollBack();
             throw new Exception("Erro ao cadastrar cliente e endereço: " . $e->getMessage());
+        }
+    }
+
+
+     public function atualizarCliente($dados){
+        // Iniciar transação
+        $this->conexao->beginTransaction();
+        try{
+            $query = "UPDATE tb_clientes SET nome = :nome, email = :email, telefone = :telefone WHERE id = :id_cliente;";
+            $stmt_cliente = $this->conexao->prepare($query);
+            $stmt_cliente->bindParam(":nome", $dados['nome'], PDO::PARAM_STR);
+            $stmt_cliente->bindParam(":email", $dados['email'], PDO::PARAM_STR);
+            $stmt_cliente->bindParam(":telefone", $dados['telefone'], PDO::PARAM_STR);
+            $stmt_cliente->bindParam(":id_cliente", $dados['id_cliente'], PDO::PARAM_INT);
+            $stmt_cliente->execute();
+            
+            // Atualizar a tabela tb_endereco
+            $queryendereco = " UPDATE tb_endereco SET cep = :cep, rua = :rua, numero = :numero, cidade = :cidade, estado = :estado, bairro = :bairro WHERE cliente_id = :id_cliente";
+            $stmtendereco = $this->conexao->prepare($queryendereco);
+            $stmtendereco->bindParam(":cep", $dados['cep'], PDO::PARAM_STR);
+            $stmtendereco->bindParam(":rua", $dados['rua'], PDO::PARAM_STR);
+            $stmtendereco->bindParam(":numero", $dados['numero'], PDO::PARAM_STR);
+            $stmtendereco->bindParam(":cidade", $dados['cidade'], PDO::PARAM_STR);
+            $stmtendereco->bindParam(":estado", $dados['estado'], PDO::PARAM_STR);
+            $stmtendereco->bindParam(":bairro", $dados['bairro'], PDO::PARAM_STR);
+            $stmtendereco->bindParam(":id_cliente", $dados['id_cliente'], PDO::PARAM_INT);
+            $stmtendereco->execute();
+
+            // Commit da transação
+            $this->conexao->commit();
+
+            // Retorna true se as duas instruções executaram corretamente
+            return true;
+        }catch (Exception $e) {
+            // Em caso de erro, realiza o rollback
+            $this->conexao->rollBack();
+            // Exibe a mensagem de erro para depuração (pode remover ou registrar em produção)
+            echo "Erro: " . $e->getMessage();
+            return false;
         }
     }
 ```

@@ -192,102 +192,10 @@ th {
     color: #ffffff !important; /* Cor do texto branca ao passar o mouse */
 }
 
-/* Estilo para o menu no mobile */
-@media (max-width: 992px) {
-    /* Menu lateral */
-    #navbarMenu{
-        background-color: transparent;
-        position: absolute;
-    }
-    .navbar-collapse {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh; /* O menu ocupa toda a altura da tela */
-        width: 250px;  /* Largura do menu */
-        background-color: white;
-        z-index: 1050; /* Garante que o menu fique acima do conteúdo */
-        transform: translateX(-100%); /* Inicia fora da tela */
-        transition: transform 0.3s ease; /* Transição suave */
-    }
-
-    /* Quando o menu está visível */
-    .collapse.show {
-        transform: translateX(0); /* Menu aparece na tela */
-    }
-
-    /* Overlay de fundo quando o menu estiver visível */
-    .content-overlay {
-        display: none;
-    }
-
-    .collapse.show ~ .content-overlay {
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1049; /* Fica abaixo do menu, mas sobre o conteúdo */
-    }
-
-    /* Bloqueia o scroll do corpo quando o menu está visível */
-    body {
-        overflow: hidden; /* Desativa o scroll do corpo */
-    }
-
-    /* Exibe o botão hambúrguer fixo no topo */
-    #hamburgerButton {
-        position: fixed;
-        top: 10px; /* Distância do topo */
-        left: 10px; /* Distância da lateral esquerda */
-        z-index: 1060; /* Garantir que o botão fique acima do menu e do conteúdo */
-    }
-
-    /* Ajuste para o conteúdo principal, ele deve ocupar a tela inteira */
-    .main-content {
-        margin-top: 60px; /* Ajuste conforme necessário para que o conteúdo não sobreponha o menu */
-        width: 100%; /* Garantir que o conteúdo ocupe toda a largura */
-        overflow-x: hidden; /* Desativa o scroll horizontal */
-        overflow-y: auto; /* Permite scroll vertical se necessário */
-    }
-
-    /* Evita o scroll horizontal na tela */
-    html, body {
-        overflow-x: hidden; /* Bloqueia o scroll horizontal em todo o documento */
-    }
-
-    #formModalCadastrar, #formModalAtualizar {
-        z-index: 1061;
-    }
+.form-label{
+    color: #000000;
 }
 
-/* Menu fixo no desktop */
-@media (min-width: 992px) {
-    .d-flex {
-        display: flex;
-    }
-
-    #navbarMenu {
-        position: relative;
-        top: 0;
-        left: 0;
-        width: 250px;
-        height: 100vh;
-        z-index: 1050;
-        transition: transform 0.3s ease;
-    }
-
-    /* Exibe a navbar lateral no desktop sempre visível */
-    #navbarNav {
-        display: flex;
-        flex-direction: column;
-        margin-top: 60px; /* Ajuste a margem superior, se necessário */
-    }
-
-    /* Esconde o botão hambúrguer no desktop */
-    .navbar-toggler {
-        display: none;
-    }
+h5 {
+    color: #000000 !important;
 }
-

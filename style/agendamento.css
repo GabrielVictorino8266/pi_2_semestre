@@ -1,205 +1,294 @@
-:root{
-    /* Main */
-    --cor-fundo-main: #201814;
-    --cor-fundo-segundaria: #f7f3ee;
-    --cor-fundo-button: #5f2323;
-    --cor-fundo-button-hover: #231111;
-    --cor-font-main: #ffffff;
-    --cor-quit-hover: #D3AD82;
-    --cor-table-head: #000000;
-    --cor-table-row: #5a5a5a;
-    --var-button-cad: #727351;
-    --var-button-cad-hover: #4e4c33;
+:root {
+    /* Cores principais */
+    --cor-fundo-main: #201814;  /* Cor de fundo principal */
+    --cor-fundo-segundaria: #f7f3ee;  /* Cor de fundo secundária */
+    --cor-fundo-button: #5f2323;  /* Cor do fundo dos botões */
+    --cor-fundo-button-hover: #231111;  /* Cor do fundo dos botões ao passar o mouse */
+    --cor-font-main: #ffffff;  /* Cor principal da fonte */
+    --cor-quit-hover: #D3AD82;  /* Cor ao passar o mouse para 'sair' */
+    --cor-table-head: #000000;  /* Cor de fundo da cabeça da tabela */
+    --cor-table-row: #5a5a5a;  /* Cor de fundo das linhas da tabela */
+    --var-button-cad: #727351;  /* Cor do botão de cadastro */
+    --var-button-cad-hover: #4e4c33;  /* Cor do botão de cadastro ao passar o mouse */
 
+    /* Tamanhos de fontes */
     --font-size-main: 30px;
     --font-size-segundaria: 20px;
     --font-size-button: 1.1vw;
 }
 
+/* Resets e estilizações globais */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color: var(--cor-font-main); /* Cor de texto principal */
 }
 
-/* .main{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    background-color: var(--cor-fundo-main);
-} */
-
-/* .hamburger{
-    font-size: 1.9rem;
-    padding: .5rem;
-    position: fixed;
-    top: .4rem;
-    left: .4rem;
-    z-index: 1001;
-    background-color: #D9D9D9;
-    color: #5C4646;
-    border-radius: 5px;
-    display: none;
-}
-
-.navbar {
-    margin: 0;
-    display: flex;
-    height: 100vh;
-    width: 30vh;
-    border: 3px solid #D9D9D9;
-    background-color: #D9D9D9;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    overflow-x: hidden;
-}
-
-li {
-    list-style: none;
-} */
-
-/* .quit{
-    height: 4%;
-    width: 30%;
-    border: 2px solid black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.quit a{
-    text-decoration: none;
+/* Garantir que o texto dos inputs, selects e textareas seja preto */
+input.form-control, 
+select.form-control, 
+textarea.form-control,
+.form-label {
     color: black;
-    font-size: 2rem;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-color: white; /* Garantir que o fundo seja branco */
 }
 
-.quit:hover{
-    border: 2px solid red;
+/* Garantir que o texto de placeholders seja preto */
+::placeholder {
+    color: black;
 }
 
-.quit a:hover{
-    border: none;
-    color: red;
+h4, h5, h6, h4 p, h5 p, h6 p, p {
+    color: black !important;
 }
 
-.tools ul{
-    flex-direction: column;
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-    justify-content: center;
+/* Estilização para quando os inputs, selects ou textareas tiverem o foco */
+input.form-control:focus, 
+select.form-control:focus, 
+textarea.form-control:focus {
+    color: black;
+    background-color: white; /* Garantir o fundo branco */
+    border-color: #80bdff; /* Cor de borda padrão do foco */
+}
+
+/* Corpo da página */
+body {
+    background-color: var(--cor-fundo-segundaria);
+    color: var(--cor-font-main);
+}
+
+/* Garantir que as labels também tenham o texto preto */
+.form-label {
+    color: black;
+}
+
+/* Estilo do botão do formulário */
+.btn {
+    color: black; /* Cor do texto do botão */
+}
+
+/* Botão do formulário */
+.btn-primary, .btn-secondary {
+    background-color: #007bff; /* Cor original do botão primário */
+    color: white; /* Cor do texto no botão */
+}
+
+/* Hover no botão */
+.btn:hover {
+    background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+}
+
+/* Estilo para o cabeçalho de navegação */
+#navbarMenu {
+    background-color: var(--cor-fundo-main);
+    color: var(--cor-font-main);
+}
+
+#navbarMenu .nav-link {
+    color: var(--cor-font-main);
+}
+
+#navbarMenu .nav-link:hover {
+    color: var(--cor-quit-hover);
+}
+
+/* Estilo para links ativos na navegação */
+.nav-link.active {
+    background-color: var(--cor-fundo-button) !important; /* Cor de fundo do link ativo */
+    color: var(--cor-font-main) !important;
+}
+
+.nav-link.active:hover {
+    background-color: var(--cor-fundo-button-hover) !important;
+    color: var(--cor-font-main) !important;
+}
+
+/* Estilo para o botão de hambúrguer */
+#hamburgerButton i {
+    color: var(--cor-font-main);
+}
+
+/* Estilos para o botão primário */
+.btn-primary {
+    background-color: var(--cor-fundo-button) !important;
+    color: var(--cor-font-main) !important;
+    border: none !important;
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+    background-color: var(--cor-fundo-button-hover) !important;
+}
+
+/* Estilo para os filtros de pesquisa */
+.search .form-control,
+.filtro .form-control {
+    background-color: var(--cor-font-main);
+    border: 1px solid var(--cor-table-row);
+    color: #000000;
+}
+
+.search .form-control:focus,
+.filtro .form-control:focus {
+    border-color: var(--cor-fundo-button);
+    box-shadow: 0 0 0 0.25rem rgba(95, 35, 35, 0.25);
+}
+
+/* Estilo para a tabela */
+.table {
+    background-color: var(--cor-fundo-main) !important;
+    border-radius: 8px !important;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+.table thead {
+    background-color: var(--cor-fundo-button) !important;
+    color: var(--cor-font-main);
+}
+
+.table tbody tr {
+    background-color: var(--cor-table-row) !important;
+}
+
+.table tbody tr:hover {
+    background-color: var(--cor-quit-hover) !important;
+}
+
+/* Estilos para o select e seus options */
+select {
+    background-color: var(--cor-font-main);
+    color: var(--cor-fundo-main); /* Cor do texto dentro do select */
+    border: 1px solid var(--cor-table-row);
+}
+
+select:focus {
+    border-color: var(--cor-fundo-button);
+    box-shadow: 0 0 0 0.25rem rgba(95, 35, 35, 0.25);
+}
+
+select option {
+    background-color: var(--cor-fundo-segundaria);
+    color: var(--cor-fundo-main); /* Cor do texto dentro dos options */
+}
+
+/* Alinhamento de informações */
+.info-alinhamento {
+    text-align: left;
+    margin-left: 1rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.text-center {
     text-align: center;
+    color: gray;
 }
 
-.box{
-    align-items: center;
-    justify-content: center;
+.info-alinhamento p {
+    font-size: var(--font-size-segundaria);
+    color: var(--cor-font-main);
+}
+
+/* Estilos para cabeçalhos de tabelas */
+th {
+    background-color: var(--cor-table-head);
+    color: var(--cor-font-main);
+}
+
+/* Estilo para o botão sair */
+.btn-sair {
+    background-color: var(--cor-fundo-button) !important;
+    color: var(--cor-font-main) !important;
+    border: none !important;
+}
+
+.btn-sair:hover {
+    background-color: #d32f2f !important;
+    color: #ffffff !important;
+}
+
+
+/* Títulos de todos os modais */
+.modal-title {
+    color: black; /* Definindo o texto dos títulos dos modais como preto */
+}
+
+/* Placeholder de inputs e selects nos modais */
+.modal .form-control::placeholder {
+    color: black; /* Definindo a cor do texto dos placeholders como preto */
+}
+
+/* Para garantir que os inputs e selects dentro dos modais também fiquem com o texto preto */
+.modal .form-control {
+    color: black;
+}
+
+/* Se você tiver modais específicos e quiser garantir que eles sigam a mesma regra */
+.modal-content {
+    color: black; /* Garantindo que o texto dentro do modal seja preto */
+}
+
+
+/* Estilização da navegação de paginação */
+.pagination {
     display: flex;
-    background-color: #5C4646;
-    color: white;
-    margin-top: 2.0rem;
-    width: 9vw;
-    height: 9vh;
     justify-content: center;
-    margin-left: -3.4rem;
+    align-items: center;
+    margin-top: 20px;
+    list-style: none;
+}
+
+.page-item {
+    margin: 0 5px; /* Espaçamento entre os itens da página */
+}
+
+.page-link {
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: var(--cor-fundo-button) !important; /* Cor do texto do link (agora está no estado normal) */
+    background-color: var(--cor-font-main) !important; /* Cor de fundo do link (agora está no estado normal) */
+    border: 1px solid var(--cor-table-row); /* Borda para o link */
+    border-radius: 5px;
     text-decoration: none;
-    border: 2px solid black;
-    font-size: 1.1vw;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave */
 }
 
-.first {
-    margin-top: 4rem;
+.page-link:hover {
+    color: var(--cor-font-main) !important; /* Cor do texto ao passar o mouse (inversão) */
+    background-color: var(--cor-fundo-button) !important; /* Cor de fundo ao passar o mouse (inversão) */
 }
 
-.box:hover{
-    background-color: #343333;
-    color: rgb(255, 255, 255);
+.page-item.disabled .page-link {
+    color: var(--cor-table-row) !important; /* Cor para links desabilitados */
+    background-color: var(--cor-fundo-segundaria) !important; /* Cor de fundo para links desabilitados */
+    pointer-events: none; /* Impede interação com links desabilitados */
 }
 
-.box.choose{
-    background-color: #d3a8a8;
-    color: #313131;
+.page-item.active .page-link {
+    color: var(--cor-fundo-button) !important; /* Cor do texto da página ativa */
+    background-color: var(--cor-font-main) !important; /* Cor de fundo da página ativa */
+    font-weight: bold;
+    border: 1px solid var(--cor-fundo-button); /* Cor da borda na página ativa */
 }
 
-.card{
-    background-color: #D9D9D9;
-    width: 40vw;
-    height: 90vh;
-    margin-top: 2rem;
-    border-radius: 10px;
+.page-item:first-child .page-link {
+    border-radius: 5px 0 0 5px; /* Bordas arredondadas na primeira página */
 }
 
-.search-dropdown {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1.5rem;
-    height: 4%;
+.page-item:last-child .page-link {
+    border-radius: 0 5px 5px 0; /* Bordas arredondadas na última página */
 }
 
-.search{
-    display: flex;
-    flex-grow: 1;
-    margin-left: 2rem;
+
+/* Estilo das labels */
+.form-label {
+    color: #000000; /* Cor preta */
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
 }
 
-.search input{
-    font-size: 20px;
-    width: 25vw;
-    border-radius: 8px;
-}
-
-.filtros-datas{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.dropdown{
-    margin-right: 3rem;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-.card2{
-    background-color: #D9D9D9;
-    height: 65vh;
-    width: 30vw;
-    margin-top: 2rem;
-    margin-right: 2rem;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.content{
-    width: 90%;
-    height: 90%;
-    background-color: #999999;
-    border-radius: 10px;
-}
-
-.title{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.description h4{
-    margin-left: .5rem;
-    margin-bottom: .8rem;
-} */
 
 #caixaSugestao {
     background-color: #ffffff; /* Fundo branco sólido */

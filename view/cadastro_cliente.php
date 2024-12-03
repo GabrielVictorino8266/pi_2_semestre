@@ -7,6 +7,8 @@ require_once __DIR__ . "/../php/ctr_cadastro_clientes.php";
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Cadastro de Clientes</title>
+
+        <link rel="stylesheet" href="../style/cadastrocliente.css">
         
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
@@ -37,6 +39,7 @@ require_once __DIR__ . "/../php/ctr_cadastro_clientes.php";
                     <th scope="col">Cidade</th>
                     <th scope="col">Estado</th>
                     <th scope="col">CEP</th>
+                    <th scope="col">Ações</th>
                 </thead>
                 <tbody>
                     <?php

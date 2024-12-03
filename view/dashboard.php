@@ -48,7 +48,7 @@ require_once __DIR__ . "../../php/ctr_dashboard.php";
                     <a class="nav-link" href="./cadastro_cliente.php">CADASTRAR CLIENTE</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-danger" href="./logout.php">SAIR</a>
+                    <a class="nav-link text-danger btn-sair" href="./logout.php">SAIR</a>
                 </li>
             </ul>
         </div>
