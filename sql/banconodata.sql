@@ -124,19 +124,26 @@ CREATE TABLE `tb_estoque` (
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER TRG_Registra_Preco_Unitario BEFORE UPDATE 
-
+
+
 ON tb_estoque
-
+
+
 FOR EACH ROW
-
+
+
 BEGIN
-
+
+
 	IF OLD.preco_unitario <> NEW.preco_unitario THEN
-
+
+
     	CALL SP_Registra_Alteracao_Preco_Custo(OLD.id, OLD.preco_unitario);
-
+
+
     END IF;
-
+
+
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -153,19 +160,26 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger TRG_Registra_Preco_Venda BEFORE UPDATE
-
+
+
 ON tb_estoque
-
+
+
 FOR EACH ROW
-
+
+
 BEGIN
-
+
+
 	IF OLD.preco_venda <> NEW.preco_venda THEN
-
+
+
     	CALL SP_Registra_Preco_Venda(OLD.id, OLD.preco_venda);
-
+
+
     END IF;
-
+
+
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -181,28 +195,50 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER before_update_estoque
-BEFORE UPDATE ON tb_estoque
-FOR EACH ROW
-BEGIN
-    -- Evitar alteração do campo 'ativado' quando outros campos estão sendo atualizados
-    IF OLD.preco_unitario = NEW.preco_unitario AND OLD.preco_venda = NEW.preco_venda THEN
-        -- Verificar se o item de estoque está relacionado a agendamentos ativos
-        IF EXISTS (
-            SELECT 1
-            FROM tb_agendamentos AS a
-            JOIN tb_receitas AS r ON a.receita_id = r.id
-            WHERE (r.produto_final_id = OLD.id OR r.ingrediente_id = OLD.id)
-              AND a.status_id IN (SELECT id FROM tb_status WHERE descricao IN ('Em Andamento', 'Finalizado'))
-        ) THEN
-            -- Atualizar o atributo ativado para 0 (desativado) em vez de excluir
-            SET NEW.ativado = 0;
-
-            -- Definir uma mensagem de erro para o controle da aplicação
-            SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Nao foi possivel desativar. Possivelmente existem agendamentos com este item de estoque.';
-        END IF;
-    END IF;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER before_update_estoque
+
+BEFORE UPDATE ON tb_estoque
+
+FOR EACH ROW
+
+BEGIN
+
+    -- Evitar alteração do campo 'ativado' quando outros campos estão sendo atualizados
+
+    IF OLD.preco_unitario = NEW.preco_unitario AND OLD.preco_venda = NEW.preco_venda THEN
+
+        -- Verificar se o item de estoque está relacionado a agendamentos ativos
+
+        IF EXISTS (
+
+            SELECT 1
+
+            FROM tb_agendamentos AS a
+
+            JOIN tb_receitas AS r ON a.receita_id = r.id
+
+            WHERE (r.produto_final_id = OLD.id OR r.ingrediente_id = OLD.id)
+
+              AND a.status_id IN (SELECT id FROM tb_status WHERE descricao IN ('Em Andamento', 'Finalizado'))
+
+        ) THEN
+
+            -- Atualizar o atributo ativado para 0 (desativado) em vez de excluir
+
+            SET NEW.ativado = 0;
+
+
+
+            -- Definir uma mensagem de erro para o controle da aplicação
+
+            SIGNAL SQLSTATE '45000'
+
+            SET MESSAGE_TEXT = 'Nao foi possivel desativar. Possivelmente existem agendamentos com este item de estoque.';
+
+        END IF;
+
+    END IF;
+
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -218,22 +254,38 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER before_delete_estoque
-BEFORE DELETE ON tb_estoque
-FOR EACH ROW
-BEGIN
-    -- Verificar se o item de estoque está relacionado a agendamentos ativos
-    IF EXISTS (
-        SELECT 1
-        FROM tb_agendamentos AS a
-        JOIN tb_receitas AS r ON a.receita_id = r.id
-        WHERE (r.produto_final_id = OLD.id OR r.ingrediente_id = OLD.id)
-          AND a.status_id IN (SELECT id FROM tb_status WHERE descricao IN ('Em Andamento', 'Finalizado'))
-    ) THEN
-        -- Bloquear exclusão com uma mensagem de erro
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Nao foi possivel Excluir. Possivelmente existem agendamentos com este item de estoque.';
-    END IF;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER before_delete_estoque
+
+BEFORE DELETE ON tb_estoque
+
+FOR EACH ROW
+
+BEGIN
+
+    -- Verificar se o item de estoque está relacionado a agendamentos ativos
+
+    IF EXISTS (
+
+        SELECT 1
+
+        FROM tb_agendamentos AS a
+
+        JOIN tb_receitas AS r ON a.receita_id = r.id
+
+        WHERE (r.produto_final_id = OLD.id OR r.ingrediente_id = OLD.id)
+
+          AND a.status_id IN (SELECT id FROM tb_status WHERE descricao IN ('Em Andamento', 'Finalizado'))
+
+    ) THEN
+
+        -- Bloquear exclusão com uma mensagem de erro
+
+        SIGNAL SQLSTATE '45000'
+
+        SET MESSAGE_TEXT = 'Nao foi possivel Excluir. Possivelmente existem agendamentos com este item de estoque.';
+
+    END IF;
+
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -323,7 +375,7 @@ CREATE TABLE `tb_receitas` (
   CONSTRAINT `tb_receitas_ibfk_2` FOREIGN KEY (`ingrediente_id`) REFERENCES `tb_estoque` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
+  
 --
 -- Table structure for table `tb_status`
 --

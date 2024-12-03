@@ -118,8 +118,7 @@ class Estoque{
         $stmt->bindParam(":tipo_id", $dados['tipo_id'], PDO::PARAM_INT);
         $stmt->bindParam(":categoria_id", $dados['categoria_id'], PDO::PARAM_INT);
         $stmt->bindParam(":ativado", $dados['ativado'], PDO::PARAM_INT);
-        $stmt->execute();
-        if($stmt->rowCount() > 0){
+        if($stmt->execute()){
             return true;
         }else{
             return false;

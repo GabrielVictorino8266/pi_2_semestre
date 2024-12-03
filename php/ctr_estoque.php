@@ -56,8 +56,8 @@ $filtroCategoria = $estoque->listarCategoria();
 //         "action": "atualizar",
 //         "descricao": "Recheio Para Bolo",
 //         "quantidade": "20",
-//         "custo": 4990.01,
-//         "venda": 0.01,
+//         "custo": 49.01,
+//         "venda": 10.01,
 //         "tipo": "1",
 //         "categoria": "5",
 //         "ativado": "1"
@@ -139,7 +139,7 @@ function preeencher($estoque, $input)
 function atualizar($estoque, $input)
 {
 
-    // Verifica se 'acao' e 'id' est o setados na entrada e se 'acao'   'atualizar'
+    // Verifica se 'acao' e 'id' est o setados na entrada e se 'acao' 'atualizar'
     if (isset($input['id'], $input['descricao'], $input['quantidade'], $input['custo'], $input['venda'], $input['tipo'], $input['categoria'], $input['ativado']) && $input['action'] == 'atualizar') {
         $dados = [
             'id' => $input['id'],

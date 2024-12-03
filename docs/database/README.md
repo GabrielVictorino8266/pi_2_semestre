@@ -73,6 +73,7 @@ BEGIN
 END $$
 DELIMITER ;
 
+
 -- Trigger acionada para verificar se ira deletar estoque
 DROP TRIGGER IF EXISTS before_update_estoque;
 DELIMITER $$

@@ -177,7 +177,6 @@ function atualizar() {
 
         if (dados_retorno.success) {
             alert("Atualização com sucesso.");
-            voltarFormularioAtualizar(); // Função para fechar o formulário de atualização
             location.reload();
         } else {
             alert("Atualização sem sucesso.");

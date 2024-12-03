@@ -56,14 +56,17 @@ if($totalAgendamentos){
 
 // $_SERVER['REQUEST_METHOD'] = 'POST';
 // $input = json_decode('{
-//         "action": "cadastrar",
-//         "nome_cliente": "Gabriel Victorino",
-//         "receita": "2",
-//         "quantidade": "1",
-//         "status_id": "2",
-//         "data_retirada": "2024-11-29",
-//         "data_agendamento": "2024-11-28",
-//         "observacoes": "Retirada no PIX"
+
+//     "id_agendamento": "86",
+//     "action": "atualizar",
+//     "data_agendamento": "2024-12-03",
+//     "produto_final_id": "2",
+//     "status_id": "1",
+//     "observacoes": "",
+//     "data_retirada": "2024-12-05",
+//     "quantidade": "1",
+//     "ativado": "1"
+// }
 // }', true);
 // $_SERVER['CONTENT_TYPE'] = 'application/json';
 
@@ -101,7 +104,7 @@ function preeencher($agendamentos, $input){
         if (isset($input['action'], $input['id']) && $input['action'] == 'preencher') {
             $id = $input['id']; // Obtenha o id do item da entrada
             $produto = $agendamentos->carregarInformacoesItem($id); // Carregue informações do item no agendamento
-            
+
             // Se as informações do item forem obtidas com sucesso
             if ($produto) {
                 echo json_encode([
@@ -141,7 +144,8 @@ function cadastrar($agendamentos, $input){
             'status_id' => $input['status_id'],
             'observacoes' => $input['observacoes'],
             'data_retirada' => $input['data_retirada'],
-            'data_agendamento' => $input['data_agendamento']
+            'data_agendamento' => $input['data_agendamento'],
+            'ativado' => $input['ativado']
         ];
 
         // Chama o método para atualizar o item no agendamento
@@ -175,7 +179,8 @@ function atualizar($agendamentos, $input){
             'observacoes' => (string)$input['observacoes'],
             'data_retirada' => (string)$input['data_retirada'],
             'quantidade_receita' => (int)$input['quantidade'],
-            'id_agendamento' => (int)$input['id_agendamento']
+            'id_agendamento' => (int)$input['id_agendamento'],
+            'ativado' => (int)$input['ativado']
         ];
 
         $produto = $agendamentos->atualizarAgendamento($dados);
