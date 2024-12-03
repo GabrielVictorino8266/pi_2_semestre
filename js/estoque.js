@@ -184,7 +184,7 @@ function atualizar() {
 
         if (dados_retorno.success) {
             alert("Atualização com sucesso.");
-            // location.reload();
+            location.reload();
         } else {
             alert("Atualização sem sucesso.");
         }
@@ -231,7 +231,7 @@ function mostrarFormAtualizar(id) {
         }
     })
     .catch(() => {
-        alert('Erro na requisição. Tente novamente. Erro no frontend');
+        alert('Erro na requisição. Tente novamente. Erro no frontend ao preencher');
     });
 }
 

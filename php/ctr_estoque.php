@@ -52,12 +52,12 @@ $filtroCategoria = $estoque->listarCategoria();
 
 // $_SERVER['REQUEST_METHOD'] = 'POST';
 // $input = json_decode('{
-//         "id": "29",
+//         "id": "2",
 //         "action": "atualizar",
-//         "descricao": "Recheio Para Bolo",
+//         "descricao": "Bolo Especial de Chocolate com Cobertura",
 //         "quantidade": "20",
-//         "custo": 49.12,
-//         "venda": 10.12,
+//         "custo": "49.12",
+//         "venda": "10.12",
 //         "tipo": "1",
 //         "categoria": "5",
 //         "ativado": "1"
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['CONTENT_TYPE'], 'a
             // Retorna um JSON com um erro
             echo json_encode([
                 "success" => false,
-                "message" => "Erro ao Realizar opera o."
+                "message" => "Erro ao Realizar operacao."
             ]);
             exit;
     }

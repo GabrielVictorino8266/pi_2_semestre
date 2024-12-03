@@ -200,7 +200,6 @@ require_once __DIR__ . "../../php/ctr_agendamento.php";
                             </div>
                             <div class="modal-footer form-buttons-acao">
                                 <button type="button" class="btn btn-primary" onclick="atualizar()">Atualizar</button>
-                                <button type="button" class="btn btn-secondary" onclick="excluir()">Excluir</button>
                             </div>
                         </form>
                     </div>
