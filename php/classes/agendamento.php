@@ -150,7 +150,7 @@ class Agendamento{
     }
 
     public function cadastrarAgendamento($dados){
-        $query = "INSERT INTO tb_agendamentos (data_agendamento, receita_id, cliente_id, status_id, observacoes, data_retirada, quantidade_receita, ativado) VALUES (:data_agendamento, :receita, :cliente_id, :status_id, :observacoes, :data_retirada, :quantidade, :ativado)";
+        $query = "INSERT INTO tb_agendamentos (data_agendamento, receita_id, cliente_id, status_id, observacoes, data_retirada, quantidade_receita) VALUES (:data_agendamento, :receita, :cliente_id, :status_id, :observacoes, :data_retirada, :quantidade)";
         $stmt = $this->conexao->prepare($query);
         $stmt->bindParam(":data_agendamento", $dados['data_agendamento'], PDO::PARAM_STR);
         $stmt->bindParam(":receita", $dados['receita'], PDO::PARAM_INT);
@@ -159,7 +159,6 @@ class Agendamento{
         $stmt->bindParam(":observacoes", $dados['observacoes'], PDO::PARAM_STR);
         $stmt->bindParam(":data_retirada", $dados['data_retirada'], PDO::PARAM_STR);
         $stmt->bindParam(":quantidade", $dados['quantidade'], PDO::PARAM_INT);
-        $stmt->bindParam(":ativado", $dados['ativado'], PDO::PARAM_INT);
         $stmt->execute();
         if($stmt->rowCount() > 0){
             return true;
@@ -169,7 +168,7 @@ class Agendamento{
     }
 
     public function atualizarAgendamento($dados){
-        $query = "UPDATE tb_agendamentos SET data_agendamento = :data_agendamento, receita_id = :produto_final_id,status_id = :status_id, observacoes = :observacoes, data_retirada = :data_retirada, quantidade_receita = :quantidade_receita, ativado = :ativado WHERE id = :id_agendamento";
+        $query = "UPDATE tb_agendamentos SET data_agendamento = :data_agendamento, receita_id = :produto_final_id,status_id = :status_id, observacoes = :observacoes, data_retirada = :data_retirada, quantidade_receita = :quantidade_receita WHERE id = :id_agendamento";
         $stmt = $this->conexao->prepare($query);
         $stmt->bindParam(":data_agendamento", $dados['data_agendamento'], PDO::PARAM_STR);
         $stmt->bindParam(":produto_final_id", $dados['produto_final_id'], PDO::PARAM_INT);
@@ -178,9 +177,7 @@ class Agendamento{
         $stmt->bindParam(":data_retirada", $dados['data_retirada'], PDO::PARAM_STR);
         $stmt->bindParam(":quantidade_receita", $dados['quantidade_receita'], PDO::PARAM_INT);
         $stmt->bindParam(":id_agendamento", $dados['id_agendamento'], PDO::PARAM_INT);
-        $stmt->bindParam(":ativado", $dados['ativado'], PDO::PARAM_INT);
-        $stmt->execute();
-        if($stmt->rowCount() > 0){
+        if($stmt->execute()){
             return true;
         }else{
             return false;

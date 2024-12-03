@@ -56,17 +56,14 @@ if($totalAgendamentos){
 
 // $_SERVER['REQUEST_METHOD'] = 'POST';
 // $input = json_decode('{
-
-//     "id_agendamento": "86",
+//     "id_agendamento": "1",
 //     "action": "atualizar",
 //     "data_agendamento": "2024-12-03",
 //     "produto_final_id": "2",
 //     "status_id": "1",
 //     "observacoes": "",
 //     "data_retirada": "2024-12-05",
-//     "quantidade": "1",
-//     "ativado": "1"
-// }
+//     "quantidade": "1"
 // }', true);
 // $_SERVER['CONTENT_TYPE'] = 'application/json';
 
@@ -144,8 +141,7 @@ function cadastrar($agendamentos, $input){
             'status_id' => $input['status_id'],
             'observacoes' => $input['observacoes'],
             'data_retirada' => $input['data_retirada'],
-            'data_agendamento' => $input['data_agendamento'],
-            'ativado' => $input['ativado']
+            'data_agendamento' => $input['data_agendamento']
         ];
 
         // Chama o método para atualizar o item no agendamento
@@ -179,12 +175,11 @@ function atualizar($agendamentos, $input){
             'observacoes' => (string)$input['observacoes'],
             'data_retirada' => (string)$input['data_retirada'],
             'quantidade_receita' => (int)$input['quantidade'],
-            'id_agendamento' => (int)$input['id_agendamento'],
-            'ativado' => (int)$input['ativado']
+            'id_agendamento' => (int)$input['id_agendamento']
         ];
 
         $produto = $agendamentos->atualizarAgendamento($dados);
-
+        
         if($produto){
             echo json_encode([
                 "success" => true,

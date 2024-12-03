@@ -82,7 +82,6 @@ function atualizar(){
         observacoes: document.getElementById('observacoes').value,
         data_retirada: document.getElementById('data_retirada').value,
         quantidade: document.getElementById('quantidade').value,
-        ativado: "1"
     };
 
     console.log(dados_atualizar);
@@ -120,7 +119,6 @@ function cadastrarAgendamento(){
         data_retirada: document.getElementById('cadastrar_data_retirada').value,
         data_agendamento: document.getElementById('cadastrar_data_agendamento').value,
         observacoes: document.getElementById('cadastrar_observacoes').value,
-        ativado: "1"
     };
 
     console.log(dados_cadastrar);
