@@ -9,12 +9,10 @@ acesse a pasta docs.
 ```
 ┣ assets/   # fotos e ícones.
 ┣ docs/     # documentação técnica do projeto.
-┣ html/     # html para teste de design.
 ┣ js/       # scripts de páginas da view.
 ┣ php/      # controller e classes.
 ┣ sql/      # código sql do Banco.
 ┣ style/    # arquivos de estilo css.
-┣ test/     # arquivos de teste para php e inserção no banco.
 ┣ view/     # arquivos frontend
 ┣ .gitignore
 ┣ index.php # arquivo index do projeto.
