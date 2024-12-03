@@ -106,8 +106,8 @@ class Estoque{
         WHERE id = :id_item";
 
         // Converte os valores para float
-        $preco_unitario = (float)$dados['preco_unitario'];
-        $preco_venda = (float)$dados['preco_venda'];
+        $preco_unitario = $dados['preco_unitario'];
+        $preco_venda = $dados['preco_venda'];
 
         $stmt = $this->conexao->prepare($query);
         $stmt->bindParam(":id_item", $id, PDO::PARAM_INT);
@@ -118,6 +118,7 @@ class Estoque{
         $stmt->bindParam(":tipo_id", $dados['tipo_id'], PDO::PARAM_INT);
         $stmt->bindParam(":categoria_id", $dados['categoria_id'], PDO::PARAM_INT);
         $stmt->bindParam(":ativado", $dados['ativado'], PDO::PARAM_INT);
+        $stmt->execute();
         if($stmt->execute()){
             return true;
         }else{

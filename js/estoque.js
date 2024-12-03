@@ -68,9 +68,12 @@ function limparValorMonetario(input) {
         return "0";
     }
 
-    // Remove o símbolo R$ e qualquer outro caractere que não seja número ou vírgula
+    // Remove o símbolo R$ e qualquer outro caractere que não seja número, ponto ou vírgula
     value = value.replace(/R\$\s?/, "");  // Remove o símbolo "R$" e espaços
-    value = value.replace(/[^\d,]/g, ""); // Remove qualquer caractere que não seja número ou vírgula
+    value = value.replace(/[^\d,\.]/g, ""); // Remove qualquer caractere que não seja número, vírgula ou ponto
+
+    // Remove os pontos (milhares) e deixa apenas a vírgula como separador decimal
+    value = value.replace(/\.(?=\d{3})/g, ""); // Remove pontos que estão separando os milhares (não os decimais)
 
     // Se o valor for vazio ou apenas zeros, retorna '0' para ser enviado ao banco
     if (value === "" || value === "0" || value === "00") {
@@ -79,10 +82,11 @@ function limparValorMonetario(input) {
 
     // Se o valor tiver vírgula, converte para ponto
     value = value.replace(",", ".");
-    
+
     // Retorna o valor numérico (float)
-    return parseFloat(value);  
+    return parseFloat(value);
 }
+
 
 
 
@@ -148,6 +152,9 @@ function atualizar() {
     let preco_venda = limparValorMonetario(limpar_atualizar_preco_venda);
     let custo_unitario = limparValorMonetario(limpar_atualizar_custo_unitario);
 
+    console.log(preco_venda);
+    console.log(custo_unitario);
+
     const id_atualizacao = document.getElementById('produto_id').value;
     const dados_atualizar = {
         id: id_atualizacao,
@@ -177,7 +184,7 @@ function atualizar() {
 
         if (dados_retorno.success) {
             alert("Atualização com sucesso.");
-            location.reload();
+            // location.reload();
         } else {
             alert("Atualização sem sucesso.");
         }

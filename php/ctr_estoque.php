@@ -56,8 +56,8 @@ $filtroCategoria = $estoque->listarCategoria();
 //         "action": "atualizar",
 //         "descricao": "Recheio Para Bolo",
 //         "quantidade": "20",
-//         "custo": 49.01,
-//         "venda": 10.01,
+//         "custo": 49.12,
+//         "venda": 10.12,
 //         "tipo": "1",
 //         "categoria": "5",
 //         "ativado": "1"
@@ -151,6 +151,8 @@ function atualizar($estoque, $input)
             'categoria_id' => $input['categoria'],
             'ativado' => $input['ativado']
         ];
+
+        // var_dump($dados);
 
         // Chama o método para atualizar o item no estoque
         $produto = $estoque->atualizarItem($input['id'], $dados);
