@@ -161,7 +161,7 @@ CREATE TABLE `tb_estoque` (
 
 LOCK TABLES `tb_estoque` WRITE;
 /*!40000 ALTER TABLE `tb_estoque` DISABLE KEYS */;
-INSERT INTO `tb_estoque` VALUES (1,'atualizar126',30,150.00,150.01,3,1,0),(2,'Bolo Especial de Chocolate com Cobertura',20,49.12,10.12,2,5,1),(3,'Torta Salgada',1,20.00,40.00,2,4,1),(4,'Granulado',20,2.99,0.00,1,7,1),(27,'Nao deve aparecer item',1,2.99,0.00,1,2,0),(28,'Recheio para Tortas',0,19.90,0.00,1,1,1),(29,'Recheio Para Bolo',2,45.99,45.99,1,5,1),(30,'Produto De Teste',1,3.00,30.00,1,3,0),(32,'Farinha',97,2.50,3.00,1,1,1),(33,'Ovos',47,12.00,20.99,1,1,1);
+INSERT INTO `tb_estoque` VALUES (1,'atualizar126',30,150.00,150.01,3,1,0),(2,'Bolo Especial de Chocolate com Cobertura',20,49.12,10.12,1,5,0),(3,'Torta Salgada',1,20.00,40.00,2,4,1),(4,'Granulado',20,2.99,0.00,1,7,1),(27,'Nao deve aparecer item',1,2.99,0.00,1,2,0),(28,'Recheio para Tortas',0,19.90,0.00,1,1,1),(29,'Recheio Para Bolo',2,45.99,45.99,1,5,1),(30,'Produto De Teste',1,3.00,30.00,1,3,0),(32,'Farinha',97,2.50,3.00,1,1,1),(33,'Ovos',47,12.00,20.99,1,1,1);
 /*!40000 ALTER TABLE `tb_estoque` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -208,43 +208,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER before_update_estoque
-BEFORE UPDATE ON tb_estoque
-FOR EACH ROW
-BEGIN
-    -- Evitar alteração do campo 'ativado' quando outros campos estão sendo atualizados
-    IF OLD.preco_unitario = NEW.preco_unitario AND OLD.preco_venda = NEW.preco_venda THEN
-        -- Verificar se o item de estoque está relacionado a agendamentos ativos
-        IF EXISTS (
-            SELECT 1
-            FROM tb_agendamentos AS a
-            JOIN tb_receitas AS r ON a.receita_id = r.id
-            WHERE (r.produto_final_id = OLD.id OR r.ingrediente_id = OLD.id)
-              AND a.status_id IN (SELECT id FROM tb_status WHERE descricao IN ('Em Andamento', 'Finalizado'))
-        ) THEN
-            -- Atualizar o atributo ativado para 0 (desativado) em vez de excluir
-            SET NEW.ativado = 0;
-
-            -- Definir uma mensagem de erro para o controle da aplicação
-            SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Nao foi possivel desativar. Possivelmente existem agendamentos com este item de estoque.';
-        END IF;
-    END IF;
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `tb_funcoes`
@@ -282,7 +245,7 @@ CREATE TABLE `tb_logs_login` (
   `email` varchar(255) NOT NULL,
   `data_horario_acesso` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -291,7 +254,7 @@ CREATE TABLE `tb_logs_login` (
 
 LOCK TABLES `tb_logs_login` WRITE;
 /*!40000 ALTER TABLE `tb_logs_login` DISABLE KEYS */;
-INSERT INTO `tb_logs_login` VALUES (1,'teste@gmail.com','2024-11-22 23:41:30'),(2,'teste@gmail.com','2024-11-23 00:20:25'),(3,'teste@gmail.com','2024-11-23 01:56:26'),(4,'teste@gmail.com','2024-11-24 01:03:08'),(5,'teste@gmail.com','2024-11-24 23:00:04'),(6,'teste@gmail.com','2024-11-24 23:23:33'),(7,'teste@gmail.com','2024-11-25 19:44:10'),(8,'teste@gmail.com','2024-11-26 22:18:43'),(9,'teste@gmail.com','2024-11-26 22:24:24'),(10,'teste@gmail.com','2024-11-26 23:32:08'),(11,'teste@gmail.com','2024-11-30 11:10:52'),(12,'teste@gmail.com','2024-11-30 11:16:51'),(13,'teste@gmail.com','2024-11-30 11:21:27'),(14,'teste@gmail.com','2024-11-30 11:22:17'),(15,'teste@gmail.com','2024-11-30 11:23:13'),(16,'teste@gmail.com','2024-11-30 14:15:10'),(17,'teste@gmail.com','2024-11-30 17:23:26'),(18,'teste@gmail.com','2024-11-30 22:47:31'),(19,'teste@gmail.com','2024-12-01 03:27:29'),(20,'teste@gmail.com','2024-12-01 03:30:39'),(21,'teste@gmail.com','2024-12-01 03:31:42'),(22,'teste@gmail.com','2024-12-01 03:42:05'),(23,'teste@gmail.com','2024-12-01 03:42:16'),(24,'teste@gmail.com','2024-12-01 04:24:35'),(25,'teste@gmail.com','2024-12-01 04:26:33'),(26,'teste@gmail.com','2024-12-02 18:47:20'),(27,'teste@gmail.com','2024-12-02 20:26:48'),(28,'teste@gmail.com','2024-12-02 22:43:00'),(29,'teste@gmail.com','2024-12-02 23:10:18'),(30,'teste@gmail.com','2024-12-03 02:00:25'),(31,'teste@gmail.com','2024-12-03 03:05:05'),(32,'teste@gmail.com','2024-12-03 06:53:41');
+INSERT INTO `tb_logs_login` VALUES (1,'teste@gmail.com','2024-11-22 23:41:30'),(2,'teste@gmail.com','2024-11-23 00:20:25'),(3,'teste@gmail.com','2024-11-23 01:56:26'),(4,'teste@gmail.com','2024-11-24 01:03:08'),(5,'teste@gmail.com','2024-11-24 23:00:04'),(6,'teste@gmail.com','2024-11-24 23:23:33'),(7,'teste@gmail.com','2024-11-25 19:44:10'),(8,'teste@gmail.com','2024-11-26 22:18:43'),(9,'teste@gmail.com','2024-11-26 22:24:24'),(10,'teste@gmail.com','2024-11-26 23:32:08'),(11,'teste@gmail.com','2024-11-30 11:10:52'),(12,'teste@gmail.com','2024-11-30 11:16:51'),(13,'teste@gmail.com','2024-11-30 11:21:27'),(14,'teste@gmail.com','2024-11-30 11:22:17'),(15,'teste@gmail.com','2024-11-30 11:23:13'),(16,'teste@gmail.com','2024-11-30 14:15:10'),(17,'teste@gmail.com','2024-11-30 17:23:26'),(18,'teste@gmail.com','2024-11-30 22:47:31'),(19,'teste@gmail.com','2024-12-01 03:27:29'),(20,'teste@gmail.com','2024-12-01 03:30:39'),(21,'teste@gmail.com','2024-12-01 03:31:42'),(22,'teste@gmail.com','2024-12-01 03:42:05'),(23,'teste@gmail.com','2024-12-01 03:42:16'),(24,'teste@gmail.com','2024-12-01 04:24:35'),(25,'teste@gmail.com','2024-12-01 04:26:33'),(26,'teste@gmail.com','2024-12-02 18:47:20'),(27,'teste@gmail.com','2024-12-02 20:26:48'),(28,'teste@gmail.com','2024-12-02 22:43:00'),(29,'teste@gmail.com','2024-12-02 23:10:18'),(30,'teste@gmail.com','2024-12-03 02:00:25'),(31,'teste@gmail.com','2024-12-03 03:05:05'),(32,'teste@gmail.com','2024-12-03 06:53:41'),(33,'teste@gmail.com','2024-12-03 08:20:40'),(34,'teste@gmail.com','2024-12-03 12:57:01');
 /*!40000 ALTER TABLE `tb_logs_login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -336,7 +299,7 @@ CREATE TABLE `tb_precos_compra` (
   PRIMARY KEY (`id`),
   KEY `estoque_id` (`estoque_id`),
   CONSTRAINT `tb_precos_compra_ibfk_1` FOREIGN KEY (`estoque_id`) REFERENCES `tb_estoque` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -345,7 +308,7 @@ CREATE TABLE `tb_precos_compra` (
 
 LOCK TABLES `tb_precos_compra` WRITE;
 /*!40000 ALTER TABLE `tb_precos_compra` DISABLE KEYS */;
-INSERT INTO `tb_precos_compra` VALUES (1,2,5.20,'2024-11-23 01:54:49'),(2,2,100.00,'2024-11-23 01:55:44'),(3,3,5.90,'2024-11-23 01:56:39'),(4,4,5.60,'2024-11-24 01:11:16'),(6,4,5.99,'2024-11-30 23:12:02'),(7,3,6.00,'2024-11-30 23:13:40'),(8,3,7.00,'2024-11-30 23:13:51'),(9,2,25.99,'2024-11-30 23:14:49'),(10,2,15.99,'2024-11-30 23:35:36'),(11,29,499.00,'2024-12-02 02:34:42'),(12,29,4990.01,'2024-12-02 02:35:04'),(13,30,30.00,'2024-12-02 02:35:58'),(14,28,1.99,'2024-12-02 20:56:22'),(15,33,0.50,'2024-12-02 21:03:41'),(16,33,50.00,'2024-12-02 21:03:56'),(17,28,199.00,'2024-12-02 21:18:33'),(18,2,15.00,'2024-12-02 21:39:52'),(19,2,1500.00,'2024-12-02 21:40:06'),(20,2,150000.00,'2024-12-02 21:40:29'),(21,2,1.50,'2024-12-02 21:40:36'),(22,2,150.00,'2024-12-02 21:41:15'),(23,2,15.00,'2024-12-02 21:41:38'),(24,2,1.50,'2024-12-02 21:41:52'),(28,2,150.00,'2024-12-02 21:44:53'),(29,2,15.00,'2024-12-02 21:44:58'),(30,2,1500.00,'2024-12-02 21:45:36'),(31,29,4.99,'2024-12-02 21:47:03'),(32,29,4990.01,'2024-12-02 21:57:17'),(33,30,3000.00,'2024-12-02 21:57:53'),(34,29,49.90,'2024-12-02 21:58:42'),(35,29,49.99,'2024-12-02 21:59:47'),(36,29,49.01,'2024-12-02 22:01:14'),(37,2,15.00,'2024-12-02 22:08:18'),(38,2,1500.00,'2024-12-02 22:08:37'),(39,29,49.10,'2024-12-02 22:21:18'),(40,29,49.12,'2024-12-02 22:22:37'),(41,29,4912.00,'2024-12-02 22:24:22'),(42,29,49.12,'2024-12-02 22:29:24'),(43,29,4912.00,'2024-12-02 22:29:48'),(44,29,491200.00,'2024-12-02 22:29:58'),(45,29,49120000.00,'2024-12-02 22:30:40'),(46,29,99999999.99,'2024-12-02 22:31:51'),(47,29,45.00,'2024-12-02 22:33:02'),(48,2,15.00,'2024-12-02 22:38:35'),(49,32,2.00,'2024-12-02 22:45:29'),(50,3,20.00,'2024-12-03 00:36:43'),(51,3,200.01,'2024-12-03 00:36:47');
+INSERT INTO `tb_precos_compra` VALUES (1,2,5.20,'2024-11-23 01:54:49'),(2,2,100.00,'2024-11-23 01:55:44'),(3,3,5.90,'2024-11-23 01:56:39'),(4,4,5.60,'2024-11-24 01:11:16'),(6,4,5.99,'2024-11-30 23:12:02'),(7,3,6.00,'2024-11-30 23:13:40'),(8,3,7.00,'2024-11-30 23:13:51'),(9,2,25.99,'2024-11-30 23:14:49'),(10,2,15.99,'2024-11-30 23:35:36'),(11,29,499.00,'2024-12-02 02:34:42'),(12,29,4990.01,'2024-12-02 02:35:04'),(13,30,30.00,'2024-12-02 02:35:58'),(14,28,1.99,'2024-12-02 20:56:22'),(15,33,0.50,'2024-12-02 21:03:41'),(16,33,50.00,'2024-12-02 21:03:56'),(17,28,199.00,'2024-12-02 21:18:33'),(18,2,15.00,'2024-12-02 21:39:52'),(19,2,1500.00,'2024-12-02 21:40:06'),(20,2,150000.00,'2024-12-02 21:40:29'),(21,2,1.50,'2024-12-02 21:40:36'),(22,2,150.00,'2024-12-02 21:41:15'),(23,2,15.00,'2024-12-02 21:41:38'),(24,2,1.50,'2024-12-02 21:41:52'),(28,2,150.00,'2024-12-02 21:44:53'),(29,2,15.00,'2024-12-02 21:44:58'),(30,2,1500.00,'2024-12-02 21:45:36'),(31,29,4.99,'2024-12-02 21:47:03'),(32,29,4990.01,'2024-12-02 21:57:17'),(33,30,3000.00,'2024-12-02 21:57:53'),(34,29,49.90,'2024-12-02 21:58:42'),(35,29,49.99,'2024-12-02 21:59:47'),(36,29,49.01,'2024-12-02 22:01:14'),(37,2,15.00,'2024-12-02 22:08:18'),(38,2,1500.00,'2024-12-02 22:08:37'),(39,29,49.10,'2024-12-02 22:21:18'),(40,29,49.12,'2024-12-02 22:22:37'),(41,29,4912.00,'2024-12-02 22:24:22'),(42,29,49.12,'2024-12-02 22:29:24'),(43,29,4912.00,'2024-12-02 22:29:48'),(44,29,491200.00,'2024-12-02 22:29:58'),(45,29,49120000.00,'2024-12-02 22:30:40'),(46,29,99999999.99,'2024-12-02 22:31:51'),(47,29,45.00,'2024-12-02 22:33:02'),(48,2,15.00,'2024-12-02 22:38:35'),(49,32,2.00,'2024-12-02 22:45:29'),(50,3,20.00,'2024-12-03 00:36:43'),(51,3,200.01,'2024-12-03 00:36:47'),(52,2,49.12,'2024-12-03 08:20:46'),(53,2,49.13,'2024-12-03 12:57:32');
 /*!40000 ALTER TABLE `tb_precos_compra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -467,4 +430,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-03  7:22:42
+-- Dump completed on 2024-12-03 13:02:00
