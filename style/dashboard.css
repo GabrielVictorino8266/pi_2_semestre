@@ -195,17 +195,20 @@ th {
 /* Estilo para o menu no mobile */
 @media (max-width: 992px) {
     /* Menu lateral */
-    #navbarMenu{
-        background-color: transparent;
+    #navbarMenu {
+        background-color: transparent !important;
         position: absolute;
+        color: var(--cor-font-main) !important; /* Garantir texto claro */
     }
+
     .navbar-collapse {
         position: fixed;
         top: 0;
         left: 0;
         height: 100vh; /* O menu ocupa toda a altura da tela */
         width: 250px;  /* Largura do menu */
-        background-color: white;
+        background-color: var(--cor-fundo-main) !important; /* Mesmo fundo do desktop */
+        color: var(--cor-font-main) !important; /* Texto consistente */
         z-index: 1050; /* Garante que o menu fique acima do conteúdo */
         transform: translateX(-100%); /* Inicia fora da tela */
         transition: transform 0.3s ease; /* Transição suave */
@@ -236,12 +239,17 @@ th {
         overflow: hidden; /* Desativa o scroll do corpo */
     }
 
-    /* Exibe o botão hambúrguer fixo no topo */
     #hamburgerButton {
         position: fixed;
         top: 10px; /* Distância do topo */
         left: 10px; /* Distância da lateral esquerda */
         z-index: 1060; /* Garantir que o botão fique acima do menu e do conteúdo */
+        background-color: var(--cor-fundo-button) !important; /* Cor do botão hambúrguer */
+        color: var(--cor-font-main) !important; /* Cor do ícone */
+        border: none; /* Remove a borda */
+        padding: 8px; /* Ajuste de espaçamento */
+        border-radius: 4px; /* Suaviza as bordas */
+        transition: background-color 0.3s ease; /* Efeito suave ao passar o mouse */
     }
 
     /* Ajuste para o conteúdo principal, ele deve ocupar a tela inteira */
